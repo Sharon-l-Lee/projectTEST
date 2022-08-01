@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.project.mylog.dao.ReviewBoardDao">
+    	<resultMap type="ReviewBoard" id="ReviewBoardResult">
+	    	<result property="rnum" column="rnum"/>
+	    	<result property="mid" column="mid"/>
+	    	<result property="mname" column="mname"/>
+			<result property="rtitle" column="rtitle"/>
+			<result property="rcontent" column="rcontent"/>
+			<result property="rfilename" column="rfilename"/>
+			<result property="rrdate" column="rrdate"/>
+			<result property="rhit" column="rhit"/>
+			<result property="rstatus" column="rstatus"/>
+			<result property="rip" column="rip"/>
+    	</resultMap>
+    	
+    	<!-- 추가 -->
+    	<insert id="ReviewWrite" parameterType="ReviewBoard">
+    		INSERT INTO RBOARD (RNUM,MID,RTITLE,RCONTENT, RFILENAME, RRDATE,RSTATUS, RIP) 
+            VALUES(RSEQ.NEXTVAL, #{mid}, #{rtitle},#{rcontent}, #{rfilename}, SYSDATE, #{rstatus} ,#{rip})
+    	</insert>
+    		
+    	<!-- 수정 -->
+    	<update id="ReviewModify" parameterType="ReviewBoard">
+    		UPDATE RBOARD SET RTITLE = #{rtitle},
+            RCONTENT=#{rcontent}, 
+            RFILENAME = #{rfilename},
+            RSTATUS= #{rstatus}
+            WHERE RNUM=#{rnum}
+    	</update>
+		
+		<!-- 삭제 -->
+		<delete id="reviewDelete" parameterType="int">
+			DELETE RBOARD WHERE RNUM =#{rnum}
+		</delete>
+            
+		<!-- 출력 -->
+		
+		<select id="reviewList" parameterType="ReviewBoard" resultMap="ReviewBoardResult">
+			SELECT *
+   				 FROM(SELECT ROWNUM RN, A.*
+   				FROM(SELECT R.*, MNAME FROM RBOARD R, MEMBER M WHERE M.MID = R.MID ORDER BY RRDATE DESC)A)
+    		WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</select>
+
+		<!-- 세부내용 -->
+		<select id="reviewContent" parameterType="int" resultType="ReviewBoard">
+			SELECT * FROM RBOARD WHERE RNUM=#{rnum}
+		</select>
+		
+		<!-- 조회수 -->
+		<update id="reviewHitUp" parameterType="int">
+			UPDATE RBOARD SET RHIT = RHIT+1 WHERE RNUM=#{rnum}
+		</update>
+		
+		<!-- 글 개수 -->
+		<select id="reviewCount" resultType="int">
+			SELECT COUNT(*) CNT FROM RBOARD
+		</select>
+
+    
+    </mapper>
+    

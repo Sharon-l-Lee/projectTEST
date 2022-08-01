@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mylog.dao.HashtagDao">
+	<resultMap type="BoardTag" id="BoardTagResult">
+		<result property="rnum" column="rnum" />
+		<result property="hno" column="hno" />
+
+	</resultMap>
+	
+	<!-- 추가 -->
+    	<insert id="BoardTagConnect" parameterType="BoardTag">
+    		INSERT INTO BOARD_TAG(RNUM, HNO) VALUES(#{rnum}, #{hno})
+    	</insert>
+</mapper>

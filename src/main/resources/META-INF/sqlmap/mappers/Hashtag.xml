@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mylog.dao.HashtagDao">
+	<resultMap type="Hashtag" id="HashtagResult">
+		<result property="hno" column="hno" />
+		<result property="hname" column="hname" />
+
+	</resultMap>
+	
+	<!-- 추가 -->
+    	<insert id="HashtagWrite" parameterType="Hashtag">
+    		INSERT INTO HASHTAG(HNO, HNAME) VALUES (HSEQ.NEXTVAL, #{hname})
+    	</insert>
+    		
+    	<!-- 수정 -->
+    	<update id="HashtagModify" parameterType="Hashtag">
+    		UPDATE HASHTAG SET HNAME =#{hname}
+                WHERE HNO=#{hno}
+    	</update>
+		
+		<!-- 삭제 -->
+		<delete id="HashtagDelete" parameterType="String">
+			DELETE HASHTAG WHERE HNAME =#{hname}
+		</delete>
+            
+	
+</mapper>

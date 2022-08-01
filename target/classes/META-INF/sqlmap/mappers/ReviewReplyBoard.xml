@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    
+    <mapper namespace="com.project.mylog.dao.ReviewReplyBoardDao">
+    	<resultMap type="ReviewReplyBoard" id="ReviewReplyBoardResult">
+	    	<result property="rpnum" column="rpnum"/>
+	    	<result property="rnum" column="rnum"/>
+	      	<result property="mid" column="mid"/>
+	    	<result property="mname" column="mname"/>
+			<result property="rpcontent" column="rpcontent"/>
+			<result property="rpdate" column="rpdate"/>
+			<result property="rpgroup" column="rpgroup"/>
+			<result property="rpstep" column="rpstep"/>
+			<result property="rpindent" column="rpindent"/>
+			<result property="rip" column="rip"/>
+    	</resultMap>
+    	
+    	
+    	
+    	<!-- 추가 -->
+    	<insert id="ReviewReplyWrite" parameterType="ReviewReplyBoard">
+    		INSERT INTO RPBOARD (RPNUM,RNUM,MID,RPCONTENT,RPDATE,RPGROUP, RPSTEP, RPINDENT,RPIP)
+   			 VALUES (RPSEQ.NEXTVAL, #{rnum}, #{mid}, #{rpcontent}, SYSDATE, RPSEQ.CURRVAL, 0,0,#{rpip})
+   			 
+    	</insert>
+    		
+    	<!-- 수정 -->
+    	<update id="ReviewReplyModify" parameterType="ReviewReplyBoard">
+    		UPDATE RPBOARD SET RPCONTENT = #{rpcontent} WHERE RPNUM = #{rpnum}
+    	</update>
+		
+		<!-- 삭제 -->
+		<delete id="ReviewReplyDelete" parameterType="int">
+			DELETE RPBOARD WHERE RPNUM=#{rpnum}
+		</delete>
+            
+		<!-- 출력 -->
+		
+		<select id="ReviewReplyList" parameterType="ReviewReplyBoard" resultMap="ReviewReplyBoardResult">
+			SELECT * 
+   				 FROM(SELECT ROWNUM RN, A.* 
+        			 FROM(SELECT P.*, MNAME FROM RPBOARD P, MEMBER M WHERE M.MID = P.MID ORDER BY RPGROUP DESC, RPSTEP)A)
+   				 WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</select>
+
+		<!-- 세부내용 -->
+		<select id="ReviewReplyContent" parameterType="int" resultType="ReviewReplyBoard">
+			SELECT * FROM RPBOARD WHERE RPNUM=#{rpnum}
+		</select>
+	
+		
+		<!-- 글 개수 -->
+		<select id="ReviewReplyCount" resultType="int">
+			SELECT COUNT(*) FROM RPBOARD
+		</select>
+		
+		<!-- 답댓글 전 -->
+		
+		<update id="ReviewReplyStepA" parameterType="ReviewReplyBoard">
+			UPDATE RPBOARD SET RPSTEP = RPSTEP+1 WHERE RPGROUP = #{rpgroup} AND RPSTEP > #{rpstep}
+		</update>
+		
+		<!-- 답댓글 쓰기 -->
+		<insert id="ReviewReplyComment" parameterType="ReviewReplyBoard">
+			INSERT INTO RPBOARD (RPNUM,RNUM,MID,RPCONTENT,RPDATE,RPGROUP, RPSTEP, RPINDENT,RPIP)
+   			 VALUES(RPSEQ.NEXTVAL, #{rnum}, #{mid}, #{rpcontent}, SYSDATE, #{rpgroup}, #{rpstep}, #{rpindent}, #{rpip})
+		</insert>
+		
+		</mapper>
+    
