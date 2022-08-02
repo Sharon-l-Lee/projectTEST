@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mylog.dao.TeamDao">
+	<resultMap type="TeamBoard" id="TeamBoardResult">
+		<result column="tnum" property="tnum"/>
+		<result column="mid" property="mid"/>
+		<result column="ttitle" property="ttitle"/>
+		<result column="tcontent" property="tcontent"/>
+		<result column="tfilename" property="tfilename"/>
+		<result column="thit" property="thit"/>
+		<result column="trdate" property="trdate"/>
+		<result column="tgroup" property="tgroup"/>
+		<result column="tstep" property="tstep"/>
+		<result column="tindent" property="tindent"/>
+		<result column="tip" property="tip"/>
+		<result column="startRow" property="startRow"/>
+		<result column="endRow" property="endRow"/>
+	</resultMap>
+	
+	<!-- boardList -->
+	<select id="teamBoardList" parameterType="TeamBoard" resultType="TeamBoard">
+		SELECT * FROM 
+	        (SELECT ROWNUM RN, A.* FROM 
+		        (SELECT T.* FROM TEAMBOARD T
+		                    ORDER BY tGROUP DESC, tSTEP) A)
+		        WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- totCnt -->
+	<select id="teamBoardTotCnt" resultType="int">
+		SELECT COUNT(*) FROM TEAMBOARD
+	</select>
+	<!-- write -->
+	<insert id="teamBoardWrite" parameterType="TeamBoard" >
+		INSERT INTO TEAMBOARD (tNUM, mID, tTITLE, tCONTENT, tFILENAME, tGROUP, tSTEP, tINDENT, tIP)
+       		VALUES (TEAMBOARD_SEQ.NEXTVAL, #{mid},#{ttitle},#{tcontent}, #{tfilename}, TEAMBOARD_SEQ.CURRVAL, 0, 0, #{tip})
+	</insert>
+	<!-- hitUp -->
+	<update id="teamBoardHitUp" parameterType="int">
+		UPDATE TEAMBOARD SET tHIT = tHIT +1 WHERE tNUM=#{tnum}
+	</update>
+	<!-- detail -->
+	<select id="teamBoardDetail" parameterType="int" resultType="TeamBoard">
+		SELECT T.* FROM TEAMBOARD T WHERE tNUM=#{tnum}
+	</select>
+	<!-- modify -->
+	<update id="teamBoardModify" parameterType="TeamBoard">
+		 UPDATE TEAMBOARD SET tTITLE = #{ttitle},
+	                          tCONTENT = #{tcontent},
+	                          tFILENAME = #{tfilename},
+	                          tIP = #{tip},
+	                          tRDATE = SYSDATE
+	                	  WHERE tNUM = #{tnum}
+	</update>
+	<!-- delete -->
+	<delete id="teamBoardDelete" parameterType="int">
+		DELETE FROM TEAMBOARD WHERE tNUM=#{tnum}
+	</delete>
+	<!-- preReply -->
+	<update id="teamBoardPreReply" parameterType="TeamBoard">
+		<![CDATA[	
+			UPDATE TEAMBOARD SET tSTEP = tSTEP+1 
+       			WHERE tGROUP = #{tgroup} AND tSTEP > #{tstep}
+		]]>
+	</update>
+	<!-- reply -->
+	<insert id="teamBoardReply" parameterType="TeamBoard">
+		INSERT INTO TEAMBOARD (tNUM, mID, tTITLE, tCONTENT, tFILENAME, tGROUP, tSTEP, tINDENT, tIP)
+        	VALUES (TEAMBOARD_SEQ.NEXTVAL, #{mid},#{ttitle},#{tcontent}, #{tfilename}, #{tgroup}, #{tstep}, #{tindent}, #{tip})
+	</insert>
+	
+</mapper>

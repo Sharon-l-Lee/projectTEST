@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mylog.dao.TeamDao">
+	<resultMap type="Team" id="TeamResult">
+		<result column="tno" property="tno"/>
+		<result column="tname" property="tname"/>
+		<result column="tgoal" property="tgoal"/>
+	</resultMap>
+	
+	<!-- makeTeam -->
+	<insert id="makeTeam" parameterType="Team">
+		INSERT INTO TEAM (tNO, tNAME, tGOAL) 
+        	VALUES (TEAM_SEQ.NEXTVAL, #{tname}, #{tgoal})
+	</insert>
+	<!-- deleteTeam -->
+	<delete id="deleteTeam" parameterType="int">
+		DELETE FROM TEAM WHERE tNO=#{tno}
+	</delete>
+	<!-- modifyTeam -->
+	<update id="modifyTeam" parameterType="Team">
+		UPDATE TEAM SET tNAME = #{tname},
+                    	tGOAL = #{tgoal}
+                	WHERE tNO = #{tno}
+	</update>
+	
+</mapper>

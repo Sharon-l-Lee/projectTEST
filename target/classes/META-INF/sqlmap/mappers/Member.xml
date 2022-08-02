@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mylog.dao.MemberDao">
+	<resultMap type="Member" id="MemberResult">
+		<result property="mid" column="mid"/>
+		<result property="mpw" column="mpw"/>
+		<result property="mbirth" column="mbirth"/>
+		<result property="memail" column="memail"/>
+		<result property="mmotto" column="mmotto"/>
+		<result property="mstatus" column="mstatus"/>
+	</resultMap>
+	<select id="idCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE MID = #{mid}
+	</select>
+	<insert id="joinMember" parameterType="Member">
+		<if test="mbirth != null and mmotto != null">
+			INSERT INTO MEMBER (MID, MPW, MNAME, MBIRTH, MEMAIL, MMOTTO)
+				VALUES (#{mid}, #{mpw}, #{mname}, #{mbirth}, #{memail}, #{mmotto})
+		</if>
+ 		<if test="mbirth == null and mmotto != null">
+			INSERT INTO MEMBER (MID, MPW, MNAME, MEMAIL, MMOTTO)
+				VALUES (#{mid}, #{mpw}, #{mname}, #{memail}, #{mmotto})
+		</if>
+		<if test="mbirth != null and mmotto == null">
+			INSERT INTO MEMBER (MID, MPW, MNAME, MBIRTH, MEMAIL)
+				VALUES (#{mid}, #{mpw}, #{mname}, #{mbirth}, #{memail})
+		</if>
+		<if test="mbirth == null and mmotto == null">
+			INSERT INTO MEMBER (MID, MPW, MNAME, MEMAIL)
+				VALUES (#{mid}, #{mpw}, #{mname}, #{memail})
+		</if>
+	</insert>
+</mapper>

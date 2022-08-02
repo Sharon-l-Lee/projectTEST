@@ -12,19 +12,19 @@
 	</resultMap>
 	
 	<!-- 추가 -->
-    	<insert id="HashtagWrite" parameterType="Hashtag">
+    	<insert id="hashtagWrite" parameterType="String">
     		INSERT INTO HASHTAG(HNO, HNAME) VALUES (HSEQ.NEXTVAL, #{hname})
     	</insert>
     		
     	<!-- 수정 -->
-    	<update id="HashtagModify" parameterType="Hashtag">
+    	<update id="hashtagModify" parameterType="Hashtag">
     		UPDATE HASHTAG SET HNAME =#{hname}
                 WHERE HNO=#{hno}
     	</update>
 		
 		<!-- 삭제 -->
-		<delete id="HashtagDelete" parameterType="String">
-			DELETE HASHTAG WHERE HNAME =#{hname}
+		<delete id="hashtagDelete" parameterType="int">
+			DELETE HASHTAG WHERE HNO =#{hno}
 		</delete>
             
 	

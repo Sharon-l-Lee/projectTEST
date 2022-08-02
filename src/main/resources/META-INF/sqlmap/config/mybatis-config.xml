@@ -2,21 +2,19 @@
 <!DOCTYPE configuration
     PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-config.dtd">
-
 <configuration>
 	<typeAliases>
+		<typeAlias type="com.project.mylog.model.Member" alias="Member"/>
 		<typeAlias type="com.project.mylog.model.ReviewBoard" alias="ReviewBoard" />
 		<typeAlias type="com.project.mylog.model.ReviewReplyBoard" alias="ReviewReplyBoard" />
 		<typeAlias type="com.project.mylog.model.Hashtag" alias="Hashtag" />
 		<typeAlias type="com.project.mylog.model.BoardTag" alias="BoardTag" />
-		<typeAlias type="com.project.mylog.model.Timer" alias="Timer" />
 	</typeAliases>
 	<mappers>
+		<mapper resource="META-INF/sqlmap/mappers/Member.xml"/>
 		<mapper resource="META-INF/sqlmap/mappers/ReviewBoard.xml" />
 		<mapper resource="META-INF/sqlmap/mappers/ReviewReplyBoard.xml" />
 		<mapper resource="META-INF/sqlmap/mappers/Hashtag.xml" />
 		<mapper resource="META-INF/sqlmap/mappers/BoardTag.xml" />
 	</mappers>
-
 </configuration>
-    

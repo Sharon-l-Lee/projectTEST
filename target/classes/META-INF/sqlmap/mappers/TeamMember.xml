@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mylog.dao.Team_MemberDao">
+	<resultMap type="TeamMember" id="TeamMemberResult">
+		<result column="tmno" property="tmno"/>
+		<result column="mid" property="mid"/>
+		<result column="tno" property="tno"/>
+	</resultMap>
+	
+	<!-- joinTeamMember -->
+	<insert id="joinTeamMember" parameterType="TeamMember">
+		INSERT INTO TEAM_MEMBER (tmNO, mID, tNO)
+        	VALUES (TEAM_MEMBER_SEQ.NEXTVAL, #{mid}, #{tno})
+	</insert>
+	<!-- drawalTeamMember -->
+	<delete id="drawalTeamMember" parameterType="TeamMember">
+		DELETE FROM TEAM_MEMBER WHERE mID=#{mid} AND tNO=#{tno}
+	</delete>
+	<!-- teamMemberList -->
+	<select id="teamMemberList" parameterType="int" resultType="TeamMember">
+		SELECT mID FROM TEAM_MEMBER WHERE tNO=#{tno}
+	</select>
+	<!-- teamMemberTotCnt -->
+	<select id="teamMemberTotCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM TEAM_MEMBER WHERE tNO=#{tno}
+	</select>
+	
+</mapper>

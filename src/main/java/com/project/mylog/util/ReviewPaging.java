@@ -27,7 +27,7 @@ public class ReviewPaging {
 		if(endPage>pageCnt) {
 			endPage = pageCnt;
 		}
-	} //생성자
+	} 
 	
 	public ReviewPaging(int total, String pageNum, int pageSize, int blockSize ) {
 		this.total = total;

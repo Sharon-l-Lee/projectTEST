@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="package com.project.mylog.dao.TodoDao">
+	<resultMap type="Todo" id="TodoResult">
+		<result property="tdno" column="tdno"/>
+		<result property="mid" column="mid"/>
+		<result property="tdcontent" column="tdcontent"/>
+		<result property="tdcheck" column="tdcheck"/>
+		<result property="tdrdate" column="tdrdate"/>
+	</resultMap>
+	
+	<select id="todoList" parameterType="Todo" resultMap="TodoResult">
+		SELECT *
+			FROM TODO
+		    WHERE MID = #{mid}
+		    <if test="tdrdate == null">
+		        AND TDRDATE = SYSDATE
+		    </if>
+		    <if test="tdrdate != null">
+		        AND TDRDATE = #{tdrdate}
+		    </if>
+		    ORDER BY TDCHECK, TDNO
+	</select>
+	
+	<insert id="todoMake" parameterType="Todo">
+		INSERT INTO TODO 
+			VALUES(TODO_SEQ.NEXTVAL, #{mid}, #{tdcontent}, 0, #{tdrdate})
+	</insert>
+	
+	<select id="getTodo" parameterType="tdno">
+		SELECT * FROM TODO WHERE TDNO = #{tdno}
+	</select>
+	
+	<insert id="todoDelayMake" parameterType="Todo">
+		INSERT INTO TODO 
+    		VALUES(TODO_SEQ.NEXTVAL, #{mid}, #{tdcontent}, 0, (SELECT TDRDATE+1 FROM TODO WHERE TDNO = 1));
+	</insert>
+	
+	<update id="todoChange" parameterType="tdno">
+		UPDATE TODO SET TDCHECK = #{tdcheck} WHERE TDNO = #{tdno}
+	</update>
+	
+	<delete id="todoDelete" parameterType="tdno">
+		DELETE FROM TODO WHERE TDNO = #{tdno}
+	</delete>
+	
+</mapper>

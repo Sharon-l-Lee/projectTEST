@@ -6,9 +6,9 @@ import com.project.mylog.model.Hashtag;
 
 @Mapper
 public interface HashtagDao {
-	public int HashtagWrite(Hashtag hashtag);
-	public int HashtagModify(Hashtag hashtag);
-	public int HashtagDelete(Hashtag hashtag);
+	public int hashtagWrite(String tname);
+	public int hashtagModify(Hashtag hashtag);
+	public int hashtagDelete(int tno);
 	
 
 }

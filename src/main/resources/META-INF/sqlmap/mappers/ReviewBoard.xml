@@ -18,13 +18,13 @@
     	</resultMap>
     	
     	<!-- 추가 -->
-    	<insert id="ReviewWrite" parameterType="ReviewBoard">
+    	<insert id="reviewWrite" parameterType="ReviewBoard">
     		INSERT INTO RBOARD (RNUM,MID,RTITLE,RCONTENT, RFILENAME, RRDATE,RSTATUS, RIP) 
-            VALUES(RSEQ.NEXTVAL, #{mid}, #{rtitle},#{rcontent}, #{rfilename}, SYSDATE, #{rstatus} ,#{rip})
+            VALUES(RSEQ.NEXTVAL, #{mid, jdbcType=VARCHAR}, #{rtitle},#{rcontent}, #{rfilename}, SYSDATE, #{rstatus} ,#{rip, jdbcType=VARCHAR})
     	</insert>
     		
     	<!-- 수정 -->
-    	<update id="ReviewModify" parameterType="ReviewBoard">
+    	<update id="reviewModify" parameterType="ReviewBoard">
     		UPDATE RBOARD SET RTITLE = #{rtitle},
             RCONTENT=#{rcontent}, 
             RFILENAME = #{rfilename},

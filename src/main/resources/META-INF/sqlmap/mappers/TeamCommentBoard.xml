@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mylog.dao.TeamDao">
+	<resultMap type="TeamCommentBoard" id="TeamCommentBoardResult">
+		<result column="tcnum" property="tcnum"/>
+		<result column="mid" property="mid"/>
+		<result column="tnum" property="tnum"/>
+		<result column="tccontent" property="tccontent"/>
+		<result column="tcrdate" property="tcrdate"/>
+		<result column="tcgroup" property="tcgroup"/>
+		<result column="tcstep" property="tcstep"/>
+		<result column="tcindent" property="tcindent"/>
+		<result column="tcip" property="tcip"/>
+		<result column="cstartRow" property="cstartRow"/>
+		<result column="cendRow" property="cendRow"/>
+	</resultMap>
+	
+	<!-- boardList -->
+	<select id="teamCommentList" parameterType="TeamCommentBoard" resultType="TeamCommentBoard">
+		SELECT * FROM 
+	        (SELECT ROWNUM RN, A.* FROM 
+	        (SELECT TC.* FROM TEAM_COMMENTBOARD TC WHERE tNUM=#{tnum}
+	                    ORDER BY tcGROUP DESC, tcSTEP) A)
+		        WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<!-- totCnt -->
+	<select id="teamCommentTotCnt" resultType="int">
+		SELECT COUNT(*) FROM TEAM_COMMENTBOARD
+	</select>
+	<!-- write -->
+	<insert id="teamCommentWrite" parameterType="TeamCommentBoard" >
+		INSERT INTO TEAM_COMMENTBOARD (tcNUM, mID, tNUM, tcCONTENT, tcGROUP, tcSTEP, tcINDENT, tcIP)
+        	VALUES (TEAM_COMMENTBOARD_SEQ.NEXTVAL, #{mid}, #{tnum}, #{tccontent}, TEAM_COMMENTBOARD_SEQ.CURRVAL, 0, 0, #{tcip})
+    </insert>
+	<!-- modify -->
+	<update id="teamCommentModify" parameterType="TeamCommentBoard">
+		 UPDATE TEAM_COMMENTBOARD SET tcCONTENT = #{tccontent},
+			                          tcIP = #{tcip},
+			                          tcRDATE = SYSDATE
+			                	  WHERE tcNUM = #{tcnum}
+	</update>
+	<!-- delete -->
+	<delete id="teamCommentDelete" parameterType="int">
+		DELETE FROM TEAM_COMMENTBOARD WHERE tcNUM=#{tcnum}
+	</delete>
+	<!-- preReply -->
+	<update id="teamCommentPreReply" parameterType="TeamCommentBoard">
+		<![CDATA[	
+			UPDATE TEAM_COMMENTBOARD SET tcSTEP = tcSTEP+1 
+        		WHERE tcGROUP = #{tcgroup} AND tcSTEP>#{tcstep}
+		]]>
+	</update>
+	<!-- reply -->
+	<insert id="teamCommentReply" parameterType="TeamCommentBoard">
+		INSERT INTO TEAM_COMMENTBOARD (tcNUM, mID, tNUM, tcCONTENT, tcGROUP, tcSTEP, tcINDENT, tcIP)
+        	VALUES (TEAM_COMMENTBOARD_SEQ.NEXTVAL, #{mid}, #{tnum}, #{tccontent}, #{tcgroup}, #{tcstep}, #{tcindent}, #{tcip})
+	</insert>
+	
+</mapper>
