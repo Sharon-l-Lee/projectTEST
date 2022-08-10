@@ -6,30 +6,71 @@
 	<resultMap type="Member" id="MemberResult">
 		<result property="mid" column="mid"/>
 		<result property="mpw" column="mpw"/>
+		<result property="mname" column="mname"/>
 		<result property="mbirth" column="mbirth"/>
 		<result property="memail" column="memail"/>
 		<result property="mmotto" column="mmotto"/>
 		<result property="mstatus" column="mstatus"/>
 	</resultMap>
+	<select id="memberList" resultType="Member">
+		SELECT * FROM 
+	        (SELECT ROWNUM RN, A.* FROM 
+		        (SELECT M.* FROM MEMBER M
+		                    ORDER BY MSTATUS DESC, MID) A)
+		        WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="getMember" parameterType="String" resultType="Member">
+			SELECT * FROM MEMBER WHERE MID = #{mid}
+	</select>
+	<select id="getMemberForEmail" parameterType="String" resultType="Member">
+			SELECT * FROM MEMBER WHERE MEMAIL = #{memail}
+	</select>
+	<select id="searchIdPw" parameterType="String" resultType="Member">
+		SELECT * FROM MEMBER WHERE MNAME= #{mname} AND MEMAIL = #{memail}
+	</select>
 	<select id="idCheck" parameterType="String" resultType="int">
 		SELECT COUNT(*) FROM MEMBER WHERE MID = #{mid}
 	</select>
+	<select id="loginCheck" parameterType="String" resultType="Member">
+		SELECT * FROM MEMBER WHERE MID = #{mid} AND MPW = #{mpw}
+	</select>
+	<select id="countMember" resultType="int">
+		SELECT COUNT(*) FROM MEMBER
+	</select>
+	<select id="emailCheck" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE MEMAIL = #{memail}
+	</select>
+	<select id="findFriend" parameterType="Member" resultMap="MemberResult">
+		SELECT MID, MNAME, (SELECT COUNT(*) FROM FRIEND WHERE MID=#{mid} AND FID = MEMBER.MID) EXISTENT
+			FROM MEMBER WHERE MNAME LIKE '%'||#{mname}||'%' AND NOT MID = #{mid}
+	</select>
 	<insert id="joinMember" parameterType="Member">
-		<if test="mbirth != null and mmotto != null">
+		<if test="mbirth != null and mmotto != ''">
 			INSERT INTO MEMBER (MID, MPW, MNAME, MBIRTH, MEMAIL, MMOTTO)
 				VALUES (#{mid}, #{mpw}, #{mname}, #{mbirth}, #{memail}, #{mmotto})
 		</if>
- 		<if test="mbirth == null and mmotto != null">
+ 		<if test="mbirth == null and mmotto != ''">
 			INSERT INTO MEMBER (MID, MPW, MNAME, MEMAIL, MMOTTO)
 				VALUES (#{mid}, #{mpw}, #{mname}, #{memail}, #{mmotto})
 		</if>
-		<if test="mbirth != null and mmotto == null">
+		<if test="mbirth != null and mmotto == ''">
 			INSERT INTO MEMBER (MID, MPW, MNAME, MBIRTH, MEMAIL)
 				VALUES (#{mid}, #{mpw}, #{mname}, #{mbirth}, #{memail})
 		</if>
-		<if test="mbirth == null and mmotto == null">
+		<if test="mbirth == null and mmotto == ''">
 			INSERT INTO MEMBER (MID, MPW, MNAME, MEMAIL)
 				VALUES (#{mid}, #{mpw}, #{mname}, #{memail})
 		</if>
 	</insert>
+	<update id="modifyMember" parameterType="Member">
+		UPDATE MEMBER SET MPW = #{mpw}, MNAME = #{mname}, MBIRTH = #{mbirth}, MMOTTO = #{mmotto} WHERE MID = #{mid}
+	</update>
+	<update id="deleteMember" parameterType="String">
+		UPDATE MEMBER SET MSTATUS = 0
+        	WHERE MID=#{mid}
+	</update>
+	<update id="recoverMember" parameterType="String">
+		UPDATE MEMBER SET MSTATUS = 1
+        	WHERE MID=#{mid}
+	</update>
 </mapper>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.mylog.dao.TeamCommentBoardDao;
 import com.project.mylog.model.TeamCommentBoard;
-import com.project.mylog.util.Paging;
+import com.project.mylog.util.Paging2;
 
 @Service
 public class TeamCommentBoardServiceImpl implements TeamCommentBoardService {
@@ -18,20 +18,22 @@ public class TeamCommentBoardServiceImpl implements TeamCommentBoardService {
 	private TeamCommentBoardDao teamCommentDao;
 	
 	@Override
-	public List<TeamCommentBoard> teamCommentList(String pageNum) {
-		int teamCommentTotCnt = teamCommentDao.teamCommentTotCnt();
-		Paging paging = new Paging(teamCommentTotCnt, pageNum, 5, 10);
+	public List<TeamCommentBoard> teamCommentList(String tcpageNum, int tnum) {
+		int teamCommentTotCnt = teamCommentDao.teamCommentTotCnt(tnum);
+		Paging2 paging = new Paging2(teamCommentTotCnt, tcpageNum, 3, 3);
+		System.out.println(tcpageNum);
 		TeamCommentBoard teamcomment = new TeamCommentBoard();
-		teamcomment.setCstartRow(paging.getStartRow());
-		teamcomment.setCendRow(paging.getEndRow());
+		teamcomment.setStartRow(paging.getStartRow());
+		teamcomment.setEndRow(paging.getEndRow());
+		teamcomment.setTnum(tnum);
 		return teamCommentDao.teamCommentList(teamcomment);
 	}
 
 	@Override
-	public int teamCommentTotCnt() {
-		return teamCommentDao.teamCommentTotCnt();
+	public int teamCommentTotCnt(int tnum) {
+		return teamCommentDao.teamCommentTotCnt(tnum);
 	}
-
+	
 	@Override
 	public int teamCommentWrite(HttpServletRequest request, TeamCommentBoard teamcomment) {
 		teamcomment.setTcip(request.getRemoteAddr());
@@ -52,6 +54,11 @@ public class TeamCommentBoardServiceImpl implements TeamCommentBoardService {
 	@Override
 	public int teamCommentPreReply(TeamCommentBoard teamcomment) {
 		return teamCommentDao.teamCommentPreReply(teamcomment);
+	}
+	
+	@Override
+	public TeamCommentBoard teamCommentDetail(int tcnum) {
+		return teamCommentDao.teamCommentDetail(tcnum);
 	}
 
 	@Override

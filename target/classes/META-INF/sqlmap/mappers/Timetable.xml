@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+    <mapper namespace="com.project.mylog.dao.TimetableDao">
+    	<resultMap type="Timetable" id="TimetableResult">
+	    	<result property="tbno" column="tbno"/>
+			<result property="tno" column="tno"/>
+	    	<result property="mid" column="mid"/>
+	    	<result property="mname" column="mname"/>
+			<result property="tname" column="tname"/>
+			<result property="tduring" column="tduring"/>
+			<result property="tbshour" column="tbshour"/>
+			<result property="tbsmin" column="tbsmin"/>
+			<result property="tbehour" column="tbehour"/>
+			<result property="tbemin" column="tbemin"/>
+    	</resultMap>
+   
+   <!-- 타이머 시간 등록 -->
+   <insert id="tableMake" parameterType="Timetable">
+   		INSERT INTO TTABLE(TBNO, TNO, MID, TBSHOUR, TBSMIN, TBEHOUR, TBEMIN) 
+			VALUES(TBSEQ.NEXTVAL, #{tno}, #{mid}, 0, 0 , 0 ,0 )
+   </insert>
+   
+   <!-- 시작시간 -->
+   
+   <update id="tableStart" parameterType="Timetable">
+   		UPDATE TTABLE SET TBSHOUR = #{tbshour}, TBSMIN = #{tbsmin} WHERE TBNO =#{tbno}
+   </update>
+    	
+    <!-- 끝나는 시간 -->
+    <update id="tableEnd" parameterType="Timetable">
+    	UPDATE TTABLE SET TBEHOUR = #{tbehour}, TBEMIN =#{tbemin} WHERE TBNO =#{tbno}
+    </update>
+    
+    
+    <!-- 시작-끝 시간 -->
+    
+    <update id="tableStartEnd" parameterType="Timetable">
+    	UPDATE TTABLE SET TBSHOUR = #{tbshour}, TBSMIN = #{tbsmin}, TBEHOUR = #{tbehour}, TBEMIN =#{tbemin} WHERE TBNO =#{tbno}
+    </update>
+    <!-- mid로 리스트 뽑기 -->
+    <select id="tableIdList" parameterType="String" resultMap="TimetableResult">
+    	SELECT B.*, TDURING, T.TNAME, TTODAY FROM TTABLE B, TIMER T WHERE B.TNO=T.TNO AND B.MID=#{mid} AND TO_CHAR(TTODAY, 'yy/mm/dd')=TO_CHAR(SYSDATE, 'yy/mm/dd')
+    </select>
+    
+    <!-- tno로 전체 가져오기 -->
+    <select id="tableTno" parameterType="int" resultMap="TimetableResult">
+    	SELECT B.*, TDURING, TNAME FROM TTABLE B, TIMER T WHERE B.TNO=#{tno}
+    </select>
+    
+    <!-- tbno로 가져오기 -->
+    <select id="tableTbno" parameterType="int" resultType="Timetable">
+    	SELECT B.*, TDURING, TNAME FROM TTABLE B, TIMER T WHERE TBNO=#{tbno}
+    </select>
+    
+    <!-- mid tbno로 가져오기 -->
+    <select id="tableIdTbno" parameterType="Timetable" resultType="Timetable">
+    	SELECT B.*, TDURING, T.TNAME, T.TTODAY FROM TTABLE B, TIMER T WHERE B.TNO=T.TNO AND B.MID=#{mid} AND T.TNO =#{tno}
+	</select>
+    
+    <!-- tbno를 가져오기 -->
+    <select id="getTbno" resultType="int">
+    	SELECT MAX(TBNO)TBNO FROM TTABLE
+    </select>
+    
+    </mapper>

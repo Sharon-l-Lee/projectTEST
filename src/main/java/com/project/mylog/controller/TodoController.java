@@ -26,28 +26,30 @@ public class TodoController {
 	@RequestMapping(value = "make", method = RequestMethod.POST)
 	public String todoMake(Todo todo, Model model) {
 		todoService.todoMake(todo);
-		return "forward:diary.do/myList";
+		return "forward:../diary/myList.do";
 	}
 	
 	@RequestMapping(value = "modify", method = RequestMethod.GET)
 	public String todoModify() {
-		return "todo/modify";
+		return "todo/todoModify";
 	}
 	@RequestMapping(value = "modify", method = RequestMethod.POST)
 	public String todoModify(int tdno, String tdcontent) {
 		todoService.todoModify(tdno, tdcontent);
-		return "forward:diary.do/myList";
+		return "forward:../diary/myList.do";
 	}
 	
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String todoDelete(int tdno) {
+		Date ddate = todoService.getTodo(tdno).getTdrdate();
 		todoService.todoDelete(tdno);
-		return "forward:diary.do/myList";
+		return "forward:../diary/myList.do?ddate="+ddate;
 	}
 	
-	@RequestMapping(value = "check", method = RequestMethod.GET)
+	@RequestMapping(value = "check", method = {RequestMethod.GET, RequestMethod.POST})
 	public String todoChange(int tdno, int tdcheck) {
+		Date ddate = todoService.getTodo(tdno).getTdrdate();
 		todoService.todoChange(tdno, tdcheck);
-		return "forward:diary.do/myList";
+		return "forward:../diary/myList.do?ddate="+ddate;
 	}
 }

@@ -5,24 +5,33 @@
 <mapper namespace="com.project.mylog.dao.TeamDao">
 	<resultMap type="Team" id="TeamResult">
 		<result column="tno" property="tno"/>
+		<result column="mid" property="mid"/>
 		<result column="tname" property="tname"/>
 		<result column="tgoal" property="tgoal"/>
 	</resultMap>
 	
 	<!-- makeTeam -->
 	<insert id="makeTeam" parameterType="Team">
-		INSERT INTO TEAM (tNO, tNAME, tGOAL) 
-        	VALUES (TEAM_SEQ.NEXTVAL, #{tname}, #{tgoal})
+		INSERT INTO TEAM (tNO, mID, tNAME, tGOAL) 
+        	VALUES (TEAM_SEQ.NEXTVAL, #{mid}, #{tname}, #{tgoal})
 	</insert>
+	<!-- getTno -->
+	<select id="getTno" resultType="int">
+		SELECT MAX(tNO) tNO FROM TEAM
+	</select>
 	<!-- deleteTeam -->
 	<delete id="deleteTeam" parameterType="int">
 		DELETE FROM TEAM WHERE tNO=#{tno}
 	</delete>
 	<!-- modifyTeam -->
 	<update id="modifyTeam" parameterType="Team">
-		UPDATE TEAM SET tNAME = #{tname},
+		UPDATE TEAM SET mID = #{mid},
+						tNAME = #{tname},
                     	tGOAL = #{tgoal}
                 	WHERE tNO = #{tno}
 	</update>
-	
+	<!-- getTeamDetail -->
+	<select id="getTeamDetail" parameterType="int" resultType="Team">
+		SELECT * FROM TEAM WHERE tNO=#{tno}
+	</select>
 </mapper>

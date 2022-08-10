@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.project.mylog.dao.DiaryReplyDao">
+	<resultMap type="DiaryReply" id="DiaryReplyResult">
+		<result property="drnum" column="drnum"/>
+		<result property="dnum" column="dnum"/>
+		<result property="mid" column="mid"/>
+		<result property="mname" column="mname"/>
+		<result property="drmention" column="drmention"/>
+		<result property="drcontent" column="drcontent"/>
+		<result property="drgroup" column="drgroup"/>
+		<result property="drindent" column="drindent"/>
+		<result property="drrdate" column="drrdate"/>
+		<result property="drip" column="drip"/>
+	</resultMap>
+	
+	<!-- 댓글리스트 -->
+	<select id="replyList" parameterType="DiaryReply" resultMap="DiaryReplyResult">
+		SELECT *
+		    FROM(SELECT ROWNUM RN, B.*
+		                FROM (SELECT D.*, MNAME FROM DIARYREPLY D, MEMBER M
+		                            WHERE D.MID=M.MID AND DNUM = #{dnum}
+		                            ORDER BY DRGROUP DESC, DRRDATE) B ) A
+		    WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<!-- 댓글갯수 -->
+	<select id="replyCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM DIARYREPLY WHERE DNUM = #{dnum}
+	</select>
+	
+	<!-- 댓글 정보 가져오기 -->
+	<select id="getReply" parameterType="int" resultType="DiaryReply">
+		SELECT D.*, MNAME 
+		    FROM DIARYREPLY D, MEMBER M 
+		    WHERE D.MID=M.MID AND DRNUM = #{drnum}
+	</select>
+	
+	<!-- 댓글 작성 -->
+	<insert id="replyWrite" parameterType="DiaryReply">
+		INSERT INTO
+   		 	DIARYREPLY(DRNUM, DNUM, MID, DRCONTENT, DRGROUP, DRINDENT, DRRDATE, DRIP)
+    		VALUES(DIARYREPLY_SEQ.NEXTVAL, #{dnum}, #{mid}, #{drcontent}, DIARYREPLY_SEQ.CURRVAL, 0, SYSDATE, #{drip})
+	</insert>
+	
+	<!-- 대댓글 달기 -->
+	<insert id="replyReplyWrite" parameterType="DiaryReply">
+		INSERT INTO
+		    DIARYREPLY(DRNUM, DNUM, MID, DRMENTION, DRCONTENT, DRGROUP, DRINDENT, DRRDATE, DRIP)
+		    VALUES(DIARYREPLY_SEQ.NEXTVAL, #{dnum}, #{mid}, #{drmention, jdbcType=VARCHAR}, #{drcontent}, #{drgroup}, 1, SYSDATE, #{drip})
+	</insert>
+	
+	<!-- 댓글 수정 -->
+	<update id="replyModify" parameterType="DiaryReply">
+		UPDATE DIARYREPLY
+		    SET DRCONTENT = #{drcontent},
+		          DRIP = #{drip}
+		    WHERE DRNUM = #{drnum}
+	</update>
+	
+	<!-- 댓글 삭제 -->
+	<delete id="replyDelete" parameterType="int">
+		DELETE FROM DIARYREPLY WHERE DRNUM = #{drnum}
+	</delete>
+	
+</mapper>

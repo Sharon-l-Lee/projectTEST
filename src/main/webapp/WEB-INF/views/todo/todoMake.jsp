@@ -7,15 +7,14 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<script>
-		$(document).ready(function(){
-
-		});
-	</script>
 </head>
 <body>
-
+	<form action="${conPath }/todo/make.do" method="post" id="todo_form">
+		<input type="hidden" name="mid" value="${member.mid }">
+		<input type="hidden" name="ddate" value="${param.tdrdate }">
+		<input type="hidden" name="tdrdate" value="${param.tdrdate }">
+		<input type="text" id="tdcontent" name="tdcontent" autofocus="autofocus">
+		<input type="submit" value="등록">
+	</form>
 </body>
 </html>

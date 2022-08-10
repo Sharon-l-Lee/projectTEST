@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.project.mylog.dao.AccountCategoryDao">
+	<resultMap type="AccountCategory" id="AccountCategoryResult">
+	    	<result property="acno" column="acno"/>
+	    	<result property="atitle" column="atitle"/>
+    </resultMap>
+    
+	<!-- 카테고리 리스트 -->
+    <select id="categoryList" resultMap="AccountCategoryResult">
+    	SELECT * FROM ACCOUNTCATEGORY
+    </select>
+
+<!-- 만들지 말지 고민 -->
+<!-- 	중복된 카테고리 존재 여부 -->
+<!-- 	<select id="atitleCheck" parameterType="String"> -->
+<!-- 		SELECT * FROM ACCOUNTCATEGORY WHERE ATITLE = #{atitle} -->
+<!-- 	</select> -->
+
+<!-- 	카테고리 만들기 -->
+<!-- 	<insert id="categoryMake" parameterType="String"> -->
+<!-- 		INSERT INTO ACCOUNTCATEGORY VALUES(ACCOUNTCATEGORY_SEQ.NEXTVAL, #{atitle}) -->
+<!-- 	</insert> -->
+    
+</mapper>

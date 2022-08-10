@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mylog.dao.QnaBoardDao">
+	<resultMap type="QnaBoard" id="QnaBoardResult">
+		<result property="qno" column="qno"/>
+		<result property="mid" column="mid"/>
+		<result property="aid" column="aid"/>
+		<result property="qwriter" column="qwriter"/>
+		<result property="qtitle" column="qtitle"/>
+		<result property="qcontent" column="qcontent"/>
+		<result property="qrdate" column="qrdate"/>
+		<result property="qhit" column="qhit"/>
+		<result property="qgroup" column="qgroup"/>
+		<result property="qstep" column="qstep"/>
+		<result property="qindent" column="qindent"/>
+		<result property="qip" column="qip"/>
+	</resultMap>
+	<select id="qnaList" parameterType="QnaBoard" resultMap="QnaBoardResult">
+		SELECT *
+    		FROM (SELECT ROWNUM RN, A.*
+            		FROM (SELECT * FROM QNABOARD
+                     		ORDER BY QGROUP DESC, QSTEP) A)
+    		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="myQnaList" parameterType="QnaBoard" resultMap="QnaBoardResult">
+		SELECT *
+    		FROM (SELECT ROWNUM RN, A.*
+            		FROM (SELECT * FROM QNABOARD
+                     		ORDER BY QGROUP DESC, QSTEP) A)
+    		WHERE MID = #{mid} AND RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="qnaContent" parameterType="int" resultType="QnaBoard">
+		SELECT * FROM QNABOARD WHERE QNO = #{qno}
+	</select>
+	<select id="countQna" resultType="int">
+		SELECT COUNT(*) FROM QNABOARD
+	</select>
+	<select id="countMyQna" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM QNABOARD WHERE MID = #{mid}
+	</select>
+	<select id="getQna" parameterType="int" resultType="QnaBoard">
+		SELECT * FROM QNABOARD WHERE QNO = #{qno}
+	</select>
+	<insert id="qnaWrite" parameterType="QnaBoard">
+		INSERT INTO QNABOARD (QNO, MID, QWRITER, QTITLE, QCONTENT, QGROUP, QSTEP, QINDENT, QIP)
+    		VALUES (QNABOARD_SEQ.NEXTVAL, #{mid}, #{qwriter}, #{qtitle}, #{qcontent}, QNABOARD_SEQ.CURRVAL, 0, 0, #{qip})
+	</insert>
+	<insert id="qnaReply" parameterType="QnaBoard">
+		INSERT INTO QNABOARD (QNO, MID, AID, QWRITER,QTITLE, QCONTENT, QGROUP, QSTEP, QINDENT, QIP)
+    		VALUES (QNABOARD_SEQ.NEXTVAL, #{mid}, #{aid}, #{qwriter}, #{qtitle}, #{qcontent}, #{qgroup}, #{qstep}+1, #{qindent}+1, #{qip})
+	</insert>
+	<update id="qnaUpdate" parameterType="QnaBoard">
+		UPDATE QNABOARD SET QTITLE = #{qtitle}, QCONTENT = #{qcontent} WHERE QNO = #{qno}
+	</update>
+	<update id="hitupQna" parameterType="int">
+		UPDATE QNABOARD SET QHIT = QHIT + 1 WHERE QNO = #{qno}
+	</update>
+	<update id="beforestepA" parameterType="QnaBoard">
+		UPDATE QNABOARD SET QSTEP = QSTEP + 1 WHERE QGROUP = #{qgroup} AND QSTEP > #{qstep}
+	</update>
+	<delete id="qnaDelete" parameterType="int">
+		DELETE FROM QNABOARD WHERE QNO = #{qno}
+	</delete>
+</mapper>

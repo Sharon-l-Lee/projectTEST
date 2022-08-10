@@ -7,15 +7,15 @@
 <title>Insert title here</title>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
-	$(document).ready(function() {
+	 $(document).ready(function() {
 		
 		//태그등록
 		$('#submit').click(function() {
 			var tname = $('input[name=tname]').val();
 			/*  document.getElementById('space') = tname;
-			 let tcount; */
+			 let tcount;
 		
-		/* 	 $.ajax({
+		 	 $.ajax({
 				type : 'get', // 타입 (get, post, put 등등)
 				url : 'review/testplus.do', // 요청할 서버url
 				dataType : 'html', // 데이터 타입 (html, xml, json, text 등등)
@@ -24,7 +24,7 @@
 					$('#space').html(data);
 				},
 
-			}) */ 
+			})  */
 			 $.ajax({
 				type : 'get', // 타입 (get, post, put 등등)
 				url : 'hashtag/testplus.do', // 요청할 서버url
@@ -40,43 +40,16 @@
 			
 		});
 		
-		//태그삭제
-		$('#delete').click(function() {
-			var tno = $('input[name=tname]').val();
-			
-		
-		/* 	 $.ajax({
-				type : 'get', // 타입 (get, post, put 등등)
-				url : 'review/testplus.do', // 요청할 서버url
-				dataType : 'html', // 데이터 타입 (html, xml, json, text 등등)
-				data : 'tname=' + tname,
-				success : function(data) { // 결과 성공 콜백함수
-					$('#space').html(data);
-				},
-
-			}) */ 
-			 $.ajax({
-				type : 'get', // 타입 (get, post, put 등등)
-				url : 'review/delete.do', // 요청할 서버url
-				dataType : 'html', // 데이터 타입 (html, xml, json, text 등등)
-				data : 'tno=' + tno
-				success : function(data) { // 결과 성공 콜백함수
-					$('#space').append(data);
-					
-				},
-
-			}) 
-			
-			
-		});
+	
 
 
-	});
+	}); 
 </script>
 </head>
 <body>
 	<div id="tname">
 		<input type="text" name="tname" id="tname">
+		
 	</div>
 	<div id="space">
 	

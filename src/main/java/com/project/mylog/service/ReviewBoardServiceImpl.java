@@ -15,14 +15,18 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.project.mylog.dao.ReviewBoardDao;
+import com.project.mylog.dao.ReviewReplyBoardDao;
 import com.project.mylog.model.ReviewBoard;
+import com.project.mylog.model.ReviewReplyBoard;
 import com.project.mylog.util.ReviewPaging;
 
 @Service
 public class ReviewBoardServiceImpl implements ReviewBoardService {
 	@Autowired
 	private ReviewBoardDao rboardDao;
-	String backupPath = "D:\\LDSwebPro\\source\\merge\\mylog\\src\\main\\webapp\\ReviewImgUpload/";
+	@Autowired
+	private ReviewReplyBoardDao replyDao;
+	String backupPath = "D:\\LDSwebPro\\source\\0809\\mylog\\src\\main\\webapp\\ReviewImgUpload/";
 
 	@Override
 	public int reviewWrite(MultipartHttpServletRequest mRequest, ReviewBoard reviewBoard) {
@@ -127,6 +131,7 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
 	@Override
 	public ReviewBoard reviewContent(int rnum) {
+
 		return rboardDao.reviewContent(rnum);
 	}
 
@@ -140,5 +145,13 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	public int reviewCount() {
 		return rboardDao.reviewCount();
 	}
+
+	@Override
+	public int getRnum() {
+		// TODO Auto-generated method stub
+		return rboardDao.getRnum();
+	}
+
+	
 
 }

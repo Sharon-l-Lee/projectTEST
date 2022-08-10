@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.project.mylog.dao.TeamBoardDao;
+import com.project.mylog.dao.TeamCommentBoardDao;
 import com.project.mylog.model.TeamBoard;
 import com.project.mylog.util.Paging;
 
@@ -24,6 +25,9 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 	private TeamBoardDao teamBoardDao;
 	String backupPath = "D:\\pjw\\webPro\\source\\10_2ndProject\\mylog\\src\\main\\webapp\\teamBoardFileUpload\\";
 	
+	@Autowired
+	private TeamCommentBoardDao teamcommentDao;
+
 	@Override
 	public List<TeamBoard> teamBoardList(String pageNum) {
 		int teamBoardTotCnt = teamBoardDao.teamBoardTotCnt();
@@ -61,33 +65,33 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 					System.out.println("서버파일 : " + uploadPath + tfilename);
 					System.out.println("백업파일 : " + backupPath + tfilename);
 					result = fileCopy(uploadPath + tfilename, backupPath + tfilename);
-					System.out.println(result == true ? tfilename+" 백업성공" : tfilename + "번째 백업실패");
+					System.out.println(result == true ? tfilename + " 백업성공" : tfilename + "번째 백업실패");
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
 			} else {
 				// 파일 첨부 안 할 경우
 				System.out.println("파일 첨부 안 함");
-				result=true;
+				result = true;
 			}
 		} // if
-		teamboard.setTfilename(tfilename);		//첨부한 파일 이름
+		teamboard.setTfilename(tfilename); // 첨부한 파일 이름
 		System.out.println(tfilename);
 		return teamBoardDao.teamBoardWrite(teamboard);
 	}
 
 	@Override
 	public int teamBoardHitUp(int tnum) {
-		return teamBoardHitUp(tnum);
+		return teamBoardDao.teamBoardHitUp(tnum);
 	}
 
 	@Override
 	public TeamBoard teamBoardDetail(int tnum) {
-		teamBoardDao.teamBoardHitUp(tnum);
+		int result = teamBoardDao.teamBoardHitUp(tnum);
 		return teamBoardDao.teamBoardDetail(tnum);
 	}
-	
-	@Override	//수정이나 삭제시 사용
+
+	@Override // 수정이나 삭제시 사용
 	public TeamBoard teamBoardModifyReplyView(int tnum) {
 		return teamBoardDao.teamBoardDetail(tnum);
 	}
@@ -114,17 +118,17 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 					System.out.println("서버파일 : " + uploadPath + tfilename);
 					System.out.println("백업파일 : " + backupPath + tfilename);
 					result = fileCopy(uploadPath + tfilename, backupPath + tfilename);
-					System.out.println(result == true ? tfilename+" 백업성공" : tfilename + "번째 백업실패");
+					System.out.println(result == true ? tfilename + " 백업성공" : tfilename + "번째 백업실패");
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
 			} else {
 				// 파일 첨부 안 할 경우
 				System.out.println("파일 첨부 안 함");
-				result=true;
+				result = true;
 			}
 		} // if
-		teamboard.setTfilename(tfilename);		//첨부한 파일 이름
+		teamboard.setTfilename(tfilename); // 첨부한 파일 이름
 		System.out.println(tfilename);
 		return teamBoardDao.teamBoardModify(teamboard);
 	}
@@ -141,7 +145,8 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 
 	@Override
 	public int teamBoardReply(MultipartHttpServletRequest mRequest, TeamBoard teamboard) {
-		teamBoardDao.teamBoardPreReply(teamboard);
+		int results = teamBoardDao.teamBoardPreReply(teamboard);
+		System.out.println(results == 1 ? "성공" : "실패");
 		teamboard.setTip(mRequest.getRemoteAddr());
 		boolean result = false;
 		String uploadPath = mRequest.getRealPath("teamBoardFileUpload/");
@@ -162,54 +167,54 @@ public class TeamBoardServiceImpl implements TeamBoardService {
 					System.out.println("서버파일 : " + uploadPath + tfilename);
 					System.out.println("백업파일 : " + backupPath + tfilename);
 					result = fileCopy(uploadPath + tfilename, backupPath + tfilename);
-					System.out.println(result == true ? tfilename+" 백업성공" : tfilename + "번째 백업실패");
+					System.out.println(result == true ? tfilename + " 백업성공" : tfilename + "번째 백업실패");
 				} catch (IOException e) {
 					System.out.println(e.getMessage());
 				}
 			} else {
 				// 파일 첨부 안 할 경우
 				System.out.println("파일 첨부 안 함");
-				result=true;
+				result = true;
 			}
 		} // if
-		teamboard.setTfilename(tfilename);		//첨부한 파일 이름
+		teamboard.setTfilename(tfilename); // 첨부한 파일 이름
 		System.out.println(tfilename);
 		return teamBoardDao.teamBoardReply(teamboard);
 	}
-	
+
 	// fileCopy
-		private boolean fileCopy(String serverFile, String backupFile) {
-			boolean isCopy = false;
-			// 복사로직
-			FileInputStream is = null;
-			FileOutputStream os = null;
+	private boolean fileCopy(String serverFile, String backupFile) {
+		boolean isCopy = false;
+		// 복사로직
+		FileInputStream is = null;
+		FileOutputStream os = null;
+		try {
+			// 파일을 1byte씩 X 한번에 읽기위해 조정
+			File file = new File(serverFile);
+			is = new FileInputStream(serverFile);
+			os = new FileOutputStream(backupFile);
+			byte[] buff = new byte[(int) file.length()];
+			while (true) {
+				int nReadByte = is.read(buff);
+				if (nReadByte == -1)
+					break; // 파일 끝 ->break;
+				os.write(buff, 0, nReadByte);
+			}
+			isCopy = true;
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		} finally {
 			try {
-				// 파일을 1byte씩 X 한번에 읽기위해 조정
-				File file = new File(serverFile);
-				is = new FileInputStream(serverFile);
-				os = new FileOutputStream(backupFile);
-				byte[] buff = new byte[(int) file.length()];
-				while (true) {
-					int nReadByte = is.read(buff);
-					if (nReadByte == -1)
-						break; // 파일 끝 ->break;
-					os.write(buff, 0, nReadByte);
-				}
-				isCopy = true;
+				if (os != null)
+					os.close();
+				if (is != null)
+					is.close();
 			} catch (Exception e) {
 				System.out.println(e.getMessage());
-			} finally {
-				try {
-					if (os != null)
-						os.close();
-					if (is != null)
-						is.close();
-				} catch (Exception e) {
-					System.out.println(e.getMessage());
-				}
 			}
-			return isCopy;
-
 		}
+		return isCopy;
+
+	}
 
 }

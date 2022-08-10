@@ -24,7 +24,7 @@
 <body>
 	<h2>${year }년 ${month }월</h2>
 	<b>
-		<form action="calendar.do">
+		<form action="${conPath }/calendar.do">
 			<select name="year">
 				<c:forEach var="i" begin="${year-10 }" end="${year+10 }">
 					<c:if test="${i eq year }">
@@ -60,13 +60,8 @@
 						<td></td>
 					</c:if>
 					<c:if test="${not empty calPrint.calDate[i][j] }">
-						<td>
-						<h3>${calPrint.calDate[i][j] }</h3>
-						<c:forEach var="dto" items="${dtos }">
-									<c:if test="${calPrint.calDate[i][j] == dto.day }">
-										<span onclick="todayMenu(${calPrint.calDate[i][j] }, '${dto.ampm }')">${dto.ampm }</span><br>
-									</c:if>
-						</c:forEach>
+						<td onclick="location.href='${conPath}/calendar/dailyList.do?year=${year }&month=${month }&day=${calPrint.calDate[i][j] }'">
+							<h3>${calPrint.calDate[i][j] }</h3>
 						</td>
 					</c:if>
 				</c:forEach>

@@ -4,24 +4,25 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import com.project.mylog.model.ReviewBoard;
 import com.project.mylog.model.ReviewReplyBoard;
 
 @Mapper
 public interface ReviewReplyBoardDao {
 
-	public int ReviewReplyWrite(ReviewReplyBoard replyBoard);
+	public int reviewReplyWrite(ReviewReplyBoard replyBoard);
 
-	public int ReviewReplyModify(ReviewReplyBoard replyBoard);
+	public int reviewReplyModify(ReviewReplyBoard replyBoard);
 
-	public int ReviewReplyDelete(ReviewReplyBoard replyBoard);
+	public int reviewReplyDelete(int rpnum);
 
-	public List<ReviewReplyBoard> ReviewReplyList();
+	public List<ReviewReplyBoard> reviewReplyList(ReviewReplyBoard replyBoard);
 
-	public ReviewReplyBoard ReviewReplyContent(int rpnum);
+	public ReviewReplyBoard reviewReplyContent(int rpnum);
 
-	public int ReviewReplyCount();
+	public int reviewReplyCount(int rnum);
 
-	public void ReviewReplyStepA(ReviewReplyBoard replyBoard);
-
-	public int ReviewReplyComment(ReviewReplyBoard replyBoard);
+	public int reviewReplyComment(ReviewReplyBoard replyBoard);
+	
+	public String replyMname(int rpnum);
 }

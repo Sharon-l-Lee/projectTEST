@@ -11,4 +11,7 @@ public class TeamMember {
 	private int tmno;
 	private String mid;
 	private int tno;
+	private int tmcheck;
+	
+	private String tname;
 }

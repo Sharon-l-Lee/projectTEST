@@ -6,10 +6,11 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript">
-	var tname= '${tname}';
+	var hname= '${hname}';
+	var hno ='${hno}';
 	
 	var blank = document.createTextNode("\u00a0\u00a0\u00a0\u00a0");
-	$('#tag').append('<span>'+tname+'</span>');
+	$('#tag').append('<span>'+hno+'</span>');
 	$('#tag').append('<button id="delete">X</button>');
 	//$('#tag').append('<button onclick="location.href=''">X</button>');
 	$('#tag').append(blank);

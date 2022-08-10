@@ -10,22 +10,32 @@
 		<result property="hname" column="hname" />
 
 	</resultMap>
-	
+
 	<!-- 추가 -->
-    	<insert id="hashtagWrite" parameterType="String">
-    		INSERT INTO HASHTAG(HNO, HNAME) VALUES (HSEQ.NEXTVAL, #{hname})
-    	</insert>
-    		
-    	<!-- 수정 -->
-    	<update id="hashtagModify" parameterType="Hashtag">
-    		UPDATE HASHTAG SET HNAME =#{hname}
-                WHERE HNO=#{hno}
-    	</update>
-		
-		<!-- 삭제 -->
-		<delete id="hashtagDelete" parameterType="int">
-			DELETE HASHTAG WHERE HNO =#{hno}
-		</delete>
-            
+
+    <insert id="hashtagWrite" parameterType="String">
+    	INSERT INTO HASHTAG(HNO, HNAME) VALUES (HSEQ.NEXTVAL, #{hname})
+    </insert>
 	
+	<!-- 수정 -->
+	<update id="hashtagModify" parameterType="Hashtag">
+		UPDATE HASHTAG SET HNAME =#{hname} WHERE HNO=#{hno}
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="hashtagDelete" parameterType="int">
+		DELETE HASHTAG WHERE HNO =#{hno}
+	</delete>
+
+
+	<!-- 태그 번호 가져오기 -->
+	<select id="getHno" parameterType="String" resultType="int">
+		SELECT MAX(HNO) FROM HASHTAG WHERE HNAME=#{hname}
+	</select>
+
+	<!-- 태그 번호 가져오기 -->
+	<select id="getMaxHno" resultType="int">
+		SELECT MAX(HNO) FROM HASHTAG
+	</select>
+
 </mapper>

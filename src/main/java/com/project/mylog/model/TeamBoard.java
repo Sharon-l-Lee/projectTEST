@@ -22,6 +22,8 @@ public class TeamBoard {
 	private int tindent;
 	private String tip;
 	
+	private int teamCommentTotCnt;
+	
 	private int startRow;
 	private int endRow;
 }

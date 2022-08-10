@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.project.mylog.dao.AccountBookDao">
+	<resultMap type="AccountBook" id="AccountBookResult">
+	    	<result property="ano" column="ano"/>
+	    	<result property="mid" column="mid"/>
+	    	<result property="acno" column="acno"/>
+	    	<result property="atitle" column="atitle"/>
+	    	<result property="acontent" column="acontent"/>
+	    	<result property="aprice" column="aprice"/>
+	    	<result property="adate" column="adate"/>
+	    	<result property="astatus" column="astatus"/>
+    </resultMap>
+    
+<!--     일 가계부 갯수 -->
+	<select id="dailyAccountCnt" parameterType="AccountBook" resultType="int">
+		SELECT COUNT(*) FROM ACCOUNTBOOK WHERE MID = #{mid} AND ADATE = #{adate}
+	</select>
+    
+    <!-- 일 가계부 리스트 -->
+    <select id="dailyAccount" parameterType="AccountBook" resultMap="AccountBookResult">
+		SELECT * 
+		    FROM (SELECT ROWNUM RN, A.*
+		                FROM (SELECT B.*, ATITLE
+		                            FROM ACCOUNTBOOK B, ACCOUNTCATEGORY C
+		                            WHERE B.ACNO = C.ACNO
+		                                AND MID = #{mid}
+		                                AND ADATE = #{adate}
+		                                ORDER BY ADATE DESC) A)
+		    WHERE RN BETWEEN #{startRow} AND #{endRow}
+    </select>
+    
+<!--     월 가계부 개수 -->
+	<select id="monthlyAccountCnt" parameterType="AccountBook" resultType="int">
+		SELECT COUNT(*) FROM ACCOUNTBOOK 
+    		WHERE MID = #{mid}
+                AND ADATE BETWEEN ADD_MONTHS(LAST_DAY(#{adate})+1,-1)
+                AND LAST_DAY(#{adate})
+	</select>
+	
+<!-- 	월 가계부 리스트 -->
+	<select id="monthlyAccount" parameterType="AccountBook" resultType="AccountBook">
+		SELECT D.*
+		    FROM (SELECT ROWNUM RN, A.*
+		                FROM (SELECT B.*, ATITLE FROM ACCOUNTBOOK B, ACCOUNTCATEGORY C
+                                      WHERE B.ACNO=C.ACNO
+                                        AND MID = #{mid}
+                                        AND ADATE BETWEEN ADD_MONTHS(LAST_DAY(#{adate})+1,-1)
+                                        AND LAST_DAY(#{adate})
+                                    ORDER BY ADATE DESC) A ) D
+		    WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+<!-- 	일 토탈 -->
+	<select id="dailyTotal" parameterType="AccountBook" resultType="AccountBook">
+		SELECT INCOMETOTAL-EXPENSETOTAL TOTAL, INCOMETOTAL, EXPENSETOTAL
+   		 FROM (SELECT SUM(APRICE) INCOMETOTAL FROM ACCOUNTBOOK WHERE ASTATUS = 1 AND MID = #{mid} AND ADATE = #{adate}),
+            (SELECT SUM(APRICE) EXPENSETOTAL FROM ACCOUNTBOOK WHERE ASTATUS = 0 AND MID = #{mid} AND ADATE = #{adate})
+	</select>
+
+<!-- 	일 카테고리 토탈	 -->
+	<select id="dailyCategoryTotal" parameterType="AccountBook" resultMap="AccountBookResult">
+		SELECT ATITLE, SUM(APRICE) TOTAL
+		    FROM ACCOUNTBOOK B, ACCOUNTCATEGORY C
+		    WHERE B.ACNO = C.ACNO
+		        AND MID = #{mid}
+		        AND ADATE = #{adate}
+		        AND ASTATUS = 0
+		    GROUP BY ATITLE
+	</select>
+	
+<!-- 	월 토탈 -->
+	<select id="mothlyTotal" parameterType="AccountBook" resultType="AccountBook">
+		SELECT INCOMETOTAL-EXPENSETOTAL TOTAL, INCOMETOTAL, EXPENSETOTAL
+    		FROM (SELECT SUM(APRICE) INCOMETOTAL FROM ACCOUNTBOOK 
+    				WHERE ASTATUS = 1 AND MID = #{mid} 
+                		AND ADATE BETWEEN ADD_MONTHS(LAST_DAY(#{adate})+1,-1)
+                		AND LAST_DAY(#{adate})),
+            	(SELECT SUM(APRICE) EXPENSETOTAL FROM ACCOUNTBOOK 
+            		WHERE ASTATUS = 0 AND MID = #{mid} 
+                    AND ADATE BETWEEN ADD_MONTHS(LAST_DAY(#{adate})+1,-1)
+                    AND LAST_DAY(#{adate}))
+	</select>
+	
+<!-- 	월 카테고리 지출토탈 -->
+	<select id="monthlyCategoryTotal" parameterType="AccountBook" resultType="AccountBook">
+		SELECT ATITLE, SUM(APRICE) TOTAL
+		    FROM ACCOUNTBOOK B, ACCOUNTCATEGORY C
+		    WHERE B.ACNO = C.ACNO
+		        AND MID = #{mid}
+		        AND ADATE BETWEEN ADD_MONTHS(LAST_DAY(#{adate})+1,-1) 
+		        AND LAST_DAY(#{adate})
+		        AND ASTATUS = 0
+		    GROUP BY ATITLE
+		    ORDER BY TOTAL DESC
+	</select>
+	
+	<!-- 시퀀스로 가계부 가져오기 -->
+	<select id="getAccount" parameterType="int" resultType="AccountBook">
+		SELECT B.*, ATITLE
+		    FROM ACCOUNTBOOK B, ACCOUNTCATEGORY C
+		    WHERE B.ACNO = C.ACNO AND ANO = #{ano}
+	</select>
+	
+<!-- 	작성 -->
+	<insert id="accountWrite" parameterType="AccountBook">
+		INSERT INTO ACCOUNTBOOK
+    		VALUES(ACCOUNTBOOK_SEQ.NEXTVAL, #{mid}, #{acno}, #{acontent}, #{aprice}, #{adate}, #{astatus})		
+	</insert>
+	
+<!-- 	수정 -->
+	<update id="accountModify" parameterType="AccountBook">
+		UPDATE ACCOUNTBOOK
+		    SET ACNO = #{acno},
+		         ACONTENT = #{acontent},
+		         APRICE = #{aprice}, 
+		         ADATE =#{adate},
+		         ASTATUS = #{astatus}
+		    WHERE ANO = #{ano}
+	</update>
+	
+<!-- 	삭제 -->
+	<delete id="accountDelete" parameterType="int">
+		DELETE FROM ACCOUNTBOOK WHERE ANO = #{ano}
+	</delete>
+
+</mapper>

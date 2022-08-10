@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.project.mylog.dao.DiaryBoardDao">
+	<resultMap type="DiaryBoard" id="DiaryBoardResult">
+		<result property="dnum" column="dnum"/>
+		<result property="dtitle" column="dtitle"/>
+		<result property="mid" column="mid"/>
+		<result property="mname" column="mname"/>
+		<result property="dtodoin" column="dtodoin"/>
+		<result property="dcontent" column="dcontent"/>
+		<result property="dhit" column="dhit"/>
+		<result property="dstatus" column="dstatus"/>
+		<result property="ddate" column="ddate"/>
+		<result property="drdate" column="drdate"/>
+		<result property="dip" column="dip"/>
+	</resultMap>
+	
+	<!-- 내 일기 리스트 -->
+	<select id="myDiaryList" parameterType="DiaryBoard" resultMap="DiaryBoardResult">
+		SELECT A.* 
+			FROM (SELECT ROWNUM RN, D.* 
+					FROM (SELECT * FROM DIARYBOARD
+			               WHERE DDATE = #{ddate} AND MID = #{mid}
+			               ORDER BY DRDATE DESC) D ) A
+			WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<!-- 내 일기 갯수 -->
+	<select id="myDiaryCnt" parameterType="DiaryBoard" resultType="int">
+		SELECT COUNT(*)
+    		FROM DIARYBOARD
+    		WHERE DDATE = #{ddate} AND MID = #{mid}
+	</select>
+	
+	<!-- 내가 볼 수 있는 일기 리스트 -->
+	<select id="diaryList" parameterType="DiaryBoard" resultMap="DiaryBoardResult">
+		SELECT A.* 
+		    FROM (SELECT ROWNUM RN, D.*, MNAME
+		                FROM DIARYBOARD D, FRIEND F, MEMBER M
+		                WHERE (D.MID=M.MID AND DSTATUS = 2 AND MSTATUS = 1)  OR
+		                            (D.MID=F.FID AND M.MID=F.FID AND DSTATUS = 1 AND F.MID = #{mid} AND MSTATUS = 1) OR
+		                            (D.MID=M.MID AND M.MID = #{mid})
+		                ORDER BY DRDATE DESC) A
+		    WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	
+	<!-- 내가 볼 수 있는 일기 갯수 -->
+	<select id="diaryCnt" parameterType="DiaryBoard" resultType="int">
+		SELECT COUNT(*) CNT
+		    FROM DIARYBOARD D, FRIEND F, MEMBER M
+		    WHERE (D.MID=M.MID AND DSTATUS = 2 AND MSTATUS=1)  OR
+		                (D.MID=F.FID AND M.MID=F.FID AND DSTATUS = 1 AND F.MID = #{mid} AND MSTATUS=1) OR
+		                (D.MID=M.MID AND M.MID = #{mid})
+	</select>
+	
+	<!-- 일기 자세히 보기 -->
+	<select id="diaryContent" parameterType="int" resultType="DiaryBoard">
+		SELECT D.*, MNAME 
+		    FROM DIARYBOARD D, MEMBER M
+		    WHERE D.MID=M.MID AND DNUM = #{dnum}
+	</select>
+	
+	<select id="getDiary" parameterType="int" resultType="DiaryBoard">
+		SELECT *
+		  FROM DIARYBOARD
+		  WHERE DNUM = #{dnum}
+	</select>
+	
+	<!-- 조회수 올리기 -->
+	<update id="diaryHitup" parameterType="int">
+		UPDATE DIARYBOARD SET DHIT = DHIT + 1 WHERE DNUM = #{dnum}
+	</update>
+	
+	<!-- 일기 쓰기 -->
+	<insert id="diaryWrite" parameterType="DiaryBoard">
+		INSERT INTO 
+    		DIARYBOARD(DNUM, DTITLE, MID, DTODOIN, DCONTENT, DHIT, DSTATUS, DDATE, DIP)
+    		VALUES(DIARYBOARD_SEQ.NEXTVAL, #{dtitle}, #{mid}, #{dtodoin}, #{dcontent}, 0, #{dstatus}, #{ddate}, #{dip})
+	</insert>
+	
+	<!-- 일기 수정하기 -->
+	<update id="diaryModify" parameterType="DiaryBoard">
+		UPDATE DIARYBOARD 
+		    SET DTITLE = #{dtitle},
+		         DTODOIN = #{dtodoin},
+		         DCONTENT = #{dcontent},
+		         DSTATUS = #{dstatus},
+		         DIP = #{dip}
+		    WHERE DNUM = #{dnum}
+	</update>
+	
+	<!-- 글 삭제하기 -->
+	<delete id="diaryDelete" parameterType="int">
+		DELETE FROM DIARYBOARD WHERE DNUM = #{dnum}
+	</delete>
+	
+</mapper>

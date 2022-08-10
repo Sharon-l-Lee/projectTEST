@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mylog.dao.FriendDao">
+	<resultMap type="Friend" id="FriendResult">
+		<result property="fno" column="fno"/>
+		<result property="mid" column="mid"/>
+		<result property="fid" column="fid"/>
+	</resultMap>
+	<select id="myFriendList" parameterType="String" resultMap="FriendResult">
+		SELECT FID, MNAME FROM FRIEND F, MEMBER M
+			WHERE M.MID = F.FID AND F.MID = #{mid} ORDER BY FID
+	</select>
+	<select id="searchMyFriend" parameterType="Friend" resultMap="FriendResult">
+		SELECT FID, MNAME FROM FRIEND F, MEMBER M
+			WHERE M.MID = F.FID AND F.MID = #{mid} AND
+				MNAME LIKE '%'||#{mname}||'%'
+			ORDER BY FID
+	</select>
+	<select id="countMyFriend" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM FRIEND WHERE MID = #{mid}
+	</select>
+	<select id="countFollowMe" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM (SELECT F2.MID, MNAME,(SELECT COUNT(*) FROM FRIEND F1 WHERE F1.MID = #{mid} AND F1.FID = F2.MID) EXISTENT
+								FROM FRIEND F2, MEMBER M WHERE M.MID = F2.FID AND F2.FID = #{mid})
+	</select>
+	<select id="followMe" parameterType="String" resultMap="FriendResult">
+		SELECT F2.MID, MNAME, (SELECT COUNT(*) FROM FRIEND F1 WHERE F1.MID = #{mid} AND F1.FID = F2.MID) EXISTENT
+			FROM FRIEND F2, MEMBER M WHERE M.MID = F2.FID AND F2.FID = #{mid}
+	</select>
+	<insert id="followFriend" parameterType="Friend">
+		INSERT INTO FRIEND VALUES (FRIEND_SEQ.NEXTVAL, #{mid}, #{fid})
+	</insert>
+	<delete id="unfollowFriend" parameterType="Friend">
+		DELETE FROM FRIEND WHERE MID = #{mid} AND FID = #{fid}
+	</delete>
+</mapper>

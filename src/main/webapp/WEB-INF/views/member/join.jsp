@@ -14,13 +14,17 @@
 	$(document).ready(function() {
 		$('form').submit(function(){
 			var idCheckResult = $('#idCheckResult').text().trim();
+			var emailCheckResult = $('#emailCheckResult').text().trim();
 			var mpw = $('#mpw').val();
 			var mpwChk = $('#mpwChk').val();
 			if (idCheckResult != '사용가능한 아이디입니다') {
 				alert('사용 가능한 ID로 입력하세요');
 				return false;
+			} else if (emailCheckResult != '사용가능한 이메일입니다') {
+				alert('사용 가능한 이메일로 입력하세요');
+				return false;
 			} else if (mpwChk != mpw) {
-				alert('비밀번호를 확인하세요');
+				alert('비밀번호가 일치하지 않습니다');
 				return false;
 			} 
 		});
@@ -29,7 +33,7 @@
 	function idCheck(mid) {
 		var mid = $('#mid').val();
 		$.ajax({
-			url : '${conPath}/idCheck.do',
+			url : '${conPath}/member/idCheck.do',
 			data : 'mid=' + mid,
 			type : 'get',
 			dataType : 'html',
@@ -38,26 +42,41 @@
 			}
 		});
 	}
+	
+	function emailCheck(memail) {
+		var memail = $('#memail').val();
+		$.ajax({
+			url : '${conPath}/member/emailCheck.do',
+			data : 'memail=' + memail,
+			type : 'get',
+			dataType : 'html',
+			success : function(data, status) {
+				$('#emailCheckResult').html(data);
+			}
+		});
+	}
 </script>
 
 </head>
 <body>
 	<div>
-		<form action="${conPath }/join.do" method="post">
+		<form action="${conPath }/member/join.do" method="post">
 			<table>
 				<caption>회원가입</caption>
 				<tr>
 					<th><label for="mid">아이디</label></th>
-					<td><input type="text" name="mid" id="mid"> <input
-						type="button" value="중복확인" class="btn" onclick="idCheck(mid)">
-						<div id="idCheckResult"></div></td>
+					<td>
+						<input type="text" name="mid" id="mid"> 
+						<input type="button" value="중복확인" class="btn" onclick="idCheck(mid)">
+						<div id="idCheckResult"></div>
+					</td>
 				</tr>
 				<tr>
 					<th><label for="mpw">비밀번호</label></th>
 					<td><input type="password" name="mpw" id="mpw"></td>
 				</tr>
 				<tr>
-					<th><label for="mpwChk">비밀번호</label></th>
+					<th><label for="mpwChk">비밀번호확인</label></th>
 					<td><input type="password" name="mpwChk" id="mpwChk">
 					</td>
 				</tr>
@@ -68,15 +87,19 @@
 				<tr>
 					<th>생년월일</th>
 					<td><input type="date" name="tempmbirth"
-						class="datepicker"></td>
+						class="datepicker" id="tempmbirth"></td>
 				</tr>
 				<tr>
 					<th><label for="memail">이메일</label></th>
-					<td><input type="email" name="memail" id="memail"></td>
+					<td>
+						<input type="email" name="memail" id="memail">
+						<input type="button" value="중복확인" class="btn" onclick="emailCheck(memail)">
+						<div id="emailCheckResult"></div>
+					</td>
 				</tr>
 				<tr>
 					<th>좌우명</th>
-					<td><textarea rows="5" cols="10" name="mmotto"></textarea></td>
+					<td><textarea rows="5" cols="10" name="mmotto" id="mmotto"></textarea></td>
 				</tr>
 			</table>
 			<div>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mylog.dao.AlertDao">
+	<resultMap type="Alert" id="AlertResult">
+		<result column="alno" property="alno"/>
+		<result column="mid" property="mid"/>
+		<result column="fid" property="fid"/>
+		<result column="alcode" property="alcode"/>
+		<result column="alcheck" property="alcheck"/>
+		<result column="aldate" property="aldate"/>
+	</resultMap>
+	<select id="myAlertList" parameterType="Alert" resultMap="AlertResult">
+		SELECT * 
+    		FROM (SELECT ROWNUM RN, A.* 
+            		FROM (SELECT AL.*, CODENAME, M1.MNAME MIDNAME, M2.MNAME FIDNAME
+                    		FROM ALERT AL, ALERT_CODE AC, MEMBER M1, MEMBER M2
+                    		WHERE M1.MID = AL.MID AND AL.FID = M2.MID AND AL.ALCODE = AC.ALCODE AND (AL.MID = #{mid} OR AL.FID = #{mid})
+                    		ORDER BY ALDATE DESC) A)
+    		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="countMyAlert" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM (SELECT * FROM ALERT WHERE MID = #{mid} OR FID = #{mid})
+	</select>
+	<select id="countNotRead" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM (SELECT * FROM ALERT WHERE (MID = #{mid} OR FID = #{mid}) AND ALCHECK = 0)
+	</select>
+	<insert id="makeAlert" parameterType="Alert">
+		INSERT INTO ALERT (ALNO, MID, FID, ALCODE)
+			VALUES (ALERT_SEQ.NEXTVAL, #{mid}, #{fid}, #{alcode})
+	</insert>
+	<update id="readAlert" parameterType="int">
+		UPDATE ALERT SET ALCHECK = 1 WHERE ALNO = #{alno} AND ALCHECK = 0
+	</update>
+</mapper>

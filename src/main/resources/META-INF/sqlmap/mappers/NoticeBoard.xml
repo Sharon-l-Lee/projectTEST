@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mylog.dao.NoticeBoardDao">
+	<resultMap type="NoticeBoard" id="NoticeBoardResult">
+		<result property="nno" column="nno"/>
+		<result property="aid" column="aid"/>
+		<result property="ntitle" column="ntitle"/>
+		<result property="ncontent" column="ncontent"/>
+		<result property="nrdate" column="nrdate"/>
+		<result property="nhit" column="nhit"/>
+		<result property="nip" column="nip"/>
+	</resultMap>
+	<select id="noticeList" parameterType="NoticeBoard" resultMap="NoticeBoardResult">
+		SELECT *
+    		FROM (SELECT ROWNUM RN, A.*
+            		FROM (SELECT * FROM NOTICEBOARD ORDER BY NNO DESC) A)
+    		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+	<select id="getNotice" parameterType="int" resultType="NoticeBoard">
+		SELECT * FROM NOTICEBOARD WHERE NNO = #{NNO}
+	</select>
+	<select id="noticeContent" parameterType="int" resultType="NoticeBoard">
+		SELECT * FROM NOTICEBOARD WHERE NNO = #{NNO}
+	</select>
+	<select id="countNotice" resultType="int">
+		SELECT COUNT(*) FROM NOTICEBOARD
+	</select>
+	<insert id="noticeWrite" parameterType="NoticeBoard">
+		INSERT INTO NOTICEBOARD (NNO, AID, NTITLE, NCONTENT, NIP)
+    		VALUES (NOTICEBOARD_SEQ.NEXTVAL, #{aid}, #{ntitle}, #{ncontent}, #{nip})
+	</insert>
+	<update id="noticeUpdate" parameterType="NoticeBoard">
+		UPDATE NOTICEBOARD SET NTITLE = #{ntitle}, NCONTENT = #{ncontent}, NIP = #{nip}
+    		WHERE NNO = #{nno}
+	</update>
+	<update id="hitupNotice" parameterType="int">
+		UPDATE NOTICEBOARD SET NHIT = NHIT + 1 WHERE NNO = #{nno}
+	</update>
+	<delete id="noticeDelete" parameterType="int">
+		DELETE FROM NOTICEBOARD WHERE NNO = #{nno}
+	</delete>
+</mapper>

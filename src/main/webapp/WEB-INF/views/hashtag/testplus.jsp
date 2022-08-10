@@ -3,22 +3,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<script type="text/javascript">
-	var tname= '${tname}';
-	
-	var blank = document.createTextNode("\u00a0\u00a0\u00a0\u00a0");
-	$('#tag').append('<span>'+tname+'</span>');
-	$('#tag').append('<button id="delete">X</button>');
-	//$('#tag').append('<button onclick="location.href=''">X</button>');
-	$('#tag').append(blank);
-	
-</script>
+	<meta charset="UTF-8">
 </head>
 <body>
-<span id="tag">
-		<!-- <input type="hidden" name="space"> -->
+	<span id="tag">
+			<span id="${hno }">#${hname}</span>
+			<button id="delete">X</button>
 	</span>
 </body>
 </html>

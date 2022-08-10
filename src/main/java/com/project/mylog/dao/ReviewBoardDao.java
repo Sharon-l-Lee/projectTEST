@@ -21,4 +21,10 @@ public interface ReviewBoardDao {
 	public void reviewHitUp();
 
 	public int reviewCount();
+	
+	public int getRnum();
+	
+
+	
+	
 }

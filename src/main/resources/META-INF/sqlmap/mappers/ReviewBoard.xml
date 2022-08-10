@@ -15,6 +15,7 @@
 			<result property="rhit" column="rhit"/>
 			<result property="rstatus" column="rstatus"/>
 			<result property="rip" column="rip"/>
+			<result property="cnt" column="cnt"/>
     	</resultMap>
     	
     	<!-- 추가 -->
@@ -40,9 +41,10 @@
 		<!-- 출력 -->
 		
 		<select id="reviewList" parameterType="ReviewBoard" resultMap="ReviewBoardResult">
-			SELECT *
-   				 FROM(SELECT ROWNUM RN, A.*
-   				FROM(SELECT R.*, MNAME FROM RBOARD R, MEMBER M WHERE M.MID = R.MID ORDER BY RRDATE DESC)A)
+		
+		SELECT *
+    		FROM(SELECT ROWNUM RN, A.*
+        		FROM(SELECT R.*, MNAME,(SELECT COUNT(*)FROM RPBOARD B WHERE B.RNUM= R.RNUM) AS cnt FROM RBOARD R, MEMBER M WHERE M.MID = R.MID ORDER BY RRDATE DESC)A)
     		WHERE RN BETWEEN #{startRow} AND #{endRow}
 		</select>
 
@@ -60,7 +62,13 @@
 		<select id="reviewCount" resultType="int">
 			SELECT COUNT(*) CNT FROM RBOARD
 		</select>
-
+		
+		<!-- 최근 글 번호 -->
+		<select id="getRnum" resultType="int">
+			SELECT MAX(RNUM) FROM RBOARD
+		</select>
+		
+		
     
     </mapper>
     

@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.mylog.dao.TeamDao">
+<mapper namespace="com.project.mylog.dao.TeamCommentBoardDao">
 	<resultMap type="TeamCommentBoard" id="TeamCommentBoardResult">
 		<result column="tcnum" property="tcnum"/>
 		<result column="mid" property="mid"/>
@@ -13,8 +13,8 @@
 		<result column="tcstep" property="tcstep"/>
 		<result column="tcindent" property="tcindent"/>
 		<result column="tcip" property="tcip"/>
-		<result column="cstartRow" property="cstartRow"/>
-		<result column="cendRow" property="cendRow"/>
+		<result column="startRow" property="startRow"/>
+		<result column="endRow" property="endRow"/>
 	</resultMap>
 	
 	<!-- boardList -->
@@ -26,8 +26,8 @@
 		        WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<!-- totCnt -->
-	<select id="teamCommentTotCnt" resultType="int">
-		SELECT COUNT(*) FROM TEAM_COMMENTBOARD
+	<select id="teamCommentTotCnt" parameterType="int" resultType="int">
+		SELECT COUNT(*) FROM TEAM_COMMENTBOARD	WHERE tNUM=#{tnum}
 	</select>
 	<!-- write -->
 	<insert id="teamCommentWrite" parameterType="TeamCommentBoard" >
@@ -45,6 +45,10 @@
 	<delete id="teamCommentDelete" parameterType="int">
 		DELETE FROM TEAM_COMMENTBOARD WHERE tcNUM=#{tcnum}
 	</delete>
+	<!-- getDetail -->
+	<select id="teamCommentDetail" parameterType="int" resultType="TeamCommentBoard">
+		SELECT * FROM TEAM_COMMENTBOARD WHERE tcNUM=#{tcnum}
+	</select>
 	<!-- preReply -->
 	<update id="teamCommentPreReply" parameterType="TeamCommentBoard">
 		<![CDATA[	
@@ -55,7 +59,7 @@
 	<!-- reply -->
 	<insert id="teamCommentReply" parameterType="TeamCommentBoard">
 		INSERT INTO TEAM_COMMENTBOARD (tcNUM, mID, tNUM, tcCONTENT, tcGROUP, tcSTEP, tcINDENT, tcIP)
-        	VALUES (TEAM_COMMENTBOARD_SEQ.NEXTVAL, #{mid}, #{tnum}, #{tccontent}, #{tcgroup}, #{tcstep}, #{tcindent}, #{tcip})
+        	VALUES (TEAM_COMMENTBOARD_SEQ.NEXTVAL, #{mid}, #{tnum}, #{tccontent}, #{tcgroup}, #{tcstep}+1, #{tcindent}+1, #{tcip})
 	</insert>
 	
 </mapper>

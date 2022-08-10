@@ -20,6 +20,6 @@ public class TeamCommentBoard {
 	private int tcindent;
 	private String tcip;
 	
-	private int cstartRow;
-	private int cendRow;
+	private int startRow;
+	private int endRow;
 }

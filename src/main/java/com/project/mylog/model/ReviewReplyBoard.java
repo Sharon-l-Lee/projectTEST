@@ -14,9 +14,9 @@ public class ReviewReplyBoard {
 	private String rpcontent;
 	private Date rpdate;
 	private int rpgroup;
-	private int rpstep;
 	private int rpindent;
-	private String rip;
+	private String rpmention;
+	private String rpip;
 	private int startRow;
 	private int endRow;
 

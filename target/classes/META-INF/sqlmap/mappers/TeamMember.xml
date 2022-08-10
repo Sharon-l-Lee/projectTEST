@@ -2,29 +2,66 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.mylog.dao.Team_MemberDao">
+<mapper namespace="com.project.mylog.dao.TeamMemberDao">
 	<resultMap type="TeamMember" id="TeamMemberResult">
 		<result column="tmno" property="tmno"/>
 		<result column="mid" property="mid"/>
 		<result column="tno" property="tno"/>
+		<result column="tmcheck" property="tmcheck"/>
+		<result column="tname" property="tname"/>
 	</resultMap>
+	
+	<!-- myTeamList -->
+	<select id="myTeamList" parameterType="String" resultType="TeamMember">
+		SELECT T.tNAME, T.MID FROM TEAM_MEMBER TM, TEAM T WHERE TM.tNO = T.tNO AND TM.tmCHECK=1 AND TM.mID=#{mid}
+	</select>
+	
+	<!-- myApplyTeamList -->
+	<select id="myApplyTeamList" parameterType="String" resultType="TeamMember">
+		SELECT T.tNAME, T.MID FROM TEAM_MEMBER TM, TEAM T WHERE TM.tNO = T.tNO AND TM.tmCHECK=0 AND TM.mID=#{mid}
+	</select>
+	
+	<!-- applyTeamMember -->
+	<insert id="applyTeamMember" parameterType="TeamMember">
+		INSERT INTO TEAM_MEMBER (tmNO, mID, tNO, tmCHECK)
+        	VALUES (TEAM_MEMBER_SEQ.NEXTVAL, #{mid}, #{tno}, 0)
+	</insert>
+	
+	<!-- deleteApplyTeam -->
+	<delete id="deleteApplyTeam" parameterType="TeamMember">
+		DELETE FROM TEAM_MEMBER WHERE tmCHECK = 0 AND tmNO=#{tmno } AND tNO=#{tno };
+	</delete>
+	
+	<!-- permitApplyTeam -->
+	<update id="permitApplyTeam" parameterType="TeamMember">
+		UPDATE TEAM_MEMBER SET tmCHECK = 1
+                    WHERE tmNO=#{tmno} AND tNO=#{tno}
+	</update>
 	
 	<!-- joinTeamMember -->
 	<insert id="joinTeamMember" parameterType="TeamMember">
-		INSERT INTO TEAM_MEMBER (tmNO, mID, tNO)
-        	VALUES (TEAM_MEMBER_SEQ.NEXTVAL, #{mid}, #{tno})
+		INSERT INTO TEAM_MEMBER (tmNO, mID, tNO, tmCHECK)
+        	VALUES (TEAM_MEMBER_SEQ.NEXTVAL, #{mid}, #{tno}, 1)
 	</insert>
+	
+	<!-- teamApplyList -->
+	<select id="teamApplyList" parameterType="int" resultType="TeamMember">
+		SELECT * FROM TEAM_MEMBER WHERE tmCHECK = 0 AND tNO = #{tno}
+	</select>
+	
 	<!-- drawalTeamMember -->
 	<delete id="drawalTeamMember" parameterType="TeamMember">
-		DELETE FROM TEAM_MEMBER WHERE mID=#{mid} AND tNO=#{tno}
+		DELETE FROM TEAM_MEMBER WHERE tmCHECK = 1 AND tmNO=#{tmno} AND tNO=#{tno}
 	</delete>
+	
 	<!-- teamMemberList -->
 	<select id="teamMemberList" parameterType="int" resultType="TeamMember">
-		SELECT mID FROM TEAM_MEMBER WHERE tNO=#{tno}
+		SELECT * FROM TEAM_MEMBER WHERE tmCHECK=1 AND tNO=#{tno}
 	</select>
+	
 	<!-- teamMemberTotCnt -->
 	<select id="teamMemberTotCnt" parameterType="int" resultType="int">
-		SELECT COUNT(*) FROM TEAM_MEMBER WHERE tNO=#{tno}
+		SELECT COUNT(*) FROM TEAM_MEMBER WHERE tmCHECK=1 AND tNO=#{tno}
 	</select>
 	
 </mapper>

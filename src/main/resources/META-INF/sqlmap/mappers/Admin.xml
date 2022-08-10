@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.project.mylog.dao.AdminDao">
+	<resultMap type="Admin" id="AdminResult">
+		<result column="aid" property="aid"/>
+		<result column="apw" property="apw"/>
+		<result column="agrade" property="agrade"/>
+	</resultMap>
+	<!-- joinAdmin -->
+	<insert id="joinAdmin" parameterType="Admin">
+		INSERT INTO ADMIN (aID, aPW, aGRADE)
+        	VALUES (#{aid}, #{apw}, 0)
+	</insert>
+	<!-- getDetail -->
+	<select id="getAdminDetail" parameterType="String" resultType="Admin">
+		SELECT * FROM ADMIN WHERE AID=#{aid}
+	</select>
+
+	<!-- member에서 갖다쓸 예정 -->	
+		<!-- deleteMember -->
+		<!-- recoverMember -->
+		<!-- memberList -->
+	
+</mapper>

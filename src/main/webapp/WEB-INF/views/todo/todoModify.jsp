@@ -7,15 +7,13 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<script>
-		$(document).ready(function(){
-
-		});
-	</script>
 </head>
 <body>
-	
+	<form action="${conPath }/todo/modify.do" method="post" id="todo_form">
+		<input type="hidden" name="tdno" value="${param.tdno }">
+		<input type="hidden" name="ddate" value="${param.ddate }">
+		<input type="text" id="tdcontent" name="tdcontent" value="${param.tdcontent }" autofocus="autofocus">
+		<input type="submit" value="수정">
+	</form>
 </body>
 </html>

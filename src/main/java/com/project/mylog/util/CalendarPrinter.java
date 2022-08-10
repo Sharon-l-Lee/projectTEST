@@ -31,22 +31,45 @@ public class CalendarPrinter {
 		
 		// 나중에 서비스 넣을것
 		/*
-		 * Map<String, Object> map = model.asMap(); String yearParam =
-		 * String.valueOf(map.get("year")); String monthParam =
-		 * String.valueOf(map.get("month")); int year, month; if(yearParam==null &&
-		 * monthParam==null) { Calendar cal = Calendar.getInstance(); year =
-		 * cal.get(Calendar.YEAR); month = cal.get(Calendar.MONTH)+1; yearParam =
-		 * String.valueOf(year); monthParam = month<10 ? "0"+month :
-		 * String.valueOf(month); }else { year = Integer.parseInt(yearParam); month =
-		 * Integer.parseInt(monthParam); monthParam = month<10 ? "0"+month :
-		 * String.valueOf(month); } CalendarPrinter calPrint = new CalendarPrinter(year,
-		 * month);
+		 * Map<String, Object> map = model.asMap();
+		 * String yearParam = String.valueOf(map.get("year")); 
+		 * String monthParam = String.valueOf(map.get("month"));
+		 * int year, month;
+		 * if(yearParam==null && monthParam==null) {
+		 * 		Calendar cal = Calendar.getInstance();
+		 * 		year = cal.get(Calendar.YEAR);
+		 * 		month = cal.get(Calendar.MONTH)+1;
+		 * 		yearParam = String.valueOf(year);
+		 *		monthParam = month<10 ? "0"+month : String.valueOf(month);
+		 * } else {
+		 * 		year = Integer.parseInt(yearParam);
+		 * 		month = Integer.parseInt(monthParam);
+		 * 		monthParam = month<10 ? "0"+month : String.valueOf(month);
+		 * }
+		 * CalendarPrinter calPrint = new CalendarPrinter(year,month);
 		 * 
-		 * model.addAttribute("year", year); model.addAttribute("month", month);
+		 * model.addAttribute("year", year);
+		 * model.addAttribute("month", month);
 		 * model.addAttribute("calPrint", calPrint);
 		 */
 		
 		
+	}
+
+	public int getStartday() {
+		return startday;
+	}
+
+	public void setStartday(int startday) {
+		this.startday = startday;
+	}
+
+	public int getLastday() {
+		return lastday;
+	}
+
+	public void setLastday(int lastday) {
+		this.lastday = lastday;
 	}
 
 	public String[][] getCalDate() {
