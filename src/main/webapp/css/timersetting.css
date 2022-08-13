@@ -1,0 +1,51 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'digital';
+    src: url('../fonts/LAB디지털.ttf') format('truetype');
+}
+
+
+*{
+	margin:0;
+	border:0;
+}
+
+#wrap{
+	width:600px;
+	height:300px;
+}
+
+#wrap .tform {
+	margin : 50px auto;
+	border :2px solid lightgray;
+	border-radius:10px;
+	background-color:lightgray;
+	width:80%;
+	height:80%;
+	
+}
+
+#wrap .tform .name {
+	height:20px;
+	margin: 30px 0;
+	text-align: center;
+	font-family: 'digital';
+	font-size: 30px;
+}
+
+#wrap .tform input{
+	height:30px;
+	width:300px;
+	margin:0 auto;
+	display: block;
+	text-align: center;
+	border-bottom:2px solid #ffffff;
+/* 	background-color: lightgray; */
+}
+
+#wrap .tform .btn{
+	width:200px;
+	text-align: center;
+	background-color: #ffffff;
+	
+}

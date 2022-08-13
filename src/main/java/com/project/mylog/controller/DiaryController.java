@@ -3,6 +3,7 @@ package com.project.mylog.controller;
 import java.sql.Date;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.project.mylog.model.DiaryBoard;
 import com.project.mylog.service.DiaryBoardService;
+import com.project.mylog.service.DiaryReplyService;
 import com.project.mylog.service.TodoService;
 import com.project.mylog.util.Paging;
 
@@ -23,6 +25,9 @@ public class DiaryController {
 	
 	@Autowired
 	private DiaryBoardService dbService;
+	
+	@Autowired
+	DiaryReplyService drService;
 	
 	@Autowired
 	private TodoService todoService;
@@ -65,8 +70,8 @@ public class DiaryController {
 	}
 	
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String write(DiaryBoard diaryBoard, HttpSession session, MultipartHttpServletRequest mRequest, Model model) {
-		dbService.diaryWrite(session, mRequest, diaryBoard);
+	public String write(DiaryBoard diaryBoard, HttpSession session, HttpServletRequest request, Model model) {
+		dbService.diaryWrite(session, diaryBoard, request);
 		return "forward:myList.do";
 	}
 	
@@ -77,14 +82,18 @@ public class DiaryController {
 	}
 	
 	@RequestMapping(value = "modify", method = RequestMethod.POST)
-	public String modify(DiaryBoard diaryBoard, MultipartHttpServletRequest mRequest, Model model) {
-		dbService.diaryModify(mRequest, diaryBoard);
+	public String modify(DiaryBoard diaryBoard, HttpServletRequest request, Model model) {
+		dbService.diaryModify(diaryBoard, request);
 		return "forward:content.do?dnum="+diaryBoard.getDnum();
 	}
 	
 	@RequestMapping(value = "delete", method = {RequestMethod.GET, RequestMethod.POST})
-	public String delete(int dnum) {
+	public String delete(int dnum, int returnInt) {
 		dbService.diaryDelete(dnum);
-		return "forward:myList.do";
+		drService.allReplyDelete(dnum);
+		if(returnInt == 0) {
+			return "forward:myList.do";
+		}
+		return "forward:diaryList.do";
 	}
 }

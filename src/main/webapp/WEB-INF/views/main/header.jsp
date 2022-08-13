@@ -26,7 +26,7 @@
    	<a href="${conPath }/teamboard/list.do">팀 보드</a>
    	<a href="${conPath}/teammember/myteamList.do">나의 그룹(로그인 후)</a>
    	<a href="${conPath }/admin/loginView.do">관리자 로그인</a>
-   	<a href="${conPath }/timer/setting.do">타이머</a>
+   	<a href="${conPath }/timer/setting.do" onclick="window.open(this.href,'_blank', 'width=630, height=400'); return false">타이머</a>
    	<a href="${conPath }/notice/list.do">공지사항</a>
     <a href="${conPath }/timetable/view.do">일 캘린더</a>
     <a href="${conPath }/diary/diaryList.do">일기목록</a>

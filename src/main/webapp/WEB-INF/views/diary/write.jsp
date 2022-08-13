@@ -8,14 +8,14 @@
 <head>
 	<meta charset="UTF-8">
 	<title>MyLog : write</title>
-	<script src="/resources/ckeditor/ckeditor.js"></script>
-	<script src="/resources/ckeditor/ko.js"></script>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="${conPath }/resources/ckeditor/ckeditor.js"></script>
 	<script>
-		function MyCustomUploadAdapterPlugin(editor) {
-		    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
-		        return new UploadAdapter(loader)
-		    }
-		}
+		$(function() {
+			CKEDITOR.replace('dcontent', {
+				filebrowserUploadUrl : '${conPath }/ckeditor/diaryUpload.do'
+			});
+		});
 	</script>
 </head>
 <body>
@@ -47,16 +47,7 @@
 				<tr>
 					<th>내용</th>
 					<td>
-						<textarea id="classic" name="dcontent"></textarea>
-						<script>
-					        ClassicEditor
-					            .create( document.querySelector( '#classic' ), {
-					                language: 'ko' //언어설정
-					            })
-					            .catch( error => {
-					                console.error( error );
-					            } );
-					    </script>
+						<textarea id="classic" name="dcontent" required="required"></textarea>
 					</td>
 				</tr>
 				<tr>

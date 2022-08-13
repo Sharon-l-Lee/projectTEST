@@ -1,0 +1,67 @@
+@charset "UTF-8";
+
+*{
+	margin:0;
+	padding:0;
+}
+
+#wrap{
+	width:600px;
+	height:350px;
+	
+}
+
+
+
+#wrap #content .tcontent{
+	display: inline-block;
+	margin:30px auto;
+
+}
+
+#wrap #content .tcontent button{
+	margin:0;
+	display:inline;
+	outline:none;
+	border : none;
+	background-color:white;
+	position:relative;
+	left:30px;
+	bottom:30px;
+}
+#wrap #content .mcontent{
+	width:600px;
+	position:relative;
+	left:15px;
+	border:1px solid black;
+	paddin:10px 0;
+	box-shadow: 3px 3px;
+	
+}
+
+#wrap #content .hourglass img{
+	width:30px;
+	height:30px;
+	position:relative;
+	left:300px;
+	top:14px;
+
+
+	
+}
+#wrap #content .mcontent:first-child{
+
+	
+}
+
+
+#wrap #content .mcontent .do{
+	width:100%;
+
+	margin:0 auto;
+	height:50px;
+	text-align:center;
+	line-height:50px;
+	
+
+}

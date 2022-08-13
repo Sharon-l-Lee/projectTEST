@@ -1,0 +1,51 @@
+@charset "UTF-8";
+#main_wrap{
+	/* 위치 */
+	margin : 60px 35px;
+	
+	/* 크기 */
+	width : 1600px;
+	height : 850px;
+	
+	/* 이미지 */
+	background-image: url("../img/index1_notbutton.png");
+	
+	/* header 붙이기 */
+	overflow: hidden;
+}
+/* #main_wrap #start_button{
+	위치
+	margin : 435px 0 0 655px;
+	
+	크기
+	width : 300px;
+	height: 70px;
+	
+	글씨
+	font-size: 50px;
+	line-height: 70px;
+	font-weight : bold;
+	
+	디자인
+	border: none;
+	color : white;
+	outline: none;
+	background-color: #03045E;
+}
+
+#main_wrap #start_button:hover{
+	위치
+	margin : 437px 0 0 657px;
+	
+	크기
+	width : 296px;
+	height: 66px;
+	
+	글씨
+	font-size: 50px;
+	line-height: 66px;
+	font-weight : bold;
+	
+	디자인
+	cursor: pointer;
+} */

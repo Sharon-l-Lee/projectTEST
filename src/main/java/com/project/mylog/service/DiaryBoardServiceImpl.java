@@ -2,6 +2,7 @@ package com.project.mylog.service;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.sql.Date;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.project.mylog.dao.DiaryBoardDao;
 import com.project.mylog.model.DiaryBoard;
+import com.project.mylog.model.FileUp;
 import com.project.mylog.model.Member;
 import com.project.mylog.util.Paging;
 
@@ -26,7 +28,7 @@ public class DiaryBoardServiceImpl implements DiaryBoardService {
 	@Autowired
 	private DiaryBoardDao diaryDao;
 	
-	String backupPath = "D:\\yujin\\teamproject\\mylog\\src\\main\\webapp\\WEB-INF\\diaryBoardFileUpload/";
+	String backupPath = "D:\\yujin\\teamproject\\mylog\\src\\main\\webapp\\resources\\diaryBoardFileUpload\\";
 
 	@Override
 	public List<DiaryBoard> myDiaryList(HttpSession session, Date ddate, String pageNum) {
@@ -84,65 +86,15 @@ public class DiaryBoardServiceImpl implements DiaryBoardService {
 	}
 
 	@Override
-	public int diaryWrite(HttpSession session, MultipartHttpServletRequest mRequest, DiaryBoard diaryBoard) {
-		diaryBoard.setDip(mRequest.getLocalAddr());
+	public int diaryWrite(HttpSession session, DiaryBoard diaryBoard, HttpServletRequest request) {
+		diaryBoard.setDip(request.getLocalAddr());
 		diaryBoard.setMid(((Member) session.getAttribute("member")).getMid());
-		boolean result = false;
-		String path = mRequest.getRealPath("diaryBoardFileUpload/");
-		Iterator<String> params = mRequest.getFileNames(); // 파라미터이름 받음
-		String filename = "";
-		while (params.hasNext()) {
-			String param = params.next();
-			MultipartFile mFile = mRequest.getFile(param); // 파라미터의 첨부된 파일 객체
-			System.out.println("파라미터 이름 : " + param);
-			filename = mFile.getOriginalFilename(); // param으로 첨부한 파일의 원래 이름
-			if (filename != null && !filename.equals("")) { // 첨부한 파일이 있을 경우
-				// 저장할 파일이름이 서버의 파일과 중복될 경우 -> 파일명 변경
-				if (new File(path + filename).exists()) {
-					filename = System.currentTimeMillis() + "_" + filename;
-				}
-				try {
-					mFile.transferTo(new File(path + filename));
-					result = fileCopy(path + filename, backupPath + filename);
-					System.out.println(result == true ? filename + " 백업성공" : filename + "번째 백업실패");
-				} catch (IOException e) {
-					System.out.println(e.getMessage());
-				}
-			} else {
-				result = true;
-			}
-		} // if
 		return diaryDao.diaryWrite(diaryBoard);
 	}
 
 	@Override
-	public int diaryModify(MultipartHttpServletRequest mRequest, DiaryBoard diaryBoard) {
-		diaryBoard.setDip(mRequest.getLocalAddr());
-		boolean result = false;
-		String path = mRequest.getRealPath("diaryBoardFileUpload/");
-		Iterator<String> params = mRequest.getFileNames(); // 파라미터이름 받음
-		String filename = "";
-		while (params.hasNext()) {
-			String param = params.next();
-			MultipartFile mFile = mRequest.getFile(param); // 파라미터의 첨부된 파일 객체
-			System.out.println("파라미터 이름 : " + param);
-			filename = mFile.getOriginalFilename(); // param으로 첨부한 파일의 원래 이름
-			if (filename != null && !filename.equals("")) { // 첨부한 파일이 있을 경우
-				// 저장할 파일이름이 서버의 파일과 중복될 경우 -> 파일명 변경
-				if (new File(path + filename).exists()) {
-					filename = System.currentTimeMillis() + "_" + filename;
-				}
-				try {
-					mFile.transferTo(new File(path + filename));
-					result = fileCopy(path + filename, backupPath + filename);
-					System.out.println(result == true ? filename + " 백업성공" : filename + "번째 백업실패");
-				} catch (IOException e) {
-					System.out.println(e.getMessage());
-				}
-			} else {
-				result = true;
-			}
-		} // while
+	public int diaryModify(DiaryBoard diaryBoard, HttpServletRequest request) {
+		diaryBoard.setDip(request.getLocalAddr());
 		return diaryDao.diaryModify(diaryBoard);
 	}
 
@@ -152,33 +104,68 @@ public class DiaryBoardServiceImpl implements DiaryBoardService {
 	}
 
 	
-	private boolean fileCopy(String serverFile, String backupFile) {
-		boolean isCopy = false;
+	@Override
+	public FileUp fileUp(FileUp fileUp, HttpServletRequest request) {
+		String rootPath = request.getRealPath("/");
+		String attachPath = "resources/diaryBoardFileUpload/";
+		System.out.println("서버로 여기로 보낸다 : "+rootPath + attachPath);
+		MultipartFile upload = fileUp.getUpload();
+		String filename = "";
+		
+		if(upload != null){
+	    	filename = System.currentTimeMillis() + upload.getOriginalFilename();
+	    	fileUp.setFilename(filename);
+	     	try{
+	     		File file = new File(rootPath + attachPath + filename);
+	     		upload.transferTo(file);
+	     	}catch(IOException e){
+	     		e.printStackTrace();
+	     	}  
+	     	
+	     	fileUp.setAttachPath(attachPath);
+	     	fileUp.setFilename(filename);
+	     }
+		 
+		int result = filecopy(rootPath + attachPath + filename, backupPath+filename);
+		if(result==1) {
+			System.out.println(filename+" 파일 백업 성공");
+		}
+		return fileUp;
+	}
+	
+	private int filecopy(String serverFile, String backupFile) {
+		int isCopy = 0;
 		FileInputStream is = null;
 		FileOutputStream os = null;
 		try {
-			File file = new File(serverFile);
-			is = new FileInputStream(file);
+			is = new FileInputStream(serverFile);
 			os = new FileOutputStream(backupFile);
-			byte[] buff = new byte[(int) file.length()];
+			File sFile = new File(serverFile);
+			byte[] buff = new byte[(int)sFile.length()];
 			while(true) {
-				int nReadByte = is.read(buff);
-				if(nReadByte == -1) break;
-				os.write(buff, 0, nReadByte);
+				int nRead = is.read(buff);
+				if(nRead == -1) {
+					break;
+				}
+				os.write(buff, 0, nRead);
 			}
-			isCopy = true;
-		}catch (IOException e) {
-			System.out.println(e.getMessage());
-		}finally {
+			isCopy = 1;
+		} catch (FileNotFoundException e) {
+			System.out.println("복사 예외0 : "+e.getMessage());
+		} catch (IOException e) {
+			System.out.println("복사 예외1 : "+e.getMessage());
+		} finally {
 			try {
-				if(os!=null) os.close();
-				if(is!=null) is.close();
-			} catch (Exception e2) {
-				System.out.println(e2.getMessage());
+				if(os!=null) {
+					os.close();
+				}
+				if(is!=null) {
+					is.close();
+				}
+			}catch (Exception e) {
 			}
 		}
 		return isCopy;
 	}
-	
 
 }

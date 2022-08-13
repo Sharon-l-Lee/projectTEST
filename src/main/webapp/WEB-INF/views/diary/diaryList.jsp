@@ -19,7 +19,7 @@
 	<div id="main_wrap">
 		<div id="diaryList">
 			<c:forEach var="diary" items="${diaryList }">
-				<div class="list" onclick="location.href='${conPath }/diary/content.do?dnum=${diary.dnum }'">
+				<div class="list" onclick="location.href='${conPath }/diary/content.do?dnum=${diary.dnum }&returnInt=1'">
 					<span>${diary.dtitle }</span>
 					<c:if test="${diary.dstatus eq 0 }">
 						<span class="status">비밀 일기</span>

@@ -7,16 +7,10 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-		$(document).ready(function(){
-
-		});
-	</script>
+	<title>My Log</title>
+	<link href="${conPath }/css/index.css" rel="stylesheet">
 </head>
 <body>
-	<jsp:include page="../main/header.jsp"/>
 	<h1>메인입니다</h1>
 	<c:if test="${joinResult eq 0 }">
 		<script>
@@ -60,9 +54,8 @@
 			alert('${logoutResult}');
 		</script>
 	</c:if>
-	<h1>메인입니다</h1>
-	<c:if test="${not empty admin }">
-		<button onclick="location.href='${conPath }/admin/logout.do'">관리자 로그아웃</button>
-	</c:if>
+	<div id="main_wrap">
+	</div>
+	<jsp:include page="header.jsp"/>
 </body>
 </html>

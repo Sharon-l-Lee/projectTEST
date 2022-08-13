@@ -1,0 +1,84 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#main_wrap {
+	margin: 60px 35px;
+	/* 크기 */
+	width: 1600px;
+	height: 850px;
+	/* 이미지 */
+	background-image: url("../img/index1_notbutton.png");
+	/* header 붙이기 */
+	overflow: hidden;
+	background-image: url( "../img/main_wraper.png" );
+	background-repeat: no-repeat;
+}
+
+#main_wrap #wrap {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+}
+
+#main_wrap #wrap h1{
+	width: 30%;
+	position: relative;
+	left:10%;
+	top:7%;
+}
+
+#main_wrap #wrap #content_wrap {
+	width: 50%;
+	height: 80%;
+	position: relative;
+	top:10%;
+	left:10%;
+	overflow: hidden;
+}
+#main_wrap #wrap #content_wrap .rphoto{
+	width:30%;
+	height:50%;
+	float: left;
+}
+#main_wrap #wrap #content_wrap .titles{
+	width:40%;
+	height:50%;
+	float: left;
+	margin-left:10%;
+}
+#main_wrap #wrap #content_wrap table{
+	width:100%;
+	height:100%;
+	float: left;
+}
+#main_wrap #wrap #content_wrap td{
+	margin-top:30px;
+}
+#main_wrap #wrap #content_wrap .contents{
+	width:85%;
+	height:30%;
+	clear:both;
+	border-top: 1px solid black;
+	border-bottom: 1px solid black;
+	position: relative;
+	top:5%;
+	padding: 20px 5px;
+}
+#main_wrap #wrap #content_wrap .rbtn{
+	width:30%;
+	height:60%;
+	
+}
+
+#main_wrap #wrap #comment{
+	width:40%;
+	height:70%;
+	float: right;
+	position: relative;
+	right:5%;
+	bottom:70%;
+}

@@ -72,4 +72,9 @@ public class DiaryReplyServiceImpl implements DiaryReplyService {
 		return dReplyDao.replyDelete(drnum);
 	}
 
+	@Override
+	public int allReplyDelete(int dnum) {
+		return dReplyDao.allReplyDelete(dnum);
+	}
+
 }

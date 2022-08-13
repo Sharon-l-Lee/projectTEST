@@ -66,4 +66,9 @@
 		DELETE FROM DIARYREPLY WHERE DRNUM = #{drnum}
 	</delete>
 	
+	<!-- 게시글에 해당되는 모든 댓글 삭제 -->
+	<delete id="allReplyDelete" parameterType="int">
+		DELETE FROM DIARYREPLY WHERE DNUM = #{dnum}
+	</delete>
+	
 </mapper>

@@ -20,7 +20,8 @@
 <body>
 	<form action="modify.do" enctype="multipart/form-data" method="post">
 		<div>
-			<input type="text" name="mid" value="${modifyView.mid }">
+			<input type="hidden" name="mid" value="${modifyView.mid }">
+			<input type="hidden" name="rnum" value="${modifyView.rnum }">
 		</div>
 		<div>
 			<input type="text" name="rtitle" value="${modifyView.rtitle }">

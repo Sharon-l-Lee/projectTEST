@@ -15,4 +15,5 @@ public interface DiaryReplyDao {
 	public int replyReplyWrite(DiaryReply diaryReply);
 	public int replyModify(DiaryReply diaryReply);
 	public int replyDelete(int drnum);
+	public int allReplyDelete(int dnum);
 }

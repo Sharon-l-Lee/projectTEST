@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+*{
+	margin:0;
+	paddin:0;
+	
+}
+
+#main_wrap{
+	margin : 60px 35px;
+	
+	/* 크기 */
+	width : 1600px;
+	height : 850px;
+	
+	/* 이미지 */
+	background-image: url("../img/index1_notbutton.png");
+	
+	/* header 붙이기 */
+	overflow: hidden;
+	background-image: url( "../img/main_wraper.png" );
+	background-repeat: no-repeat;
+	
+}
+
+
+#wrap{
+	width:100%;
+	height:100%;
+}
+
+#wrap #timetable{
+	width:60%;
+	height:80%;
+}
+
+#wrap #timetable h1{
+	position: relative;
+	margin-top:5%;
+	top:20px;
+	left: 15%;
+}
+
+
+#wrap #timetable #colors{
+	position: relative;
+	width:40%;
+	left:50%;
+	top:40px;
+
+}
+#wrap #timetable #colors button{
+	outline: none;
+	border: none;
+	background:none;
+	
+
+}
+#wrap #timetable #colors img{
+	width:20px;
+	height:20px;
+	margin-bottom:10px;
+
+}
+
+#wrap #timetable .col-sm-6{
+	width: 100%;
+	height:80%;
+
+}
+#wrap #timetable table{
+	border-collapse: collapse;
+	border: 1px solid lightgray;
+	width: 70%;
+	height:70%;
+	position: relative;
+	left : 20%;
+	top:60px;
+	
+
+}
+#wrap #timetable tr, td, th{
+	border: 0.5px solid lightgray;
+}
+
+#main_wrap #wrap #menu{
+	
+	width:100px;
+	height:100px;
+}
+
+#main_wrap #wrap #menu button{
+	background-color:#ffffff;
+	border:none;
+	outline:0;
+ 	 
+width:60px;
+height:60px;
+	position: relative;
+	left:1300px;
+	bottom:600px;
+}
+
+#main_wrap #wrap #menu img{
+/* 	float: right; */
+	width:60px;
+	height:60px;
+
+}
+/* #wrap #timetable #do{
+	float:left;
+	margin-left:10%;
+	width:20%;
+	height:300px;
+	text-align:center;
+	border: 1px solid black;
+
+} */

@@ -1,6 +1,7 @@
 package com.project.mylog.service;
 
 import java.util.List;
+
 import java.util.StringTokenizer;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +27,24 @@ public class BoardTagServiceImpl implements BoardTagService {
 	public void BoardTagConnect(BoardTag boardtag, String hname) {
 		boardtag.setRnum(rboarddao.getRnum());
 		StringTokenizer st = new StringTokenizer(hname);
-		while(st.hasMoreTokens()) {
+		while (st.hasMoreTokens()) {
 			hname = st.nextToken();
-			hashtagdao.hashtagWrite(hname);
-			boardtag.setHno(hashtagdao.getHno(hname));
-			boardtagdao.BoardTagConnect(boardtag);
+			String yestag = hashtagdao.getHname(hname);
+			if (yestag != null) {
+				boardtag.setHno(hashtagdao.getHno(hname));
+				boardtagdao.BoardTagConnect(boardtag);
+			} else if (yestag == null) {
+				hashtagdao.hashtagWrite(hname);
+				boardtag.setHno(hashtagdao.getHno(hname));
+				boardtagdao.BoardTagConnect(boardtag);
+			}
 		}
-		
-		
-		
 
 	}
 
 	@Override
 	public List<BoardTag> tagNameGet(int rnum) {
-		
+
 		return boardtagdao.tagNameGet(rnum);
 	}
 

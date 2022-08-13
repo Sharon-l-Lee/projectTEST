@@ -15,4 +15,5 @@ public interface DiaryReplyService {
 	public int replyReplyWrite(DiaryReply diaryReply, HttpSession session, HttpServletRequest request);
 	public int replyModify(DiaryReply diaryReply, HttpServletRequest request);
 	public int replyDelete(int drnum);
+	public int allReplyDelete(int dnum);
 }

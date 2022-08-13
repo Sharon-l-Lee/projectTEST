@@ -95,7 +95,7 @@
 					<span>${reply.drrdate }</span>
 					<c:if test="${reply.mid eq member.mid }">
 						<button class="reply_modify_button" name="${reply.drnum }">수정</button>
-						<button onclick="location.href='${conPath}/diaryReply/delete.do?drnum=${reply.drnum }&dnum=${diary.dnum }'">삭제</button>
+						<button onclick="location.href='${conPath}/diaryReply/delete.do?drnum=${reply.drnum }&dnum=${diary.dnum }&returnInt=${param.returnInt }'">삭제</button>
 					</c:if>
 					<button class="reply_form_button" name="${reply.drnum }">답글</button>
 					<div class="reply_form${reply.drnum }"></div>

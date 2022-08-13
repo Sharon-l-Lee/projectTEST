@@ -1,0 +1,15 @@
+@charset "UTF-8";
+#main_wrap{
+	/* 위치 */
+	margin : 60px 35px;
+	
+	/* 크기 */
+	width : 1600px;
+	height : 850px;
+	
+	/* 이미지 */
+	background-image: url("../img/main_wraper.png");
+	
+	/* header 붙이기 */
+	overflow: hidden;
+}

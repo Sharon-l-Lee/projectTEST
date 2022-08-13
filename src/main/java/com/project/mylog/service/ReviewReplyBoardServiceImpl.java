@@ -2,10 +2,15 @@ package com.project.mylog.service;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.mylog.dao.ReviewReplyBoardDao;
+import com.project.mylog.model.Member;
 import com.project.mylog.model.ReviewReplyBoard;
 import com.project.mylog.util.Paging;
 import com.project.mylog.util.ReplyPaging;
@@ -17,8 +22,10 @@ public class ReviewReplyBoardServiceImpl implements ReveiwReplyBoardService {
 	private ReviewReplyBoardDao replyboardDao;
 
 	@Override
-	public int reviewReplyWrite(ReviewReplyBoard replyBoard) {
-		System.out.println(1);
+	public int reviewReplyWrite(HttpSession session, HttpServletRequest request, ReviewReplyBoard replyBoard) {
+		
+		replyBoard.setMid(((Member)(session.getAttribute("member"))).getMid());
+		replyBoard.setRpip(request.getRemoteAddr());
 		return replyboardDao.reviewReplyWrite(replyBoard);
 	}
 

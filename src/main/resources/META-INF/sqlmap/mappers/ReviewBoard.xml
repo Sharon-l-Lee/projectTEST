@@ -2,73 +2,119 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-    
-    <mapper namespace="com.project.mylog.dao.ReviewBoardDao">
-    	<resultMap type="ReviewBoard" id="ReviewBoardResult">
-	    	<result property="rnum" column="rnum"/>
-	    	<result property="mid" column="mid"/>
-	    	<result property="mname" column="mname"/>
-			<result property="rtitle" column="rtitle"/>
-			<result property="rcontent" column="rcontent"/>
-			<result property="rfilename" column="rfilename"/>
-			<result property="rrdate" column="rrdate"/>
-			<result property="rhit" column="rhit"/>
-			<result property="rstatus" column="rstatus"/>
-			<result property="rip" column="rip"/>
-			<result property="cnt" column="cnt"/>
-    	</resultMap>
-    	
-    	<!-- 추가 -->
-    	<insert id="reviewWrite" parameterType="ReviewBoard">
-    		INSERT INTO RBOARD (RNUM,MID,RTITLE,RCONTENT, RFILENAME, RRDATE,RSTATUS, RIP) 
-            VALUES(RSEQ.NEXTVAL, #{mid, jdbcType=VARCHAR}, #{rtitle},#{rcontent}, #{rfilename}, SYSDATE, #{rstatus} ,#{rip, jdbcType=VARCHAR})
-    	</insert>
-    		
-    	<!-- 수정 -->
-    	<update id="reviewModify" parameterType="ReviewBoard">
-    		UPDATE RBOARD SET RTITLE = #{rtitle},
-            RCONTENT=#{rcontent}, 
-            RFILENAME = #{rfilename},
-            RSTATUS= #{rstatus}
-            WHERE RNUM=#{rnum}
-    	</update>
-		
-		<!-- 삭제 -->
-		<delete id="reviewDelete" parameterType="int">
-			DELETE RBOARD WHERE RNUM =#{rnum}
-		</delete>
-            
-		<!-- 출력 -->
-		
-		<select id="reviewList" parameterType="ReviewBoard" resultMap="ReviewBoardResult">
-		
-		SELECT *
-    		FROM(SELECT ROWNUM RN, A.*
-        		FROM(SELECT R.*, MNAME,(SELECT COUNT(*)FROM RPBOARD B WHERE B.RNUM= R.RNUM) AS cnt FROM RBOARD R, MEMBER M WHERE M.MID = R.MID ORDER BY RRDATE DESC)A)
-    		WHERE RN BETWEEN #{startRow} AND #{endRow}
-		</select>
 
-		<!-- 세부내용 -->
-		<select id="reviewContent" parameterType="int" resultType="ReviewBoard">
-			SELECT * FROM RBOARD WHERE RNUM=#{rnum}
-		</select>
-		
-		<!-- 조회수 -->
-		<update id="reviewHitUp" parameterType="int">
-			UPDATE RBOARD SET RHIT = RHIT+1 WHERE RNUM=#{rnum}
-		</update>
-		
-		<!-- 글 개수 -->
-		<select id="reviewCount" resultType="int">
+<mapper namespace="com.project.mylog.dao.ReviewBoardDao">
+	<resultMap type="ReviewBoard" id="ReviewBoardResult">
+		<result property="rnum" column="rnum" />
+		<result property="mid" column="mid" />
+		<result property="mname" column="mname" />
+		<result property="rtitle" column="rtitle" />
+		<result property="rcontent" column="rcontent" />
+		<result property="rfilename" column="rfilename" />
+		<result property="rrdate" column="rrdate" />
+		<result property="rhit" column="rhit" />
+		<result property="rstatus" column="rstatus" />
+		<result property="rip" column="rip" />
+		<result property="cnt" column="cnt" />
+		<result property="hno" column="hno" />
+	</resultMap>
+
+	<!-- 추가 -->
+	<insert id="reviewWrite" parameterType="ReviewBoard">
+		INSERT INTO RBOARD (RNUM,MID,RTITLE,RCONTENT, RFILENAME, RRDATE,RSTATUS,
+		RIP)
+		VALUES(RSEQ.NEXTVAL, #{mid, jdbcType=VARCHAR}, #{rtitle},#{rcontent}, #{rfilename},
+		SYSDATE, #{rstatus} ,#{rip, jdbcType=VARCHAR})
+	</insert>
+
+	<!-- 수정 -->
+	<update id="reviewModify" parameterType="ReviewBoard">
+		UPDATE RBOARD SET RTITLE =#{rtitle},
+		RCONTENT=#{rcontent},
+		<if test="rfilename != null and rfilename != ''">RFILENAME = #{rfilename},</if>
+		RSTATUS= #{rstatus}
+		WHERE RNUM=#{rnum}
+	</update>
+
+	<!-- 삭제 -->
+	<delete id="reviewDelete" parameterType="int">
+		DELETE RBOARD WHERE RNUM =#{rnum}
+	</delete>
+
+	<!-- 출력 -->
+
+	<select id="reviewList" parameterType="ReviewBoard"
+		resultMap="ReviewBoardResult">
+		<if test="shoption=='' or shoption== null">
+			SELECT *
+			FROM(SELECT ROWNUM RN, A.*
+				FROM(SELECT R.*, MNAME,(SELECT COUNT(*)FROM RPBOARD B WHERE B.RNUM= R.RNUM)AS
+				cnt FROM RBOARD R, MEMBER M WHERE M.MID = R.MID AND RTITLE LIKE
+				'%'||#{rtitle, jdbcType=VARCHAR}||'%' ORDER BY RRDATE DESC)A)
+			WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+
+		<if test="shoption == 'rtitle'">
+		SELECT *
+			FROM(SELECT ROWNUM RN, A.*
+				FROM(SELECT R.*, MNAME,(SELECT COUNT(*)FROM RPBOARD B WHERE B.RNUM= R.RNUM)AS
+				cnt FROM RBOARD R, MEMBER M WHERE M.MID = R.MID AND RTITLE LIKE
+				'%'||#{rtitle, jdbcType=VARCHAR}||'%' ORDER BY RRDATE DESC)A)
+			WHERE RN BETWEEN #{startRow} AND #{endRow}
+<!-- 			SELECT * -->
+<!-- 			FROM(SELECT ROWNUM RN, A.* -->
+<!-- 				FROM(SELECT R.*, MNAME,(SELECT COUNT(*)FROM RPBOARD B WHERE B.RNUM= R.RNUM)AS -->
+<!-- 				cnt FROM RBOARD R, MEMBER M WHERE M.MID = R.MID AND RTITLE LIKE -->
+<!-- 				'%'||#{rtitle, jdbcType=VARCHAR}||'%' ORDER BY RRDATE DESC)A) -->
+<!-- 			WHERE RN BETWEEN #{startRow} AND #{endRow} -->
+		</if>
+	</select>
+
+	<!-- 세부내용 -->
+	<select id="reviewContent" parameterType="int"
+		resultType="ReviewBoard">
+		SELECT * FROM RBOARD WHERE RNUM=#{rnum}
+	</select>
+
+	<!-- 조회수 -->
+	<update id="reviewHitUp" parameterType="int">
+		UPDATE RBOARD SET RHIT = RHIT+1 WHERE RNUM=#{rnum}
+	</update>
+
+	<!-- 글 개수 -->
+	<select id="reviewCount" parameterType="ReviewBoard"
+		resultType="int">
+
+		<if test="shoption=='' or shoption==null">
 			SELECT COUNT(*) CNT FROM RBOARD
-		</select>
-		
-		<!-- 최근 글 번호 -->
-		<select id="getRnum" resultType="int">
-			SELECT MAX(RNUM) FROM RBOARD
-		</select>
-		
-		
-    
-    </mapper>
+		</if>
+
+		<if test="shoption=='rtitle'">
+			SELECT COUNT(*) CNT FROM RBOARD WHERE RTITLE LIKE '%'||#{shname,jdbcType=VARCHAR}||'%'
+		</if>
+
+
+		<if test="shoption=='hname'">
+			SELECT COUNT(*) CNT FROM(SELECT H.HNAME FROM BOARD_TAG B, HASHTAG H WHERE B.HNO = H.HNO AND B.HNO =#{hno});
+		</if>
+
+
+	</select>
+
+	<!-- 최근 글 번호 -->
+	<select id="getRnum" resultType="int">
+		SELECT MAX(RNUM) FROM RBOARD
+	</select>
+
+	<!-- 글 찾기 리스트 -->
+	<select id="rSearchList" parameterType="ReviewBoard"
+		resultMap="ReviewBoardResult">
+		SELECT * FROM (SELECT ROWNUM RN, A.*
+		FROM(SELECT RBOARD.* FROM BOARD_TAG JOIN RBOARD ON RBOARD.RNUM=BOARD_TAG.RNUM
+		WHERE BOARD_TAG.HNO=#{hno})A)
+		WHERE RN BETWEEN #{startRow} AND #{endRow}
+	</select>
+
+
+</mapper>
     

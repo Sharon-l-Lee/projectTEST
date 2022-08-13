@@ -1,5 +1,8 @@
 package com.project.mylog.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,7 +22,7 @@ public class ReviewReplyController {
 	
 
 	@RequestMapping(value="write", method=RequestMethod.POST)
-	public String replyWrite(int rnum, Model model, ReviewReplyBoard replyBoard) {
+	public String replyWrite(int rnum, Model model, ReviewReplyBoard replyBoard, HttpSession session, HttpServletRequest request) {
 		model.addAttribute("rnum", rnum);
 		model.addAttribute("replywrite", replyservice.reviewReplyWrite(replyBoard));
 		return "forward:../review/content.do";

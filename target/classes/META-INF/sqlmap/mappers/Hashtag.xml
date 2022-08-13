@@ -37,5 +37,16 @@
 	<select id="getMaxHno" resultType="int">
 		SELECT MAX(HNO) FROM HASHTAG
 	</select>
+	
+		<!-- 태그 번호 가져오기 -->
+	<select id="getHname" parameterType="String" resultType="String" >
+		SELECT max(HNAME) FROM HASHTAG WHERE HNAME=#{hname}
+	</select>
 
+
+	<!-- 태그 찾기 -->
+	
+	<select id="searchHno" parameterType="String" resultType="int">
+		SELECT MAX(HNO) FROM HASHTAG WHERE HNAME='#{hname}'
+	</select>
 </mapper>
