@@ -18,8 +18,8 @@
 		//댓글 쓰기
 
 		$('#write').click(function() {
-//$("#wform").serialize()
-				
+			//$("#wform").serialize()
+
 			$.ajax({
 				type : 'post', // 타입 (get, post, put 등등)
 				url : '${conPath}/reply/write.do', // 요청할 서버url
@@ -139,23 +139,6 @@
 									onclick="location.href='${conPath}/review/list.do'">목록</button>
 							</td>
 						</tr>
-
-						<%-- <div class="rtitle">${reviewContent.rtitle }</div>
-						<div class="rrdate">${reviewContent.rrdate }</div>
-
-						<div class="content">${reviewContent.rcontent }${relist.rpdate }</div>
-
-						<div class="rstatus">
-							<c:if test="${reviewContent.rstatus  eq 0}">전체공개</c:if>
-							<c:if test="${reviewContent.rstatus  eq 1}">친구공개</c:if>
-							<c:if test="${reviewContent.rstatus  eq 2}">나만보기</c:if>
-
-						</div>
-						<div class="tag">
-							<c:forEach var="t" items="${tags }">
-								<span>#${t.hname }</span>
-							</c:forEach>
-						</div> --%>
 					</table>
 				</div>
 				<div class="contents">${reviewContent.rcontent }</div>
@@ -220,28 +203,29 @@
 
 
 						</c:forEach>
-
 						<div id="paging">
 							<c:if test="${repaging.startPage > repaging.blockSize }">
-					[<a href="">이전</a>]
-				</c:if>
+								[<a href="">《 </a>]
+							</c:if>
 							<c:forEach var="i" begin="${repaging.startPage }"
 								end="${repaging.endPage }">
 								<c:if test="${repaging.currentPage == i }">
-						${i }
-					</c:if>
+									●
+								</c:if>
 								<c:if test="${repaging.currentPage != i }">
 									<a
-										href="${conPath }/review/content.do?rnum=${reviewContent.rnum}&repageNum=${i}">${i }</a>
+										href="${conPath }/review/content.do?rnum=${reviewContent.rnum}&repageNum=${i}">○</a>
 								</c:if>
 							</c:forEach>
 							<c:if test="${repaging.endPage < repaging.pageCnt }">
-					[<a href="">다음</a>]
-				</c:if>
+								[<a href="">》</a>]
+							</c:if>
 
 						</div>
 					</c:if>
 				</div>
+
+
 			</div>
 		</div>
 	</div>

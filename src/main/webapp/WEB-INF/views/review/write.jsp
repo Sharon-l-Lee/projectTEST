@@ -9,23 +9,21 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${conPath }/css/style.css" rel="stylesheet">
+<link href="${conPath }/css/rwrite.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="${conPath }/resources/ckeditor/ckeditor.js"></script>
 
 
 <script>
-	
-
 	$(document).ready(function() {
+		
+		//ck에디터
 		$(function() {
 			CKEDITOR.replace('rcontent', {
 				filebrowserUploadUrl : '${conPath }/ckeditor/reviewUpload.do'
+				
 			});
 		});
-		/* let tname = document.getElementById('tname').value();
-		document.getElementById('space') = tname;
-		let tcount; */
 
 		//배열
 		//var hnames=[];
@@ -51,50 +49,58 @@
 			})
 
 		});
-
+		
+		//태그 key up
+		
+		$('.hname').keydown(function(e){
+			let tag = $('input[name=hname]').val();
+			if(e.keyCode==32){
+				$('#space').text('#'+tag);
+			
+			}
+		});
+	
 	});
 </script>
 </head>
 <body>
+	<div id="main_wrap">
+		<div id="wrap">
+			<h1>REVIEW WRITE</h1>
+			<div id="content_wrap">
+				<form action="write.do" enctype="multipart/form-data" method="post"
+					id="write">
 
+					<div class="ipt">
+						TITLE <input type="text" name="rtitle" class="rtitle">
+					</div>
+					<div class="ipt">
+						CONTENT <textarea rows="5" cols="10" name="rcontent" id="editor"></textarea>
+					</div>
+					<div class="ipt">
+						FILE<input type="file" name="tempfile" class="file">
+					</div>
+				
+					<div class="ipt"> RANGE
+						<input type="radio" name="rstatus" value="0" class="range"> 전체공개 
+						<input type="radio" name="rstatus" value="1" class="range"> 친구공개 
+						<input type="radio" name="rstatus" value="2" class="range"> 나만보기
+					</div>
 
-	<form action="write.do" enctype="multipart/form-data" method="post"
-		id="write">
+					<div id="hname" class="ipt">
+						TAG<input type="text" name="hname" class="hname" placeholder="space로 태그 구분해서 추가 ex)헌트 영화 재미 ">
+					</div>
+					<div>
+						<input type="submit" value="글쓰기" id="formsubmit" class="ipt_btn">
+						<button class="ipt_btn" onclick="history.back()">뒤로가기</button>
+					</div>
 
-		<div>
-			<input type="text" name="rtitle">
-		</div>
-		<div>
-			<textarea rows="5" cols="10" name="rcontent" id="editor"></textarea>
-		</div>
-		<div>
-			<input type="file" name="tempfile">
-		</div>
-		<div>
-			<input type="Date" name="rrdate">
-		</div>
-		<div>
-			<input type="radio" name="rstatus" value="0"> 전체공개 <input
-				type="radio" name="rstatus" value="1"> 친구공개 <input
-				type="radio" name="rstatus" value="2"> 나만보기
-		</div>
+				</form>
 
-		<div>
-			<input type="submit" value="제출" id="formsubmit">
-		</div>
-		<div id="hname">
-			<input type="text" name="hname" id="hname">
-		</div>
+				<div id="space" class="tarea"></div>
 
-	</form>
-
-	<div id="space">
-		<!-- <input type="hidden" name="space"> -->
+			</diV>
+		</div>
 	</div>
-
-	<button id="submit">태그추가</button>
-
-
-
 </body>
 </html>

@@ -43,13 +43,25 @@ public class ReviewController {
 	
 	@RequestMapping(value="list", method= {RequestMethod.GET, RequestMethod.POST})
 	public String reviewList(String pageNum, Model model,ReviewBoard reviewBoard, HttpSession session) {
-		System.out.println("컨트롤러 단 paging : " + new ReviewPaging(rboardservice.reviewCount(reviewBoard),pageNum));
+		System.out.println(7);
+		System.out.println(8);
 		model.addAttribute("reviewList", rboardservice.reviewList(session, pageNum, reviewBoard));
-		model.addAttribute("reviewPaging",new ReviewPaging(rboardservice.reviewCount(reviewBoard),pageNum));
+		System.out.println(9);
+		model.addAttribute("reviewPaging",new ReviewPaging(rboardservice.reviewCount(session, reviewBoard),pageNum));
 		
 		return "review/list";
 		
 	}
+	
+	@RequestMapping(value="myReview", method= RequestMethod.GET)
+	public String myReview(String pageNum, Model model,ReviewBoard reviewBoard, HttpSession session) {
+		
+		model.addAttribute("reviewList", rboardservice.myReview(session, reviewBoard, pageNum));
+		model.addAttribute("reviewPaging",new ReviewPaging(rboardservice.myReviewCnt(session, reviewBoard),pageNum));
+		return "review/list";
+		
+	}
+	
 	
 	
 //	@RequestMapping(value="search", method={RequestMethod.GET, RequestMethod.POST})
@@ -117,6 +129,7 @@ public class ReviewController {
 		
 	}
 	
+
 
 	
 //	@RequestMapping(value="replylist", method= {RequestMethod.GET,RequestMethod.POST})

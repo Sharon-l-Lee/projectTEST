@@ -34,18 +34,29 @@
 			var tbehour = item.tbehour;
 			var tbemin = item.tbemin;
 			var tduring = item.tduring;
+			if(tbsmin < 10){
+				tbsmin='0'+tbsmin;
+			}
+			if(tbemin <10 ){
+				tbemin='0'+tbemin;
+				
+			}
 			var stime = Number(tbshour + tbsmin);
 			var etime = Number(tbehour + tbemin);
 
+
+			
 			/* 	for(var i in tname){
 					document.getElementById('do').innerHTML += "<h4>"+tname+"</h4>";
 					
-					
 				} */
+			
 			for (var idx = stime; idx < etime; idx++) {
 				$('.' + idx).css('background-color', 'lightgray');
 
 			}
+				
+			
 
 		});
 
@@ -70,14 +81,24 @@
 				var tbehour = item.tbehour;
 				var tbemin = item.tbemin;
 				var tduring = item.tduring;
+				if(tbsmin < 10){
+					tbsmin='0'+tbsmin;
+				}
+				if(tbemin <10 ){
+					tbemin='0'+tbemin;
+					
+				}
 				var stime = Number(tbshour + tbsmin);
 				var etime = Number(tbehour + tbemin);
-
+				
 				/* 	for(var i in tname){
 						document.getElementById('do').innerHTML += "<h4>"+tname+"</h4>";
 						
 						
 					} */
+					
+				
+					
 				for (var idx = stime; idx < etime; idx++) {
 					$('.' + idx).css('background-color', color);
 
@@ -98,9 +119,6 @@
 
 				<div class="col-sm-6">
 
-					<c:if test="${empty tableIdList }">
-	기록된 시간이 없습니다
-</c:if>
 
 					<div id="colors">
 						<button id="#f4cccc">
@@ -171,6 +189,15 @@
 						</table>
 					</div>
 				</div>
+				
+			</div>
+			
+			<div class="tprint">
+				<h3>What to do?</h3>
+				
+				<c:forEach var="time" items="${tableIdList }">
+					<div>${time.tname }   <span class="during">${Math.floor(((time.tduring)/6000)*1000) }분</span></div>
+				</c:forEach>
 				
 			</div>
 			<div id="menu">

@@ -24,7 +24,7 @@
     	<!-- 추가 -->
     	<insert id="reviewReplyWrite" parameterType="ReviewReplyBoard">
     		INSERT INTO RPBOARD (RPNUM, RNUM, MID, RPCONTENT, RPDATE,RPGROUP, RPINDENT, RPIP)
-   			 VALUES (RPSEQ.NEXTVAL, #{rnum}, #{mid}, #{rpcontent}, SYSDATE, RPSEQ.CURRVAL,  0, #{rpip})
+   			 VALUES (RPSEQ.NEXTVAL, #{rnum}, #{mid}, #{rpcontent}, SYSDATE, RPSEQ.CURRVAL, 0, #{rpip})
    			 
     	</insert>
     		
@@ -49,7 +49,7 @@
 
 		<!-- 세부내용 -->
 		<select id="reviewReplyContent" parameterType="int" resultType="ReviewReplyBoard">
-			SELECT R.*, MNAME FROM MEMBER M, RPBOARD P WHERE M.MID = P.MID AND RPNUM=#{rpnum}
+			SELECT P.*, MNAME FROM MEMBER M, RPBOARD P WHERE M.MID = P.MID AND RPNUM=#{rpnum}
 		</select>
 		
 	

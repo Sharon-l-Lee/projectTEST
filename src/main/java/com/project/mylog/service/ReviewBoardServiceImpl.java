@@ -150,19 +150,18 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 
 	@Override
 	public List<ReviewBoard> reviewList(HttpSession session, String pageNum, ReviewBoard reviewBoard) {
-
 		reviewBoard.setMid(((Member) (session.getAttribute("member"))).getMid());
 //		if (reviewBoard.getShoption() == "hname") {
 //			System.out.println(hashtagDao.getHno(reviewBoard.getShname()));
 //			int hno = hashtagDao.getHno(reviewBoard.getShname());
 //			reviewBoard.setHno(hno);
 //		}
-		ReviewPaging rp = new ReviewPaging(reviewCount(reviewBoard), pageNum);
+		System.out.println(2);
+		ReviewPaging rp = new ReviewPaging(reviewCount(session, reviewBoard), pageNum);
 		reviewBoard.setStartRow(rp.getStartRow());
 		reviewBoard.setEndRow(rp.getEndRow());
 		reviewBoard.setRtitle(reviewBoard.getShname());
 		System.out.println("검색 전(Rtitle) : " + reviewBoard);
-
 		return rboardDao.reviewList(reviewBoard);
 	}
 
@@ -179,15 +178,16 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 	}
 
 	@Override
-	public int reviewCount(ReviewBoard reviewBoard) {
-
+	public int reviewCount(HttpSession session, ReviewBoard reviewBoard) {
+		reviewBoard.setMid(((Member) (session.getAttribute("member"))).getMid());
+		System.out.println(5);
 		if (reviewBoard.getShoption() == "hname") {
 			System.out.println(reviewBoard.getShname());
 			System.out.println(hashtagDao.getHno(reviewBoard.getShname()));
 			int hno = hashtagDao.getHno(reviewBoard.getShname());
 			reviewBoard.setHno(hno);
 		}
-
+		System.out.println(6);
 		return rboardDao.reviewCount(reviewBoard);
 	}
 
@@ -230,6 +230,23 @@ public class ReviewBoardServiceImpl implements ReviewBoardService {
 			System.out.println(filename + " 파일 백업 성공");
 		}
 		return fileUp;
+	}
+
+	@Override
+	public List<ReviewBoard> myReview(HttpSession session, ReviewBoard reviewBoard, String pageNum) {
+		reviewBoard.setMid(((Member) (session.getAttribute("member"))).getMid());
+		ReviewPaging rp = new ReviewPaging(reviewCount(session, reviewBoard), pageNum);
+		reviewBoard.setStartRow(rp.getStartRow());
+		reviewBoard.setEndRow(rp.getEndRow());
+		reviewBoard.setRtitle(reviewBoard.getShname());
+		return rboardDao.myReview(reviewBoard);
+	}
+
+	@Override
+	public int myReviewCnt(HttpSession session, ReviewBoard reviewBoard) {
+		reviewBoard.setMid(((Member) (session.getAttribute("member"))).getMid());
+		
+		return rboardDao.myReviewCnt(reviewBoard);
 	}
 
 //	@Override

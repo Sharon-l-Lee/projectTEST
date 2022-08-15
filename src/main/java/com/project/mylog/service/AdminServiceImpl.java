@@ -1,5 +1,7 @@
 package com.project.mylog.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,8 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public int joinAdmin(Admin admin) {
-		return 0;
+		
+		return adminDao.joinAdmin(admin);
 	}
 
 	@Override
@@ -39,6 +42,18 @@ public class AdminServiceImpl implements AdminService {
 		}
 		System.out.println("관리자 로그인 : "+result);
 		return result;
+	}
+
+	@Override
+	public List<Admin> listAdmin() {
+		// TODO Auto-generated method stub
+		return adminDao.listAdmin();
+	}
+
+	@Override
+	public int deleteAdmin(String aid) {
+		// TODO Auto-generated method stub
+		return adminDao.deleteAdmin(aid);
 	}
 
 }

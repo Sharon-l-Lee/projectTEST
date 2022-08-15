@@ -22,7 +22,9 @@
 		<div id="wrap">
 		<h1>REVIEW ABOUT</h1>
 		<hr>
-			<button onclick="location.href='${conPath}/review/write.do'"><img class ="write" src="${conPath }/img/reviewWrite.png"></button>
+			<button id="write" onclick="location.href='${conPath}/review/write.do'"><img class ="menu_img" src="${conPath }/img/reviewWrite.png" title="글쓰기"></button>
+			<button id="menu"onclick="location.href='${conPath}/main.do'"><img class ="menu_img" src="${conPath }/img/timetablemenu.png" title="메뉴"></button>
+			<button id="mylist" onclick="location.href='${conPath}/review/myReview.do'"><img class ="menu_img" src="${conPath }/img/reviewuser.png" title="내 글 보기"></button>
 
 			<div id="allList">
 

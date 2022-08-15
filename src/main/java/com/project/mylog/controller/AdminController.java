@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.project.mylog.model.Admin;
 import com.project.mylog.service.AdminService;
 
 @Controller
@@ -16,6 +17,17 @@ public class AdminController {
 	
 	@Autowired
 	private AdminService adminService;
+	
+	@RequestMapping(value="join", method = RequestMethod.GET)
+	public String adminJoinView() {
+		return "admin/join";
+	}
+	
+	@RequestMapping(value="join", method = RequestMethod.POST)
+	public String adminJoin(Admin admin, Model model) {
+		model.addAttribute("joinAdmin", adminService.joinAdmin(admin));
+		return "admin/list";
+	}
 	
 	@RequestMapping(value="loginView", method = {RequestMethod.GET, RequestMethod.POST})
 	public String adminLoginView() {
@@ -33,6 +45,19 @@ public class AdminController {
 		httpSession.invalidate();
 		model.addAttribute("logoutResult", "관리자 로그아웃 성공");
 		return "forward:../main.do";
+	}
+	
+	@RequestMapping(value="list", method = {RequestMethod.GET, RequestMethod.POST})
+	public String adminList(Model model) {
+		model.addAttribute("adminList", adminService.listAdmin());
+		return "admin/list";
+	}
+	
+	@RequestMapping(value="delete", method = RequestMethod.GET)
+	public String adminList(String aid, Model model) {
+		System.out.println(aid);
+		model.addAttribute("adminDelete", adminService.deleteAdmin(aid));
+		return "forward:list.do";
 	}
 	
 }

@@ -79,6 +79,32 @@
 	height:70%;
 	float: right;
 	position: relative;
-	right:5%;
+	right:3.5%;
 	bottom:70%;
 }
+
+#main_wrap #wrap #comment #cmt{
+	width:90%;
+	height:70%;
+	position: relative;
+	top:5%;
+}
+#main_wrap #wrap #comment #cmt .reply{
+
+	margin-top:2%;		
+}
+#main_wrap #wrap #comment #cmt #paging{
+	width:50%;
+	height:10%;
+	position: absolute;
+	left:25%;
+	margin:10px auto;
+	text-align: center;
+}
+
+#main_wrap #wrap #comment #cmt #paging a{
+	text-decoration: none;
+	color:#000000;
+}
+
+

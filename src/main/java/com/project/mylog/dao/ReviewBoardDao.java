@@ -26,7 +26,9 @@ public interface ReviewBoardDao {
 
 	public List<ReviewBoard> rSearchList(ReviewBoard reviewBoard);
 	
-
+	public List<ReviewBoard> myReview(ReviewBoard reviewBoard);
+	
+	public int myReviewCnt(ReviewBoard reviewBoard);
 	
 	
 }

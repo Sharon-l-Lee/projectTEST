@@ -45,7 +45,7 @@
 #wrap #timetable #colors{
 	position: relative;
 	width:40%;
-	left:50%;
+	left:43%;
 	top:40px;
 
 }
@@ -83,6 +83,18 @@
 	border: 0.5px solid lightgray;
 }
 
+#main_wrap #wrap .tprint{
+	
+	width:20%;
+	height:70%;
+	position: relative;
+	left : 55%;
+	bottom:65%;
+	font-size:1.2em;
+	text-align: center;
+	
+}
+
 #main_wrap #wrap #menu{
 	
 	width:100px;
@@ -97,8 +109,8 @@
 width:60px;
 height:60px;
 	position: relative;
-	left:1300px;
-	bottom:600px;
+	left:1400px;
+	bottom:1200px;
 }
 
 #main_wrap #wrap #menu img{

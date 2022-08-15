@@ -1,0 +1,59 @@
+@charset "UTF-8";
+
+* {
+	margin: 0;
+	padding: 0;
+}
+
+#main_wrap {
+	margin: 60px 35px;
+	/* 크기 */
+	width: 1600px;
+	height: 850px;
+	/* 이미지 */
+	background-image: url("../img/index1_notbutton.png");
+	/* header 붙이기 */
+	overflow: hidden;
+	background-image: url( "../img/main_wraper.png" );
+	background-repeat: no-repeat;
+}
+
+#main_wrap #wrap {
+	width: 100%;
+	height: 100%;
+}
+
+#main_wrap #wrap h2 {
+	width: 20%;
+	position: relative;
+	left: 20%;
+	top: 10%;
+}
+
+#main_wrap #wrap #list {
+	width: 60%;
+	position: relative;
+	text-align: center;
+	left: 20%;
+	top: 20%;
+}
+
+#main_wrap #wrap #list table {
+	width: 80%;
+	position: relative;
+	text-align: center;
+	left: 10%;
+	top: 20%;
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+#main_wrap #wrap #list tr {
+	border: 1px solid black;
+}
+
+#main_wrap #wrap #list th, td {
+	width: 33.3%;
+	height:35px;
+	border-bottom: 1px solid black;
+}

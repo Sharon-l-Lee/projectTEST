@@ -40,6 +40,7 @@ public class TimerController {
 		model.addAttribute("tno", timerService.getTno());
 		model.addAttribute("tablemake", ttableservice.tableMake(session, timetable));
 		model.addAttribute("tbno", ttableservice.getTbno());
+		session.setMaxInactiveInterval(timer.getTdo()*60);
 		return "timer/timer";
 	}
 	
@@ -47,6 +48,7 @@ public class TimerController {
 	public String timerStart(Timer timer, Model model, Timetable timetable, HttpSession session) {
 		model.addAttribute("timestart",timerService.timerStart(timer));
 		model.addAttribute("tablestart", ttableservice.tableStart(timetable));
+		
 		return "timer/timer";
 	}
 	

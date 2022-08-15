@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link href="${conPath }/css/rcontent.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
 	$(document).ready(function() {
@@ -38,10 +39,10 @@
 </head>
 <body>
 
-	<form id="mform">
-		<input type="text" name="rpnum" value="${replymview.rpnum }">
-		<input type="text" name="rnum" value="${replymview.rnum }">
-		<textarea rows="10" cols="100" name="rpcontent">${replymview.rpcontent }</textarea>
+	<form id="mform" class="r_modify">
+		<input type="hidden" name="rpnum" value="${replymview.rpnum }">
+		<input type="hidden" name="rnum" value="${replymview.rnum }">
+		<textarea rows="10" cols="100" name="rpcontent" style="width:80%; height:70px;">${replymview.rpcontent }</textarea>
 		<button id="${replymview.rpnum }" class="modify">수정완료</button>
 		<button onclick="history.back()">취소</button>
 	</form>

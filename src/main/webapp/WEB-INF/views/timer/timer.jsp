@@ -37,9 +37,7 @@
 
 	}
 
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
 
 						$('#pause').hide();
 						//기록될 시간
@@ -54,14 +52,16 @@
 						var smin;
 						var ehour;
 						var emin;
+						
+						
 
 						//타이머
 						var tdo = $('input[name=tdo]').val();
 						var tname = $('input[name=tname]').val();
 						var tno = $('input[name=tno]').val();
 						var tbno = $('input[name=tbno]').val();
-						//var time = tdo * 3600;
-						var time = tdo * 6
+						var time = tdo * 3600;
+						//var time = tdo * 6
 						var hour = 0;
 						var min = 0;
 						var sec = 0;
@@ -70,9 +70,9 @@
 						if (tdo < 10) {
 							tdo = '0' + tdo;
 						}
-						//document.getElementById('timer').innerHTML = tdo + ":00:00";
-						document.getElementById('timer').innerHTML = "<span>00:00:"
-								+ tdo + "</span>";
+						document.getElementById('timer').innerHTML = tdo + ":00:00";
+						//document.getElementById('timer').innerHTML = "<span>00:00:"
+							//	+ tdo + "</span>";
 						document.getElementById('timer').style.width = "300px";
 						document.getElementById('timer').style.fontSize = "100px";
 						document.getElementById('timer').style.marginLeft = "20px";
@@ -113,7 +113,7 @@
 											$('#play').show();
 											$('#pause').hide();
 											clearInterval(timer);
-											time = tdo * 6;
+											time = tdo * 3600;
 											document.getElementById('timer').innerHTML ="00:00:00";
 											document.getElementById('timer').style.width = "300px";
 											document.getElementById('timer').style.fontSize = "100px";
@@ -122,10 +122,13 @@
 											var enow = new Date();
 											end = enow.getTime();
 											etime = enowtoLocaleTimeString('ko-kr');
-											tduring = Math.floor(((end - start) / 1000) % 60);
+											tduring = Math.floor(((end - start) / 1000) * 60);
 											esecond = Math.floor((end / 1000) % 60);
 											ehour = enow.getHours();
 											emin = enow.getMinutes();
+											if(emin == 0){
+												emin = enow.getMinutes()+"0";
+											}
 
 											$.ajax({
 												type : 'get', // 타입 (get, post, put 등등)
@@ -159,6 +162,9 @@
 											ssecond = Math.floor((start / 1000) % 60);
 											shour = snow.getHours();
 											smin = snow.getMinutes();
+											if(smin == 0){
+												smin = snow.getMinutes()+"0";
+											}
 
 											$.ajax({
 												type : 'get', // 타입 (get, post, put 등등)
@@ -191,9 +197,9 @@
 
 							dnow = new Date();
 							dtime = dnow.getTime();
-							during = Math.floor(((dtime - start) / 1000) % 60);
+							during = Math.floor(((dtime - start) / 1000) * 60);
 							console.log(dtime);
-
+							
 							$.ajax({
 								type : 'get', // 타입 (get, post, put 등등)
 								url : 'timesave.do', // 요청할 서버url
@@ -228,15 +234,15 @@
 
 											var enow = new Date();
 											end = enow.getTime();
-											etime = enow
-													.toLocaleTimeString('ko-kr');
-											tduring = Math
-													.floor(((end - start) / 1000) % 60);
-											esecond = Math
-													.floor((end / 1000) % 60);
+											etime = enow.toLocaleTimeString('ko-kr');
+											tduring = Math.floor(((end - start) / 1000) * 60);
+											esecond = Math.floor((end / 1000) % 60);
 											ehour = enow.getHours();
 											emin = enow.getMinutes();
-
+											
+											if(emin == 0){
+												emin = enow.getMinutes()+"0";
+											}
 											$.ajax({
 												type : 'get', // 타입 (get, post, put 등등)
 												url : 'timewrite.do', // 요청할 서버url

@@ -21,7 +21,7 @@ public interface ReveiwReplyBoardService {
 
 	public int reviewReplyCount(int rnum);
 
-	public int reviewReplyComment(ReviewReplyBoard replyBoard);
+	public int reviewReplyComment(HttpSession session, HttpServletRequest request,ReviewReplyBoard replyBoard);
 	
 	public String replyMname(int rpnum);
 

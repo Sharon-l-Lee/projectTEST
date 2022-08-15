@@ -16,9 +16,7 @@
 	<form action ="${conPath}/reply/comment.do"  method="post">
 		<input type="hidden" name="rnum" value="${param.rnum }">
 		<input type="hidden" name="rpnum" value="${param.rpnum }">
-		<input type="text" name="mid" value="AAA">
-		<textarea rows="5" cols="10" id="rpcontent" name="rpcontent"></textarea>
-		<input type="text" name="rpip" value="120.12.10">
+		<textarea rows="5" cols="10" id="rpcontent" name="rpcontent">나</textarea>
 		<input type="submit" value="작성">
 		<button onclick="history.back()">취소</button>
 	</form>

@@ -24,13 +24,17 @@ public interface ReviewBoardService {
 
 	public void reviewHitUp();
 
-	public int reviewCount(ReviewBoard reviewBoard);
+	public int reviewCount(HttpSession session, ReviewBoard reviewBoard);
 	
 	public int getRnum();
 	
 	public List<ReviewBoard> rSearchList(String pageNum, String shname);
 	
 	public FileUp fileUp(FileUp fileUp, HttpServletRequest request);
+	
+	public List<ReviewBoard> myReview(HttpSession session, ReviewBoard reviewBoard,  String pageNum);
+	
+	public int myReviewCnt(HttpSession session, ReviewBoard reviewBoard);
 	
 	
 

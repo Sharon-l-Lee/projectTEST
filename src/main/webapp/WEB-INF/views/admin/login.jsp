@@ -34,6 +34,7 @@
 				</td>
 			</tr>
 		</table>
+		<button onclick="location.href='${conPath}/admin/list.do'">관리자 리스트</button>
 	</form>
 </body>
 </html>

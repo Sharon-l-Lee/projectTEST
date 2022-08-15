@@ -23,4 +23,12 @@
 		<!-- recoverMember -->
 		<!-- memberList -->
 	
+	<!-- 관리자 list -->
+	<select id="listAdmin" resultMap="AdminResult">
+		SELECT * FROM ADMIN
+	</select>
+	<!-- 관리자 삭제 -->
+	<delete id="deleteAdmin" parameterType="String">
+		DELETE FROM ADMIN WHERE AID= #{aid}
+	</delete>
 </mapper>
