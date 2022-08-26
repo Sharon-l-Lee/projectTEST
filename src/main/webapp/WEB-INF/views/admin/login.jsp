@@ -8,18 +8,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath}/css/style.css" rel="stylesheet">
+	<link href="${conPath}/css/admin/login.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script>
-		function (){
-			
-		}
+	$(document).ready(function(){
+		$('#adminLogin').addClass('nowIndex');
+	});
 	</script>
 </head>
 <body>
+<div id="main_wrap">
+	<div id="wrap">
+	<div id="login_wrap">
 	<form action="${conPath }/admin/login.do" method="post">
 		<table>
-		<caption>관리자 로그인</caption>
 			<tr>
 				<th>아이디</th>
 				<td><input type="text" name="aid" required="required"></td>
@@ -30,11 +32,14 @@
 			</tr>
 			<tr>
 				<td colspan="2">
-					<input type="submit" value="로그인">
+					<input type="submit" value="로그인" class="btn">
 				</td>
 			</tr>
 		</table>
-		<button onclick="location.href='${conPath}/admin/list.do'">관리자 리스트</button>
 	</form>
+	</div>
+	</div>
+	<jsp:include page="../main/header.jsp"/>
+</div>
 </body>
 </html>

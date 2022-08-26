@@ -8,32 +8,34 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${conPath }/css/style.css" rel="stylesheet">
+<link href="${conPath }/css/noticeboard/form.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
-
+		$('#notice').addClass('nowIndex');
 	});
 </script>
 </head>
 <body>
-	<div>
+	<div id="main_wrap">
+		<div id="wrap">
 		<form action="${conPath }/notice/update.do" method="post">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<input type="hidden" name="nno" value="${notice.nno }">
 			<div class="write">
 				<table>
+					<caption><h2>Notice 수정</h2></caption>
 					<col style="width: 200px;">
 					<col style="width: 600px;">
 					<tr>
-						<td>제목</td>
-						<td>
+						<th>Title</th>
+						<td  class="sc">
 							<input type="text" name="ntitle" class="ntitle" value="${notice.ntitle }">
 						</td>
 					</tr>
 					<tr>
-						<td>내용</td>
-						<td style="height: 200px; padding: 10px;">
+						<th>Content</th>
+						<td style="height: 200px; padding: 10px;" class="sc">
 							<textarea name="ncontent" class="ncontent" rows="15" cols="10">${notice.ncontent }</textarea>
 						</td>
 					</tr>
@@ -45,6 +47,8 @@
 				<input type="button" value="목록" class="btn" onclick="location.href='${conPath}/notice/list.do?pageNum=${param.pageNum }'">
 			</div>
 		</form>
+		</div>
+		<jsp:include page="../main/header.jsp"/>
 	</div>
 </body>
 </html>

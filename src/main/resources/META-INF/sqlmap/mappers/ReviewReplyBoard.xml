@@ -63,11 +63,12 @@
 		
 		<!-- 답댓글 쓰기 -->
 		<insert id="reviewReplyComment" parameterType="ReviewReplyBoard">
-			INSERT INTO RPBOARD (RPNUM,RNUM,MID,RPCONTENT,RPDATE,RPGROUP, RPINDENT, RPMENTION, RPIP)
-   			 VALUES(RPSEQ.NEXTVAL, #{rnum}, #{mid}, #{rpcontent}, SYSDATE, #{rpgroup}, 1, #{rpmention, jdbcType=VARCHAR} #{rpip})
+
+		INSERT INTO RPBOARD (RPNUM,RNUM,MID,RPCONTENT,RPDATE,RPGROUP, RPINDENT, RPMENTION, RPIP)
+   			 VALUES(RPSEQ.NEXTVAL, #{rnum}, #{mid}, #{rpcontent}, SYSDATE, #{rpgroup}, 1, #{rpmention, jdbcType=VARCHAR}, #{rpip})
+			
 		</insert>
-		
-		
+
 		<!-- 답댓글을 달 댓글을 쓴 사람 닉 -->
 		<select id="replyMname" parameterType="int" resultType="String">
 			SELECT MNAME FROM MEMBER M, RPBOARD R WHERE M.MID=R.MID AND RPNUM=#{rpnum}

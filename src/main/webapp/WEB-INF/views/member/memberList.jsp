@@ -8,6 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
+	<link href="${conPath}/css/member/memberList.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -54,21 +55,23 @@
 			alert('처리 성공');
 		</script>
 	</c:if>
-	<div>
-		<table>
+	<div class="wrap" style="background-image: url('../img/main_wraper.png'); border:1px solid white;">
+		<div class="memberList_wrap">
+		<table class="memberList">
+			<tr><td colspan="5" style="font-size:1.8em; font-weight:bold; padding: 20px 0 20px 10px;">MEMBER LIST</td></tr>
 			<tr>
 				<th>아이디</th>
 				<th>닉네임</th>
 				<th>생년월일</th>
 				<th>이메일</th>
 				<th>상태</th>
+				<th>처리</th>
 			</tr>
 			<c:forEach items="${memberList }" var="member">
 			
 				<tr <c:if test="${member.mstatus eq 0 }">
 					style="color : red;"
-				</c:if>
-				>
+				</c:if>>
 					<td>${member.mid }</td>
 					<td>${member.mname }</td>
 					<td>
@@ -95,14 +98,14 @@
 							사용중
 						</c:if>
 					</td>
-					<td>
+					<td style="text-align: center;">
 						<button id="${member.mid }" class="rc">복구</button>
 						<button id="${member.mid }" class="dl">사용중단</button>
 					</td>
 				</tr>
 			</c:forEach>
 		</table>
-		<div>
+		<div class="paging">
 			<c:if test="${paging.startPage > paging.blockSize }">
 				[ <a href="${conPath }/member/memberList.do?pageNum=${paging.startPage - 1}">이전</a> ]
 			</c:if>
@@ -118,6 +121,7 @@
 				[ <a href="${conPath }/member/memberList.do?pageNum=${paging.endPage + 1}">다음</a> ]
 			</c:if>
 		</div>
+	</div>
 	</div>
 </body>
 </html>

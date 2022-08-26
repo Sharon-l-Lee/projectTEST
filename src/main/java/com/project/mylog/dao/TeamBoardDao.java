@@ -15,6 +15,4 @@ public interface TeamBoardDao {
 	public TeamBoard teamBoardDetail(int tnum);
 	public int teamBoardModify(TeamBoard teamboard);
 	public int teamBoardDelete(int tnum);
-	public int teamBoardPreReply(TeamBoard teamboard);
-	public int teamBoardReply(TeamBoard teamboard);
 }

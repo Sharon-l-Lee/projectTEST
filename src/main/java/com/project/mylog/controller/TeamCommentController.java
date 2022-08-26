@@ -8,11 +8,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.project.mylog.model.TeamCommentBoard;
 import com.project.mylog.service.TeamCommentBoardService;
-import com.project.mylog.util.Paging;
 
 @Controller
 @RequestMapping(value="teamcomment")

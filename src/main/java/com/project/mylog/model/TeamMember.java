@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 public class TeamMember {
 	private int tmno;
 	private String mid;
+	private String mname;
 	private int tno;
 	private int tmcheck;
 	

@@ -13,7 +13,6 @@ public interface TeamCommentBoardService {
 	public int teamCommentModify(HttpServletRequest request, TeamCommentBoard teamcomment);
 	public int teamCommentDelete(int tcnum);
 	public TeamCommentBoard teamCommentDetail(int tcnum);
-	public int teamCommentPreReply(TeamCommentBoard teamcomment);
 	public int teamCommentReply(HttpServletRequest request, TeamCommentBoard teamcomment);
 
 }

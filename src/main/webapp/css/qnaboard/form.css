@@ -1,0 +1,105 @@
+@charset "UTF-8";
+* {
+	padding : 0;
+}
+a {
+	text-decoration: none;
+	color: black;
+}
+
+li {
+	list-style: none;
+	font-size: 1.2em;
+	font-weight: bold;
+	margin: 20px 0;
+}
+
+#main_wrap {
+	width: 1600px;
+	height: 850px;
+	margin: 60px 35px;
+	background-image: url("../../img/main_wraper.png");
+	overflow : hidden;
+}
+
+#wrap {
+	width: 1300px;
+	height: 700px;
+	margin: 0 0 0 130px;
+	overflow : hidden;
+}
+
+.write {
+	padding-top : 20px;
+	margin-bottom : 30px;
+	float : left;
+}
+
+.write table {
+	text-align : center;
+	font-size: 1.2em;
+}
+
+.write table caption {
+	text-align: left;
+}
+
+.write table .title {
+	padding-left: 10px;
+	text-align: left;
+}
+
+.write table th {
+	background-color: #DFF6FF;
+}
+
+.write table tr {
+	height: 50px;
+}
+
+.write table .bottom {
+	background-color: #DFF6FF;
+	height: 20px;
+}
+
+.paging {
+	margin: 30px 0 0 30px;
+	font-size: 1.2em;
+}
+
+input:not(.btn) {
+	width: 95%;
+	height : 70%;
+}
+
+.qcontent {
+	width: 95%;
+	height : 90%;
+	resize: none;
+}
+
+.btn {
+	width: 80px;
+	border: none;
+	height: 30px;
+	border-radius: 10px;
+	background-color: #03045E;
+	color: white;
+	margin-left: 5px;
+	font-weight: bold;
+	font-size: 1em;
+}
+
+.btn_wrap {
+	text-align: left;
+	width: 500px;
+	margin-top : 30px;
+}
+#sub_nav {
+	float : left;
+	margin : 50px 0 0 285px;
+}
+
+.sc {
+	background-color : #EEEEEE;
+}

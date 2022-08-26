@@ -12,6 +12,7 @@ public interface TimetableDao {
 	public int tableStart(Timetable timetable);
 	public int tableEnd(Timetable timetable);
 	public List<Timetable>tableIdList(String mid);
+	public List<Timetable>tableList(Timetable timetable);
 	public List<Timetable>tableTno(int tno);
 	public Timetable tableTbno(int tbno);
 	public int getTbno();

@@ -6,8 +6,13 @@
 	<resultMap type="Team" id="TeamResult">
 		<result column="tno" property="tno"/>
 		<result column="mid" property="mid"/>
+		<result column="mname" property="mname"/>
 		<result column="tname" property="tname"/>
 		<result column="tgoal" property="tgoal"/>
+		<result column="schItem" property="schItem"/>
+		<result column="schWord" property="schWord"/>
+		<result column="startRow" property="startRow"/>
+		<result column="endRow" property="endRow"/>
 	</resultMap>
 	
 	<!-- makeTeam -->
@@ -32,6 +37,46 @@
 	</update>
 	<!-- getTeamDetail -->
 	<select id="getTeamDetail" parameterType="int" resultType="Team">
-		SELECT * FROM TEAM WHERE tNO=#{tno}
+		SELECT T.*, M.mNAME FROM TEAM T, MEMBER M WHERE T.MID=M.MID AND tNO=#{tno}
 	</select>
+	<!-- teamList -->
+	<select id="teamList" resultType="Team">
+		<if test="schItem=='' or schItem==null">
+			SELECT * FROM 
+		        (SELECT ROWNUM RN, A.* FROM 
+		            (SELECT T.*, M.mNAME FROM TEAM T, MEMBER M
+		            			WHERE T.MID = M.MID
+		                        ORDER BY TNO DESC) A)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="schItem=='all'">
+		 	SELECT * FROM 
+		        (SELECT ROWNUM RN, A.* FROM 
+		            (SELECT T.*, M.mNAME FROM TEAM T, MEMBER M
+		            			WHERE T.MID = M.MID AND (T.tNAME LIKE '%'||#{schWord}||'%' OR M.mNAME LIKE '%'||#{schWord}||'%')
+		                        ORDER BY TNO DESC) A)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="schItem=='tname'">
+			SELECT * FROM 
+		        (SELECT ROWNUM RN, A.* FROM 
+		            (SELECT T.*, M.mNAME FROM TEAM T, MEMBER M
+		            			WHERE T.MID = M.MID AND T.tNAME LIKE '%'||#{schWord}||'%'
+		                        ORDER BY TNO DESC) A)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+		<if test="schItem=='mname'">
+			SELECT * FROM 
+		        (SELECT ROWNUM RN, A.* FROM 
+		            (SELECT T.*, M.mNAME FROM TEAM T, MEMBER M
+		            			WHERE T.MID = M.MID AND M.mNAME LIKE '%'||#{schWord}||'%'
+		                        ORDER BY TNO DESC) A)
+			        WHERE RN BETWEEN #{startRow} AND #{endRow}
+		</if>
+	</select>
+	<!-- teamTotCnt -->
+	<select id="teamTotCnt" resultType="int">
+		SELECT COUNT(*) FROM TEAM
+	</select>
+	
 </mapper>

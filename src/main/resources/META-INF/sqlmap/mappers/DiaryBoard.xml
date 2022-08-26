@@ -37,23 +37,27 @@
 	
 	<!-- 내가 볼 수 있는 일기 리스트 -->
 	<select id="diaryList" parameterType="DiaryBoard" resultMap="DiaryBoardResult">
-		SELECT A.* 
-		    FROM (SELECT ROWNUM RN, D.*, MNAME
-		                FROM DIARYBOARD D, FRIEND F, MEMBER M
-		                WHERE (D.MID=M.MID AND DSTATUS = 2 AND MSTATUS = 1)  OR
-		                            (D.MID=F.FID AND M.MID=F.FID AND DSTATUS = 1 AND F.MID = #{mid} AND MSTATUS = 1) OR
-		                            (D.MID=M.MID AND M.MID = #{mid})
-		                ORDER BY DRDATE DESC) A
+		SELECT B.* 
+		    FROM (SELECT ROWNUM RN, A.*
+		                FROM (SELECT DISTINCT DNUM, DTITLE, DHIT, DRDATE, MNAME, DSTATUS
+		                            FROM DIARYBOARD D, FRIEND F, MEMBER M
+		                                WHERE (D.MID=M.MID AND DSTATUS = 2 AND MSTATUS=1)  OR
+		                                            (D.MID=F.FID AND M.MID=F.FID AND DSTATUS = 1 AND F.MID=#{mid} AND MSTATUS=1) OR
+		                                            (D.MID=M.MID AND M.MID=F.MID AND DSTATUS = 0 AND M.MID=#{mid} )
+		                                ORDER BY DRDATE DESC) A ) B
 		    WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	
 	<!-- 내가 볼 수 있는 일기 갯수 -->
 	<select id="diaryCnt" parameterType="DiaryBoard" resultType="int">
 		SELECT COUNT(*) CNT
-		    FROM DIARYBOARD D, FRIEND F, MEMBER M
-		    WHERE (D.MID=M.MID AND DSTATUS = 2 AND MSTATUS=1)  OR
-		                (D.MID=F.FID AND M.MID=F.FID AND DSTATUS = 1 AND F.MID = #{mid} AND MSTATUS=1) OR
-		                (D.MID=M.MID AND M.MID = #{mid})
+		    FROM (SELECT ROWNUM RN, A.*
+		                FROM (SELECT DISTINCT DNUM, DTITLE, DHIT, DRDATE, MNAME, DSTATUS
+		                            FROM DIARYBOARD D, FRIEND F, MEMBER M
+		                                WHERE (D.MID=M.MID AND DSTATUS = 2 AND MSTATUS=1)  OR
+		                                            (D.MID=F.FID AND M.MID=F.FID AND DSTATUS = 1 AND F.MID = #{mid} AND MSTATUS=1) OR
+		                                            (D.MID=M.MID AND M.MID=F.MID AND DSTATUS = 0 AND M.MID = #{mid})
+		                                ORDER BY DRDATE DESC) A ) B
 	</select>
 	
 	<!-- 일기 자세히 보기 -->

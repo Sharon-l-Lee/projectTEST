@@ -1,0 +1,169 @@
+@charset "UTF-8";
+
+*{
+	margin:0;
+	paddin:0;
+	
+}
+
+#main_wrap{
+	margin : 60px 35px;
+	
+	/* 크기 */
+	width : 1600px;
+	height : 850px;
+	
+	/* 이미지 */
+	background-image: url("../../img/index1_notbutton.png");
+	
+	/* header 붙이기 */
+	overflow: hidden;
+	background-image: url( "../../img/main_wraper.png" );
+	background-repeat: no-repeat;
+	
+}
+
+
+#wrap{
+	width:100%;
+	height:100%;
+}
+
+#wrap #timetable{
+	width:60%;
+	height:80%;
+}
+
+#wrap #timetable h1{
+	position: relative;
+	margin-top:5%;
+	top:20px;
+	left: 15%;
+}
+
+
+#wrap #timetable #colors{
+	position: relative;
+	width:40%;
+	left:43%;
+	top:40px;
+
+}
+#wrap #timetable .pbtn button{
+	outline : none;
+	border:none;
+	background-color:#ffffff;
+	position: relative;
+	left:300px;
+	top:56px;
+	
+}
+#wrap #timetable .nbtn button{
+	outline : none;
+	border:none;
+	background-color:#ffffff;
+	position: relative;
+	left:400px;
+
+	
+}
+#wrap #timetable .nbtn button{
+	outline : none;
+	border:none;
+	background-color:#ffffff;
+	position: relative;
+	left:800px;
+
+	
+}
+#wrap #timetable #colors button{
+	outline: none;
+	border: none;
+	background:none;
+	
+
+}
+#wrap #timetable #colors img{
+	width:20px;
+	height:20px;
+	margin-bottom:10px;
+
+}
+
+#wrap #timetable .col-sm-6{
+	width: 100%;
+	height:80%;
+
+}
+#wrap #timetable table{
+	border-collapse: collapse;
+	border: 1px solid lightgray;
+	width: 70%;
+	height:70%;
+	position: relative;
+	left : 20%;
+	top:20px;
+	
+
+}
+#wrap #timetable tr, td, th{
+	border: 0.5px solid lightgray;
+}
+
+#main_wrap #wrap .tprint{
+	
+	width:20%;
+	height:70%;
+	position: relative;
+	left : 55%;
+	bottom:65%;
+	font-size:1.2em;
+	text-align: center;
+	
+}
+
+#main_wrap #wrap .tprint{
+	position:relative;
+	left:60%;
+	bottom:64%;
+	padding:5px;
+	border:2px solid #03045E;
+}
+
+#main_wrap #wrap h3{
+	margin-bottom:5%;
+}
+
+#main_wrap #wrap #menu{
+	
+	width:100px;
+	height:100px;
+}
+
+#main_wrap #wrap #menu button{
+	background-color:#ffffff;
+	border:none;
+	outline:0;
+ 	 
+width:60px;
+height:60px;
+	position: relative;
+	left:1400px;
+	bottom:1200px;
+}
+
+#main_wrap #wrap #menu img{
+/* 	float: right; */
+	width:60px;
+	height:60px;
+
+}
+/* #wrap #timetable #do{
+	float:left;
+	margin-left:10%;
+	width:20%;
+	height:300px;
+	text-align:center;
+	border: 1px solid black;
+
+} */

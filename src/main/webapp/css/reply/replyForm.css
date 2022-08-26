@@ -1,0 +1,25 @@
+@charset "UTF-8";
+#replyFrm #drcontent{
+	/* 위치 */
+	margin : auto 0;
+	
+	/* 크기 */
+	width : 75%;
+	height: 45px;
+}
+#replyFrm .submit{
+	/* 위치 */
+	margin : auto 0;
+	
+	/* 크기 */
+	width : 20%;
+	height: 45px;
+	
+	/* 디자인 */
+	border : none;
+	outline: none;
+	color : white;
+	font-weight : bold;
+	background-color: #03045E;
+	cursor: pointer;
+}

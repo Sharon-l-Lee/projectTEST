@@ -49,8 +49,8 @@ public class ReviewReplyController {
 	@RequestMapping(value="modify", method= RequestMethod.POST)
 	public String replyModify(Model model, ReviewReplyBoard replyBoard) {
 		//model.addAttribute("rpnum", rpnum);
-		model.addAttribute("replyModify", replyservice.reviewReplyModify(replyBoard));
-		return "forward:content.do";
+		model.addAttribute("replywrite", replyservice.reviewReplyModify(replyBoard));
+		return "forward:../review/content.do";
 	}
 
 
@@ -71,12 +71,10 @@ public class ReviewReplyController {
 	}
 	
 	@RequestMapping(value="comment", method= RequestMethod.POST)
-	public String replyComment(HttpSession session, HttpServletRequest request, ReviewReplyBoard replyBoard) {
-		System.out.println(6);
-		replyservice.reviewReplyComment(session, request, replyBoard);
-		System.out.println(replyBoard);
-		System.out.println(7);
-		return "forward:content.do";
+	public String replyComment(Model model, HttpSession session, HttpServletRequest request, ReviewReplyBoard replyBoard) {
+		 replyservice.reviewReplyComment(session, request, replyBoard);
+		
+		return "forward:../review/content.do";
 	}
 
 	

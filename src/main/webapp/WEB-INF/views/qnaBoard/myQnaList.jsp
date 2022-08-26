@@ -8,19 +8,20 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath }/css/style.css" rel="stylesheet">
+	<link href="${conPath }/css/qnaboard/list.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			
+			$('#qna').addClass('nowIndex');
 		});
 	</script>
 </head>
 <body>
-	<div>
-		<h1>MY LIST</h1>
-		<div class="content">
+	<div id="main_wrap">
+		<div id="wrap">
+			<div id="qnaList">
 			<table>
+				<caption><h2>My Q&A List</h2></caption>
 					<col style="width : 100px;">
 					<col style="width : 470px;">
 					<col style="width : 210px;">
@@ -61,20 +62,33 @@
 						</tr>
 					</c:forEach>
 				</c:if>
+				<tr>
+					<td colspan="5" class="bottom"></td>
+				</tr>
 			</table>
 		</div>
 		<div class="paging">
-				<a href="${conPath }/qna/mylist.do?pageNum=${paging.startPage - 1 eq 0 ? 1 : paging.startPage-1}">이전</a>
+				<a href="${conPath }/qna/myList.do?pageNum=${paging.startPage - 1 eq 0 ? 1 : paging.startPage-1}"><img src="${conPath }/img/btn01.gif" height="25"></a>
 				<c:forEach var="j" begin="${paging.startPage }" end="${paging.endPage }">
 					<c:if test="${j eq paging.currentPage }">
-						<b> ${j } </b>
+						<b> &nbsp; ${j } &nbsp; </b>
 					</c:if>
 					<c:if test="${j != paging.currentPage }">
-						<a href="${conPath }/qna/mylist.do?pageNum=${j}"> ${j } </a>
+						<a href="${conPath }/qna/myList.do?pageNum=${j}"> &nbsp; ${j } &nbsp; </a>
 					</c:if>
 				</c:forEach>
-				<a href="${conPath }/qna/mylist.do?pageNum=${paging.endPage == paging.pageCnt ? paging.endPage : paging.endPage + 1 }">다음</a>
+				<a href="${conPath }/qna/myList.do?pageNum=${paging.endPage == paging.pageCnt ? paging.endPage : paging.endPage + 1 }"><img src="${conPath }/img/btn0010.gif" height="25"></a>
 		</div>
+		</div>
+		<div id="sub_nav">
+			<ul>
+				<li><a href="${conPath }/qna/list.do?pageNum=1">Q&A목록</a></li>
+				<li><a href="${conPath }/qna/writeView.do">Q&A작성</a></li>
+				<li><a href="${conPath }/qna/myList.do">My Q&A List</a></li>
+			</ul>
+		</div>
+		</div>
+		<jsp:include page="../main/header.jsp"/>
 	</div>
 </body>
 </html>

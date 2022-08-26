@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.project.mylog.dao.Team_TodoDao">
+<mapper namespace="com.project.mylog.dao.TeamTodoDao">
 	<resultMap type="TeamTodo" id="TeamTodoResult">
 		<result column="ttno" property="ttno"/>
 		<result column="tno" property="tno"/>
@@ -12,24 +12,35 @@
 		<result column="ttorder" property="ttorder"/>
 		<result column="ttrdate" property="ttrdate"/>
 		<result column="mid" property="mid"/>
+		<result column="mname" property="mname"/>
 	</resultMap>
 	
 	<!-- teamTodoList -->
-	<select id="teamTodoList" parameterType="int" resultType="TeamTodo">
-		SELECT TT.*, TM.mID 
-	        FROM TEAM_TODO TT, TEAM_MEMBER TM, TEAM T
-	        WHERE TT.tmNO=TM.tmNO AND T.TNO= TT.TNO AND TT.tNO=#{tno}
-	        ORDER BY ttORDER
+	<select id="teamTodoList" parameterType="TeamTodo" resultType="TeamTodo">
+		SELECT TT.*, TM.mID, M.mNAME 
+	        FROM TEAM_TODO TT, TEAM_MEMBER TM, TEAM T, MEMBER M
+	        WHERE TT.tmNO=TM.tmNO AND TM.mID=M.mID AND T.TNO= TT.TNO AND TT.tNO=#{tno} AND TT.ttRDATE LIKE TO_DATE(#{ttrdate}, 'YYYY-MM-DD')
+	        ORDER BY ttCHECK, ttORDER
 	</select>
-	<!-- writeTeamTodo -->
-	<insert id="writeTeamTodo" parameterType="TeamTodo">
+	<!-- getTeamTodo -->
+	<select id="getTeamTodo" parameterType="int" resultType="TeamTodo">
+		SELECT TT.*, TM.mID, M.mNAME FROM TEAM_TODO TT, TEAM_MEMBER TM, MEMBER M WHERE TT.tmNO=TM.tmNO AND TM.mID=M.mID AND TTNO=#{ttno}
+	</select>
+	<!-- makeTeamTodo -->
+	<insert id="makeTeamTodo" parameterType="TeamTodo">
 		INSERT INTO TEAM_TODO (ttNO, tNO, ttCONTENT, ttCHECK, tmNO, ttORDER, ttRDATE)
-        	VALUES (TEAM_TODO_SEQ.NEXTVAL, #{tno}, #{ttcontent}, 0, #{tmno}, TEAM_TODO_SEQ.CURRVAL, SYSDATE);
+        	VALUES (TEAM_TODO_SEQ.NEXTVAL, #{tno}, #{ttcontent}, 0, #{tmno}, TEAM_TODO_SEQ.CURRVAL, #{ttrdate})
 	</insert>
 	<!-- deleteTeamTodo -->
 	<delete id="deleteTeamTodo" parameterType="int">
 		DELETE FROM TEAM_TODO WHERE ttNO=#{ttno}
 	</delete>
+	<!-- modifyTeamTodo -->
+	<update id="modifyTeamTodo" parameterType="TeamTodo">
+		UPDATE TEAM_TODO SET ttCONTENT=#{ttcontent},
+                         	 tmNO=#{tmno}
+                    	 WHERE ttNO = #{ttno} AND tNO=#{tno}
+	</update>
 	<!-- orderingTeamTodo -->
 	<update id="orderingTeamTodo" parameterType="TeamTodo">
 		UPDATE TEAM_TODO SET ttORDER = #{ttorder}
@@ -38,7 +49,7 @@
 	<!-- checkTeamTodo -->
 	<update id="checkTeamTodo" parameterType="TeamTodo">
 		UPDATE TEAM_TODO SET ttCHECK = #{ttcheck}
-	                     WHERE ttNO=#{ttno} AND tmNO=#{tmno}
+	                     WHERE ttNO=#{ttno}
 	</update>
 	<!-- deleteTeamTodoList -->
 	<delete id="deleteTeamTodoList" parameterType="int">

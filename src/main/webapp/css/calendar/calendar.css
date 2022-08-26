@@ -1,0 +1,81 @@
+@charset "UTF-8";
+* {
+	margin : 0;
+	padding : 0;
+}
+#main_wrap {
+	width: 1600px;
+	height: 850px;
+	margin : 60px 43px;
+	background-image : url("../../img/main_wraper.png");
+}
+
+#wrap {
+	width : 1300px;
+	height : 700px;
+	margin: 0 0 0 130px;
+	padding : 80px 0 0 0;
+}
+
+#calendar_wrap {
+	padding-top : 50px;
+	text-align : center;
+	width : 1300px;
+	margin : 0 auto;
+	border : 1px solid black;
+	border-radius : 15px;
+	overflow : hidden;
+}
+
+#calendar_wrap table {
+	width : 1200px;
+	margin : 50px auto;
+}
+
+#calendar_wrap table th {
+	border-bottom : 2px solid black;
+}
+
+#calendar_wrap table td {
+	width: 120px;
+	height: 80px;
+	text-align : center;
+	border-radius : 15px;
+}
+
+#calendar_wrap table td:hover {
+	background-color : #EEEEEE;
+}
+
+.select {
+  	width: 100px;
+  	height: 30px;
+ 	background: transparent;
+ 	border-radius: 4px;
+  	border: 1px solid black;
+  	outline: 0 none;
+  	padding: 0 5px;
+  	z-index: 3; 
+}
+.select option {
+  background: #EEEEEE;
+  padding: 3px 0;
+  font-size: 18px;
+}
+
+.yearMonth {
+	width : 250px;
+	height : 20px;
+	float : right;
+	top : 0px;
+	position : relative;
+	margin-bottom : 50px;
+}
+
+#headDate {
+	width : 150px;
+	height : 20px;
+	float : left;
+	margin-bottom : 50px;
+	margin-left : 30px;
+}

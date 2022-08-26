@@ -1,0 +1,134 @@
+@charset "UTF-8";
+* {
+	margin: 0;
+	padding: 0;
+}
+div.wrap{
+	background-image: url("../img/main_wraper.png");
+	width : 1600px;
+	height : 850px;
+	border:1px solid white;
+	margin : 60px 35px;
+}
+div.teamBcontent_wrap{
+	border-top: 2px solid black;
+	border-bottom: 2px solid black;
+	width : 500px;
+	height : 600px;
+	margin : 110px auto;
+}
+table.teamBcontent{
+	width : 500px;
+}
+table.teamBcontent tr{
+	overflow: hidden;
+}
+table.teamBcontent tr:first-child{
+	float: left;
+}
+table.teamBcontent tr:nth-child(2){
+	float: right;
+}
+table.teamBcontent tr:first-child td{
+	padding: 10px;
+}
+table.teamBcontent tr:nth-child(2) td{
+	padding: 15px 10px 0 10px;
+	text-align: right;
+	font-size: 0.9em;
+}
+table.teamBcontent tr:nth-child(3) td{
+	clear:both;
+	width:400px;
+	height:150px;
+	border:1px solid black;
+	vertical-align: top; 
+	text-align: left;
+	padding:10px;
+}
+table.teamBcontent tr:nth-child(4) td{
+	padding: 10px;
+	font-size: 0.9em;
+	text-align: right;
+}
+table.teamBcontent tr:nth-child(5) td{
+	padding: 5px;
+	border-bottom: 2px solid black;
+	text-align: right;
+}
+table.teamBcontent tr:nth-child(5) td input.btn{
+	border: none;
+	background-color: white;
+	font-size: 1.0em;
+}
+table.teamBcontent tr:nth-child(5) td input.btn:hover,
+div.teamBcontent_wrap form input.btn:hover {
+	border-bottom: 1px solid black;
+}
+
+div.teamBcontent_wrap form{
+	text-align:center;
+	padding: 5px;
+}
+div.teamBcontent_wrap form table{
+	margin: 0 auto;
+}
+div.teamBcontent_wrap form input{
+	width: 220px;
+	height: 25px;
+	border: none;
+	margin-left: 10px;
+	border-bottom: 1px solid black;
+}
+div.teamBcontent_wrap form input.btn{
+	width: 80px;
+	border: none;
+	background-color: white;
+	font-size: 0.9em;
+	line-height: 25px;
+}
+
+div.teamBCcontent{
+	width:400px;
+	margin:0 auto;
+	padding: 10px 0;
+}
+div.teamBCcontent div.teamBCcontent_header {
+	text-align: center;
+}
+div.teamBCcontent div.teamBCcontent_list{
+	margin:0 auto;
+	width:350px;
+	overflow: hidden;
+}
+div.teamBCcontent div.teamBCcontent_list div{
+	padding:3px;
+	float: left;
+}
+div.teamBCcontent div.Ccomment_mname {
+	width:60px;
+	text-align: center;
+}
+div.teamBCcontent div.toggle_button {
+	border-bottom: 1px solid black; 
+	width:150px;
+	padding:0 5px;
+}
+div.teamBCcontent div.#todoList_btn{
+	clear: both;
+	float: right;
+}
+div.teamBCcontent div.#todoList_btn button{
+	border:none;
+	background-color: white;
+}
+div.#todoList_btn button:hover{
+	border-bottom: 1px solid black;
+}
+div#paging{
+	text-align: center;
+}
+
+
+
+

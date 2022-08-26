@@ -1,6 +1,6 @@
 package com.project.mylog.model;
 
-import java.sql.Timestamp;
+import java.sql.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,6 +16,8 @@ public class TeamTodo {
 	private int ttcheck;
 	private int tmno;
 	private int ttorder;
-	private Timestamp ttrdate;
+	private Date ttrdate;
+	
 	private String mid;
+	private String mname;
 }

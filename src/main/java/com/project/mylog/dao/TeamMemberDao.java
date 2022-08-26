@@ -20,4 +20,6 @@ public interface TeamMemberDao {
 	public int drawalTeamMember(TeamMember teammember);
 	public List<TeamMember> teamMemberList(int tno);
 	public int teamMemberTotCnt(int tno);
+	public TeamMember getTeamMemberDetail(TeamMember teammember);
+	public int deleteTeamMember(int tno);
 }

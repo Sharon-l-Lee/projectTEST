@@ -21,20 +21,6 @@ public class AccountBookServiceImpl implements AccountBookService {
 	private AccountBookDao abDao;
 
 	@Override
-	public List<AccountBook> dailyAccount(Date adate, String pageNum, HttpSession session) {
-		if(pageNum == null) {
-			pageNum = "1";
-		}
-		AccountBook accountBook = new AccountBook();
-		accountBook.setMid(((Member) session.getAttribute("member")).getMid());
-		accountBook.setAdate(Timestamp.valueOf(adate+ " 00:00:00"));
-		Paging paging =  new Paging(abDao.dailyAccountCnt(accountBook), pageNum, 15, 10);
-		accountBook.setStartRow(paging.getStartRow());
-		accountBook.setEndRow(paging.getEndRow());
-		return abDao.dailyAccount(accountBook);
-	}
-
-	@Override
 	public List<AccountBook> monthlyAccount(Date adate, String pageNum, HttpSession session) {
 		if(pageNum == null) {
 			pageNum = "1";
@@ -42,18 +28,10 @@ public class AccountBookServiceImpl implements AccountBookService {
 		AccountBook accountBook = new AccountBook();
 		accountBook.setMid(((Member) session.getAttribute("member")).getMid());
 		accountBook.setAdate(Timestamp.valueOf(adate+ " 00:00:00"));
-		Paging paging =  new Paging(abDao.monthlyAccountCnt(accountBook), pageNum, 15, 10);
+		Paging paging =  new Paging(abDao.monthlyAccountCnt(accountBook), pageNum, 9, 10);
 		accountBook.setStartRow(paging.getStartRow());
 		accountBook.setEndRow(paging.getEndRow());
 		return abDao.monthlyAccount(accountBook);
-	}
-
-	@Override
-	public int dailyAccountCnt(Date adate, HttpSession session) {
-		AccountBook accountBook = new AccountBook();
-		accountBook.setMid(((Member) session.getAttribute("member")).getMid());
-		accountBook.setAdate(Timestamp.valueOf(adate+ " 00:00:00"));
-		return abDao.dailyAccountCnt(accountBook);
 	}
 
 	@Override
@@ -62,22 +40,6 @@ public class AccountBookServiceImpl implements AccountBookService {
 		accountBook.setMid(((Member) session.getAttribute("member")).getMid());
 		accountBook.setAdate(Timestamp.valueOf(adate+ " 00:00:00"));
 		return abDao.monthlyAccountCnt(accountBook);
-	}
-
-	@Override
-	public AccountBook dailyTotal(Date adate, HttpSession session) {
-		AccountBook accountBook = new AccountBook();
-		accountBook.setMid(((Member) session.getAttribute("member")).getMid());
-		accountBook.setAdate(Timestamp.valueOf(adate+ " 00:00:00"));
-		return abDao.dailyTotal(accountBook);
-	}
-
-	@Override
-	public List<AccountBook> dailyCategoryTotal(Date adate, HttpSession session) {
-		AccountBook accountBook = new AccountBook();
-		accountBook.setMid(((Member) session.getAttribute("member")).getMid());
-		accountBook.setAdate(Timestamp.valueOf(adate+ " 00:00:00"));
-		return abDao.dailyCategoryTotal(accountBook);
 	}
 
 	@Override

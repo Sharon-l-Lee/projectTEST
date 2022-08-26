@@ -1,0 +1,313 @@
+@charset "UTF-8";
+*{
+	margin : 0;
+	padding : 0;
+	
+}
+#main_wrap{
+	/* 위치 */
+	margin : 60px 43px;
+	
+	/* 크기 */
+	width : 1600px;
+	height : 850px;
+	
+	/* 이미지 */
+	background-image: url("../../img/main_wraper.png");
+	
+}
+#main_wrap #wrap{
+	/* 위치 */
+	margin : 0 0 0 130px;
+	
+	/* 크기 */
+	width : 1300px;
+	height: 800px;
+	
+	/* 속성 */
+	overflow: hidden;
+	
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+
+/* 날짜 뜨는 곳  */
+#main_wrap #wrap #date_wrap{
+	/* 위치 */
+	margin : 30px auto;
+	
+	/* 크기 */
+	width : 100%;
+	
+}
+#main_wrap #wrap #date_wrap #date{
+	/* 위치 */
+	position: relative;
+}
+#main_wrap #wrap #date_wrap #date div{
+	/* 위치 */
+	position: absolute;
+	
+	/* 속성 */
+	display: inline-block;
+}
+#main_wrap #wrap #date_wrap .before{
+	top : 40px;
+	left: 330px;
+}
+#main_wrap #wrap #date_wrap .nowDate{
+	top : 40px;
+	left: 610px;
+}
+#main_wrap #wrap #date_wrap .nowDate div{
+	/* 속성 */
+	display: block;
+	
+	/* 크기 */
+	width : 100px;
+	
+	/* 글씨 */
+	text-align: center;
+}
+#main_wrap #wrap #date_wrap .nowDate .year{
+	/* 글씨 */
+	font-size: 18px;
+}
+#main_wrap #wrap #date_wrap .nowDate .month{
+	/* 위치 */
+	margin-top : 12px;
+	
+	/* 글씨 */
+	font-size: 40px;
+	font-weight: bold;
+}
+#main_wrap #wrap #date_wrap .after{
+	/* 위치 */
+	top : 40px;
+	right: 300px;
+}
+#main_wrap #wrap #date_wrap .button{
+	/* 글씨 */
+	font-size: 50px;
+	
+	/* 디자인 */
+	cursor: pointer;
+}
+
+
+
+/* 가계부 내용 */
+/* 사이드 */
+#main_wrap #wrap #account_wrap{
+	/* 위치 */
+	margin-top : 170px;
+	
+	/* 크기 */
+	height: 610px;
+	
+	/* 속성 */
+	overflow : hidden;
+}
+#main_wrap #wrap #account_wrap #month_total{
+	/* 위치 */
+	float : left;
+	margin-left: 40px;
+	
+	/* 크기 */
+	width: 20%;
+	
+	/* 디자인 */
+	text-align: center;
+}
+#main_wrap #wrap #account_wrap #month_total .list{
+	margin-bottom : 15px;
+}
+#main_wrap #wrap #account_wrap #month_total .list .title{
+	/* 크기 */
+	height: 30px;
+	
+	/* 글씨 */
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 30px;
+	
+	/* 디자인 */
+	color: white;
+	background-color: #03045E
+}
+
+#main_wrap #wrap #account_wrap #month_total .list .content{
+	/* 글씨 */
+	font-size: 17px;
+	font-weight: 400;
+	line-height: 30px;
+}
+
+#main_wrap #wrap #account_wrap #month_total #inOut{
+	/* 위치 */
+	margin-top : 30px;
+	
+	/* 크기 */
+	width : 100%;
+	
+	/* 속성 */
+	overflow : hidden;
+}
+#main_wrap #wrap #account_wrap #month_total #inOut .list{
+	/* 위치 */
+	float : left;
+	
+	/* 크기 */
+	width : 48%;
+}
+#main_wrap #wrap #account_wrap #month_total #inOut .in{
+	/* 위치 */
+	margin-right : 5px;
+}
+#main_wrap #wrap #account_wrap #month_total #inOut .out{
+	/* 위치 */
+	margin-left : 5px;
+}
+#main_wrap #wrap #account_wrap #month_total #inOut .blue{
+	color : #2425bd;
+}
+#main_wrap #wrap #account_wrap #month_total #inOut .red{
+	color : #E64848;
+}
+
+/* 그래프 */
+#main_wrap #wrap #account_wrap #month_total #category_total .title{
+	/* 위치 */
+	margin-top : 60px;
+	
+	/* 크기 */
+	height: 30px;
+	
+	/* 글씨 */
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 30px;
+	
+	/* 디자인 */
+	color: white;
+	background-color: #03045E
+}
+
+
+/* 메인 */
+#main_wrap #wrap #account_wrap #account_list{
+	/* 위치 */
+	float : left;
+	margin-left: 100px;
+	
+	/* 크기 */
+	width: 65%;
+	height: 93%;
+	
+	/* 디자인 */
+	border : 2px solid #03045E;
+}
+#main_wrap #wrap #account_wrap #account_list #list{
+	/* 크기 */
+	width : 100%;
+	height: 82%;
+	
+}
+#main_wrap #wrap #account_wrap #account_list #list .account_one{
+	/* 위치 */
+	margin : 0 10px;
+	
+	/* 크기 */
+	height : 50px;
+	
+	/* 글씨 */
+	font-size: 20px;
+	font-weight: 500;
+	line-height: 70px;
+	
+	/* 디자인 */
+	border-bottom: 1.5px solid #03045E;
+}
+#main_wrap #wrap #account_wrap #account_list #list .account_one span{
+	/* 위치 */
+	margin: 0 10px;
+}
+#main_wrap #wrap #account_wrap #account_list #list .account_one .small{
+	/* 글씨 */
+	font-size: 16px;
+	line-height: 50px;
+	
+	/* 속성 */
+	display: inline-block;
+}
+#main_wrap #wrap #account_wrap #account_list #list .account_one .content{
+	/* 크기 */
+	width : 420px;
+	
+	/* 속성 */
+	display: inline-block;
+}
+#main_wrap #wrap #account_wrap #account_list #list .account_one .money{
+	/* 크기 */
+	width: 120px;
+	
+	/* 속성 */
+	display: inline-block;
+}
+#main_wrap #wrap #account_wrap #account_list #list .account_one button{
+	/* 크기 */
+	width : 50px;
+	height: 30px;
+	
+	/* 디자인 */
+	outline : none;
+	border : none;
+	color: white;
+	cursor : pointer;
+	background-color: #03045E;
+}
+
+#main_wrap #wrap #account_wrap #account_list #write_button{
+	/* 위치 */
+	margin : 5px auto;
+
+	/* 여백 */
+	padding : 10px 0;
+	
+	/* 크기 */
+	width : 300px;
+	
+	/* 글씨 */
+	font-size: 20px;
+	text-align: center;
+	font-weight : bold;
+	
+	/* 디자인 */
+	color : white;
+	cursor : pointer;
+	background-color: #03045E;
+}
+
+
+
+
+/* 페이징 */
+.paging{
+	/* 위치 */
+	margin : 10px auto;
+	
+	/* 크기 */
+	width : 100%;
+	
+	/* 디자인 */
+	text-align: center;
+}
+.paging a{
+	/* 디자인 */
+	color: #9b9b9b;
+	text-decoration : none;
+}
+.paging a:hover {
+	color : black;
+}

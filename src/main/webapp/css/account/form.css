@@ -1,0 +1,78 @@
+@charset "UTF-8";
+#form{
+}
+#form #table{
+	width : 100%;
+	height: 100%;
+}
+#form #table #table_title{
+	width : 100%;
+	height: 50px;
+	
+	font-size: 20px;
+	font-weight: bold;
+	line-height: 50px;
+	text-align: center;
+	
+	color: white;
+	background-color: #03045E;
+}
+#form #table .title{
+	margin: 18px;
+	
+	font-size: 18px;
+	line-height: 20px;
+}
+#form #table #astatus{
+	margin: 18px;
+	
+	text-align: center;
+}
+#form #table #content input{
+	margin: 18px;
+	
+	width : 70%;
+	height: 20px;
+}
+#form #table #aprice input{
+	margin-left : 18px;
+	
+	width : 70%;
+	height: 20px;
+}
+#form #table #category select{
+	margin: 18px;
+	
+	width : 65%;
+	height: 20px;
+	
+	font-size: 17px;
+	line-height: 20px;
+}
+
+#form #table #date input{
+	height: 20px;
+}
+#form #table #date select option{
+	height: 20px;
+	line-height: 20px;
+}
+#form #table #button{
+	margin : 20px auto 0 auto;
+	
+	width: 90%;
+	height : 30px;
+	
+	background-color: #03045E;
+}
+#form #table #button input{
+	width: 100%;
+	height : 30px;
+	
+	/* 디자인 */
+	color : white;
+	outline: none;
+	border: none;;
+	background-color: #03045E;
+	cursor: pointer;
+}

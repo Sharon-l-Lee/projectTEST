@@ -8,16 +8,17 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath }/css/style.css" rel="stylesheet">
+	<link href="${conPath }/css/qnaboard/form.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(document).ready(function(){
-			
+			$('#qna').addClass('nowIndex');
 		});
 	</script>
 </head>
 <body>
-	<div>
+	<div id="main_wrap">
+		<div id="wrap">
 		<form action="${conPath }/qna/reply.do" method="post">
 			<input type="hidden" name="pageNum" value="${param.pageNum }">
 			<input type="hidden" name="aid" value="${admin.aid }">
@@ -27,29 +28,32 @@
 			<input type="hidden" name="qindent" value="${qna.qindent }">
 			<div class="write">
 				<table>
+					<caption><h2>Q&A 답글작성</h2></caption>
 					<col style="width : 200px;">
 					<col style="width : 600px;">
 					<tr>
 						<th>제목</th>
-						<td><input type="text" name="qtitle" class="qtitle" value="RE:${qna.qtitle }"></td>
+						<td class="sc"><input type="text" name="qtitle" class="qtitle" value="RE:${qna.qtitle }"></td>
 					</tr>
 					<tr>
 						<th>작성자</th>
-						<td><input type="text" name="qwriter" class="qwriter"
+						<td class="sc"><input type="text" name="qwriter" class="qwriter"
 							value="관리자" readonly="readonly"></td>
 					</tr>
 					<tr>
 						<th>내용</th>
-						<td  style="height : 200px; padding : 10px;"><textarea name="qcontent" class="qcontent" rows="15" cols="10"></textarea></td>
+						<td class="sc" style="height : 200px; padding : 10px;"><textarea name="qcontent" class="qcontent" rows="15" cols="10"></textarea></td>
 					</tr>
 				</table>
 			</div>
 			<div class="btn_wrap">
 				<input type="submit" value="등록" class="btn">
 				<input type="reset" value="초기화" class="btn">
-				<input type="button" value="목록" class="btn" onclick="location.href='${conPath}/qna/list.laf?pageNum=${param.pageNum }'">
+				<input type="button" value="목록" class="btn" onclick="location.href='${conPath}/qna/list.do?pageNum=${param.pageNum }'">
 			</div>
 		</form>
+		</div>
+		<jsp:include page="../main/header.jsp" />
 	</div>
 </body>
 </html>

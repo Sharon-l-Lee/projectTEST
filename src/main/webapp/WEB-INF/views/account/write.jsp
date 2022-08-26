@@ -9,6 +9,7 @@
 	<meta charset="UTF-8">
 	<title>MyLog : Account Modify</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="${conPath }/css/account/form.css" rel="stylesheet">
   	<link rel="stylesheet" href="//code.jquery.com/ui/1.13.1/themes/base/jquery-ui.css">
   	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
   	<script src="https://code.jquery.com/ui/1.13.1/jquery-ui.js"></script>
@@ -26,58 +27,47 @@
   	</script>
 </head>
 <body>
-	<form action="${conPath }/account/write.do" method="post" id="write_form">
-		<table>
-			<tr>
-				<th>내용</th>
-				<td>
-					<input type="text" name="acontent"  required="required">
-				</td>
-			</tr>
-			<tr>
-				<th>금액</th>
-				<td>
-					<input type="number" name="aprice" min="0">
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="radio" name="astatus" value="0" checked="checked">지출
-					<input type="radio" name="astatus" value="1">수입
-				</td>
-			</tr>
-			<tr>
-				<th>카테고리</th>
-				<td>
-					<select name="acno" required="required">
-						<c:forEach var="category" items="${categoryList }">
-							<option value="${category.acno }">${category.atitle }</option>
-						</c:forEach>
-					</select>
-				</td>
-			</tr>
-			<tr>
-				<th>날짜</th>
-				<td>
-					<input type="text" name="adate_temp" id="datepicker" value="${nowDate }">
-					<select name="hour">
-						<c:forEach var="i" begin="0" end="23">
-							<option>${i }</option>
-						</c:forEach>
-					</select>시
-					<select name="minutes">
-						<c:forEach var="i" begin="0" end="59">
-							<option>${i }</option>
-						</c:forEach>
-					</select>분
-				</td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit" value="작성">
-				</td>
-			</tr>
-		</table>
+	<form action="${conPath }/account/write.do" method="post" id="form">
+		<div id="table">
+			<div id="table_title">ACCOUNT BOOK WRITE</div>
+			<div id="content">
+				<span class="title">내용</span>
+				<input type="text" id="acontent" name="acontent"  required="required">
+			</div>
+			<div id="aprice">
+				<span class="title">금액</span>
+				<input type="number" id="aprice" name="aprice" min="0">원
+			</div>
+			<div id="astatus">
+				<input type="radio" name="astatus" value="0" checked="checked">지출
+				<input type="radio" name="astatus" value="1">수입
+			</div>
+			<div id="category">
+				<span class="title">카테고리</span>
+				<select name="acno" required="required">
+					<c:forEach var="category" items="${categoryList }">
+						<option value="${category.acno }">${category.atitle }</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div id="date">
+				<span class="title">날짜</span>
+				<input type="text" name="adate_temp" id="datepicker" value="${nowDate }">
+				<select name="hour">
+					<c:forEach var="i" begin="0" end="23">
+						<option>${i }</option>
+					</c:forEach>
+				</select>시
+				<select name="minutes">
+					<c:forEach var="i" begin="0" end="59">
+						<option>${i }</option>
+					</c:forEach>
+				</select>분
+			</div>
+			<div id="button">
+				<input type="submit" value="작성">
+			</div>
+		</div>
 	</form>
 </body>
 </html>

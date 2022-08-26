@@ -8,12 +8,11 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath}/css/style.css" rel="stylesheet">
+	<link href="${conPath}/css/member/result.css" rel="stylesheet">
 </head>
 <body>
-	<div>
+	<div id="wrap">
 			<table>
-				<caption>검색 결과는 아래와 같습니다.</caption>
 				<col style="width : 200px;">
 				<col style="width : 200px;">
 				<tr>

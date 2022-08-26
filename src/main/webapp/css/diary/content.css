@@ -1,0 +1,364 @@
+@charset "UTF-8";
+*{
+	margin : 0;
+	padding : 0;
+	
+}
+#main_wrap{
+	/* 위치 */
+	margin : 60px 43px;
+	
+	/* 크기 */
+	width : 1600px;
+	height : 850px;
+	
+	/* 이미지 */
+	background-image: url("../../img/main_wraper.png");
+	
+}
+#main_wrap #wrap{
+	/* 위치 */
+	margin : 0 0 0 130px;
+	
+	/* 크기 */
+	width : 1300px;
+	height: 800px;
+	
+	/* 속성 */
+	overflow: hidden;
+	
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+/* 본문 */
+#main_wrap #wrap #content_wrap{
+	/* 위치 */
+	float : left;
+	padding-top : 90px;
+	padding-left: 30px;
+	
+	/* 크기 */
+	width : 60%;
+	
+}
+#main_wrap #wrap #content_wrap #content{
+	/* 위치 */
+	margin : 0 auto;
+	
+	/* 크기 */
+	width : 100%;
+	height : 650px;
+	
+	/* 디자인 */
+	border : 2px solid #03045E;
+}
+#main_wrap #wrap #content_wrap #content div{
+	/* 위치 */
+	margin-top : 10px;
+	
+	/* 글씨 */
+	font-size: 18px;
+	
+}
+#main_wrap #wrap #content_wrap #content .date{
+	/* 글씨 */
+	font-size: 30px;
+	font-weight: 700;
+	line-height: 30px;
+	text-align: center;
+	border-bottom : none
+}
+#main_wrap #wrap #content_wrap #content .title{
+	/* 글씨 */
+	font-size: 25px;
+	font-weight: 700;
+	line-height: 25px;
+	text-align: center;
+	
+	/* 디자인 */
+	border-bottom : none;
+	
+	/* 속성 */
+	white-space : nowrap;
+	overflow : hidden;
+	text-overflow : ellipsis;
+}
+#main_wrap #wrap #content_wrap #content .writer{
+	/* 위치 */
+	margin-right : 20px;
+	
+	/* 글씨 */
+	font-size: 20px;
+	line-height: 20px;
+	font-weight: 500;
+	text-align: right;
+	
+	/* 디자인 */
+	border-bottom : none;
+}
+#main_wrap #wrap #content_wrap #content .button{
+	/* 속성 */
+	overflow: hidden;
+	
+	/* 디자인 */
+	border-bottom : none
+}
+#main_wrap #wrap #content_wrap #content .button button{
+	/* 위치 */
+	margin : 0 5px;
+	float: right;
+	
+	/* 크기 */
+	width : 50px;
+	height : 20px;
+	
+	/* 글씨 */
+	font-weight: 400;
+	
+	/* 디자인 */
+	border: none;
+	outline: none;
+	color : white;
+	cursor: pointer;
+	background-color: #03045E;
+}
+#main_wrap #wrap #content_wrap #content .content_title{
+	/* 크기 */
+	height : 30px;
+	
+	/* 글씨 */
+	font-size: 20px;
+	line-height: 30px;
+	font-weight: 700;
+	text-align: center;
+	
+	/* 디자인 */
+	color : white;
+	background-color: #03045E;
+}
+#main_wrap #wrap #content_wrap #content .content{
+	/* 크기 */
+	width : 100%;
+	height : 463px;
+	
+	/* 스크롤 */
+	overflow : scroll;
+	overflow-x : hidden;
+}
+#main_wrap #wrap #content_wrap #content .content::-webkit-scrollbar{
+	width : 15px;
+}
+#main_wrap #wrap #content_wrap #content .content::-webkit-scrollbar-thumb{
+	border-radius : 15px;
+	background-color : #03045E;
+}
+#main_wrap #wrap #content_wrap #content .content::-webkit-scrollbar-track{
+	background-color : #bce8ff;
+}
+
+
+/* 본문 안의 투두 */
+#main_wrap #wrap #content_wrap #content .content #todoList{
+	/* 위치 */
+	margin : 0px auto;
+	
+	/* 크기 */
+	width : 380px;
+	height : 580px;
+	
+	/* 디자인 */
+	background-image: url("../../img/todoList.png");
+}
+#main_wrap #wrap #content_wrap #content .content #todoList .todo_wrap{
+	/* 위치 */
+	margin : 0px auto;
+	padding-top : 150px;
+	
+	/* 크기 */
+	width : 350px;
+}
+#main_wrap #wrap #content_wrap #content .content #todoList .todo_wrap .todo{
+	/* 크기 */
+	width : 350px;
+	height : 405px;
+	
+	/* 스크롤 */
+	overflow : scroll;
+	overflow-x : hidden;
+}
+#main_wrap #wrap #content_wrap #content .content #todoList .todo_wrap .todo::-webkit-scrollbar{
+	width : 10px;
+}
+#main_wrap #wrap #content_wrap #content .content #todoList .todo_wrap .todo::-webkit-scrollbar-thumb{
+	border-radius : 10px;
+	background-color : #03045E;
+}
+#main_wrap #wrap #content_wrap #content .content #todoList .todo_wrap .todo::-webkit-scrollbar-track{
+	background-color : #bce8ff;
+}
+#main_wrap #wrap #content_wrap #content .content #todoList .todo_wrap .todo .todo_one{
+	border-bottom : 1.5px solid #03045E;
+}
+#main_wrap #wrap #content_wrap #content .content .diary_content{
+	margin : 10px auto;
+	
+	width : 90%;
+}
+
+
+
+/* 댓글 */
+#main_wrap #wrap #reply_wrap{
+	/* 위치 */
+	float : left;
+	margin : 90px 0 0 50px;
+	
+	/* 크기 */
+	width : 33%;
+	height : 650px;
+	
+	/* 디자인 */
+	border : 2px solid #03045E;
+}
+#main_wrap #wrap #reply_wrap #reply_write{
+	/* 크기 */
+	padding: 5px;
+	width : 98%;
+	height: 50px;
+	
+	/* 디자인 */
+	text-align: center;
+}
+#main_wrap #wrap #reply_wrap #reply_write #drcontent{
+	/* 위치 */
+	margin : auto 0;
+	
+	/* 크기 */
+	width : 75%;
+	height: 45px;
+}
+#main_wrap #wrap #reply_wrap #reply_write .submit{
+	/* 위치 */
+	margin : auto 0;
+	
+	/* 크기 */
+	width : 20%;
+	height: 45px;
+	
+	/* 디자인 */
+	border : none;
+	outline: none;
+	color : white;
+	font-weight : 400;
+	background-color: #03045E;
+	cursor: pointer;
+}
+#main_wrap #wrap #reply_wrap #reply_content{
+	/* 크기 */
+	width: 100%;
+	height : 590px;
+	
+	/* 스크롤 */
+	overflow : scroll;
+	overflow-x : hidden;
+}
+#main_wrap #wrap #reply_wrap #reply_content::-webkit-scrollbar{
+	width : 10px;
+}
+#main_wrap #wrap #reply_wrap #reply_content::-webkit-scrollbar-thumb{
+	border-radius : 10px;
+	background-color : #03045E;
+}
+#main_wrap #wrap #reply_wrap #reply_content::-webkit-scrollbar-track{
+	background-color : #bce8ff;
+}
+#main_wrap #wrap #reply_wrap #reply_content .reply_one{
+	/* 크기 */
+	width: 100%;
+	padding : 5px 0;
+	
+	/* 디자인 */
+	border-bottom: 1px solid #03045E;
+	
+	/* 속성 */
+	overflow: hidden;
+	box-sizing: border-box;
+}
+#main_wrap #wrap #reply_wrap #reply_content .reply_one .indent{
+	/* 위치 */
+	float : left;
+	
+	/* 크기 */
+	width: 30px;
+	
+	/* 디자인 */
+	text-align: center;
+	
+	/* 속성 */
+	display : inline-block;
+}
+#main_wrap #wrap #reply_wrap #reply_content .reply_one .content{
+	/* 위치 */
+	float : left;
+	
+	/* 크기 */
+	padding : 5px;
+	
+	/* 속성 */
+	box-sizing: border-box;
+}
+#main_wrap #wrap #reply_wrap #reply_content .reply_one .content .writer{
+	/* 디자인 */
+	font-size: 18px;
+	font-weight: bold;
+}
+#main_wrap #wrap #reply_wrap #reply_content .reply_one .content .date{
+	/* 디자인 */
+	font-size: 13px;
+}
+#main_wrap #wrap #reply_wrap #reply_content .reply_one .content .button button{
+	/* 위치 */
+	margin-top : 10px;
+	
+	/* 크기 */
+	width : 50px;
+	
+	/* 디자인 */
+	color : white;
+	cursor : pointer;
+	font-weight : 400;
+	background-color: #03045E;
+}
+#main_wrap #wrap #reply_wrap #reply_content .reply_one .reply_form{
+	/* 크기 */
+	padding: 5px;
+	width : 98%;
+	
+	/* 디자인 */
+	text-align: center;
+	
+	/* 속성 */
+	clear: both;
+}
+
+
+/* 페이징 */
+.paging{
+	/* 위치 */
+	margin : 10px auto;
+	
+	/* 크기 */
+	width : 100%;
+	
+	/* 디자인 */
+	text-align: center;
+}
+.paging a{
+	/* 디자인 */
+	color: #9b9b9b;
+	text-decoration : none;
+}
+.paging a:hover {
+	color : black;
+}

@@ -42,7 +42,7 @@
 	</select>
 	<select id="findFriend" parameterType="Member" resultMap="MemberResult">
 		SELECT MID, MNAME, (SELECT COUNT(*) FROM FRIEND WHERE MID=#{mid} AND FID = MEMBER.MID) EXISTENT
-			FROM MEMBER WHERE MNAME LIKE '%'||#{mname}||'%' AND NOT MID = #{mid}
+			FROM MEMBER WHERE (MNAME LIKE '%'||#{mname}||'%' OR MID LIKE '%'||#{mname}||'%') AND NOT MID = #{mid}
 	</select>
 	<insert id="joinMember" parameterType="Member">
 		<if test="mbirth != null and mmotto != ''">

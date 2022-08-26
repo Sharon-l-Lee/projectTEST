@@ -1,0 +1,35 @@
+@charset "UTF-8";
+
+#wrap {
+	width: 700px;
+	margin: 0 auto;
+	text-align: center;
+}
+
+#wrap table {
+	width: 500px;
+	margin: 50px auto;
+}
+
+#wrap table tr {
+	height: 50px;
+}
+
+input:not(.btn) {
+	width: 90%;
+	border: none;
+	border-bottom: 1px solid lightgray;
+	border-radius: 15px;
+	height: 90%;
+	font-size: 1.2em;
+	padding-left: 10px;
+}
+
+.btn {
+	border: none;
+	width: 100px;
+	font-weight: bold;
+	font-size: 1.1em;
+	background-color: #03045E;
+	color: white;
+}

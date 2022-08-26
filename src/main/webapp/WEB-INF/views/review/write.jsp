@@ -9,19 +9,19 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${conPath }/css/rwrite.css" rel="stylesheet">
+<link href="${conPath }/css/review/rwrite.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script src="${conPath }/resources/ckeditor/ckeditor.js"></script>
 
 
 <script>
 	$(document).ready(function() {
-		
+
 		//ck에디터
 		$(function() {
 			CKEDITOR.replace('rcontent', {
 				filebrowserUploadUrl : '${conPath }/ckeditor/reviewUpload.do'
-				
+
 			});
 		});
 
@@ -49,17 +49,17 @@
 			})
 
 		});
-		
+
 		//태그 key up
-		
-		$('.hname').keydown(function(e){
+
+		$('.hname').keydown(function(e) {
 			let tag = $('input[name=hname]').val();
-			if(e.keyCode==32){
-				$('#space').text('#'+tag);
-			
+			if (e.keyCode == 32) {
+				$('#space').text('#' + tag);
+
 			}
 		});
-	
+
 	});
 </script>
 </head>
@@ -75,20 +75,23 @@
 						TITLE <input type="text" name="rtitle" class="rtitle">
 					</div>
 					<div class="ipt">
-						CONTENT <textarea rows="5" cols="10" name="rcontent" id="editor"></textarea>
+						CONTENT
+						<textarea rows="5" cols="10" name="rcontent" id="editor"></textarea>
 					</div>
-					<div class="ipt">
+					 <div class="ipt">
 						FILE<input type="file" name="tempfile" class="file">
-					</div>
-				
-					<div class="ipt"> RANGE
-						<input type="radio" name="rstatus" value="0" class="range"> 전체공개 
-						<input type="radio" name="rstatus" value="1" class="range"> 친구공개 
-						<input type="radio" name="rstatus" value="2" class="range"> 나만보기
+					</div> 
+
+					<div class="ipt">
+						RANGE <input type="radio" name="rstatus" value="0" class="range">
+						전체공개 <input type="radio" name="rstatus" value="1" class="range">
+						친구공개 <input type="radio" name="rstatus" value="2" class="range">
+						나만보기
 					</div>
 
 					<div id="hname" class="ipt">
-						TAG<input type="text" name="hname" class="hname" placeholder="space로 태그 구분해서 추가 ex)헌트 영화 재미 ">
+						TAG<input type="text" name="hname" class="hname"
+							placeholder="space로 태그 구분해서 추가 ex)헌트 영화 재미 ">
 					</div>
 					<div>
 						<input type="submit" value="글쓰기" id="formsubmit" class="ipt_btn">
@@ -101,6 +104,7 @@
 
 			</diV>
 		</div>
+		<jsp:include page="../main/header.jsp" />
 	</div>
 </body>
 </html>

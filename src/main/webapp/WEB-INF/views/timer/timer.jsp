@@ -13,7 +13,7 @@
 <style>
 </style>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-<link href="${conPath }/css/timer.css" rel="stylesheet">
+<link href="${conPath }/css/timer/timer.css" rel="stylesheet">
 <script>
 	function playtoggle() {
 
@@ -122,7 +122,7 @@
 											var enow = new Date();
 											end = enow.getTime();
 											etime = enowtoLocaleTimeString('ko-kr');
-											tduring = Math.floor(((end - start) / 1000) * 60);
+											tduring = Math.floor((end - start) / (1000 * 60));
 											esecond = Math.floor((end / 1000) % 60);
 											ehour = enow.getHours();
 											emin = enow.getMinutes();
@@ -225,7 +225,7 @@
 											$('#play').show();
 											$('#pause').hide();
 											clearInterval(timer);
-											time = tdo * 6;
+											time = tdo * 3600;
 											document.getElementById('timer').innerHTML = tdo
 													+ ":00:00";
 											document.getElementById('timer').style.width = "300px";

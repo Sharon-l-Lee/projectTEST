@@ -24,7 +24,7 @@ public class Paging {
 	//Paging paging = new Paging(14, pageNum, 10, 5)
 	public Paging(int totCnt, String pageNum, int pageSize, int blockSize) {
 		if(pageNum!=null) {
-			currentPage=Integer.parseInt(pageNum);
+			currentPage = Integer.parseInt(pageNum);
 		}
 		this.pageSize = pageSize;
 		this.blockSize = blockSize;
@@ -40,6 +40,7 @@ public class Paging {
 			endPage = pageCnt;
 		}
 	}
+	
 	//Paging paging = new Paging(14, pageNum)
 	public Paging(int totCnt, String pageNum) {
 		if(pageNum!=null) {

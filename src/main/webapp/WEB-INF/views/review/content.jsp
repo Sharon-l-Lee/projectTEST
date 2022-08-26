@@ -10,10 +10,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-<link href="${conPath }/css/rcontent.css" rel="stylesheet">
+<link href="${conPath }/css/review/rcontent.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
 	$(document).ready(function() {
+		//인덱스
+		$(document).ready(function() {
+			$('#review').addClass('nowIndex');
+		});
 
 		//댓글 쓰기
 
@@ -97,7 +101,8 @@
 					<c:if test="${not empty reviewContent.rfilename }">
 						<div>
 							<img
-								src="${conPath }/ReviewImgUpload/${reviewContent.rfilename }">
+								src="${conPath }/ReviewImgUpload/${reviewContent.rfilename }"
+								style="width: 270px; height: 300px;">
 						</div>
 					</c:if>
 				</div>
@@ -125,9 +130,14 @@
 						</tr>
 						<tr>
 							<th>태그</th>
-							<td><c:forEach var="t" items="${tags }">
-									<span>#${t.hname }</span>
-								</c:forEach></td>
+							<c:if test="${not empty tags }">
+								<td><c:forEach var="t" items="${tags }">
+										<span>#${t.hname }</span>
+									</c:forEach></td>
+							</c:if>
+							<c:if test="${empty tags }">
+								<td>태그가 등록되지 않았습니다</td>
+							</c:if>
 						</tr>
 						<tr>
 							<td colspan="4">
@@ -153,7 +163,7 @@
 						<input type="hidden" name="rnum" value="${reviewContent.rnum }">
 						<textarea rows="5" cols="70" id="rpcontent" name="rpcontent"></textarea>
 
-						<button id="write" class="rbtn">작성</button>
+						<button id="write" class="cbtn">작성</button>
 
 					</form>
 					<!-- 	</form> -->
@@ -167,40 +177,68 @@
 					<c:if test="${not empty replylist }">
 						<c:forEach items="${replylist }" var="relist">
 							<c:if test="${relist.rpindent eq 1 }">
-			 └─ &nbsp; &nbsp;
-			</c:if>
-							<c:if test="${relist.rpmention != null}">
-								<div>@ ${relist.rpmention }</div>
-							</c:if>
-							<div class="reply">
+								<div class="idt1">
 
-								<div id="${relist.rnum }" style="display: none;">${relist.rnum }</div>
-								<div id="rnum${relist.rpnum }" style="display: none;">${relist.rnum }</div>
-								<div id="">작성자 : ${relist.mname }</div>
-								<div id="append${relist.rpnum }"></div>
-								<div id="rpcontent${relist.rpnum }">
-									<c:if test="${empty replyModify }">
-						${relist.rpcontent }
-					</c:if>
-									<c:if test="${not empty replyModify }">
-						${replyModify.rpcontent }
-					</c:if>
+									<c:if test="${relist.rpmention != null}">
+										<div>@ ${relist.rpmention }</div>
+									</c:if>
+									<div class="reply">
 
-								</div>
-								<div id="">작성일: ${relist.rpdate }</div>
+										<div id="${relist.rnum }" style="display: none;">${relist.rnum }</div>
+										<div id="rnum${relist.rpnum }" style="display: none;">${relist.rnum }</div>
+										<div id="">작성자 : ${relist.mname }</div>
+										<div id="append${relist.rpnum }"></div>
+										<div id="rpcontent${relist.rpnum }">${relist.rpcontent }
+
+										</div>
+										<div id="">작성일: ${relist.rpdate }</div>
 
 
 
-								<button id="${relist.rpnum }" class="modifyview">수정</button>
-								<!-- 
+										<button id="${relist.rpnum }" class="modifyview cbtn">수정</button>
+										<!-- 
 						onclick="location.href='${conPath}/review/replymodify.do?rpnum=${relist.rpnum}'"
 						onclick="location.href='${conPath}/review/replycomment.do?rpnum=${relist.rpnum}'" -->
-								<button
-									onclick="location.href='${conPath}/reply/delete.do?rpnum=${relist.rpnum}&rnum=${relist.rnum }'">삭제</button>
-								<button id="${relist.rpnum }" class="recomment">답변</button>
-								<div id="appendwrite${relist.rpnum }"></div>
-							</div>
+										<button
+											onclick="location.href='${conPath}/reply/delete.do?rpnum=${relist.rpnum}&rnum=${relist.rnum }'"
+											class="cbtn">삭제</button>
+										<button id="${relist.rpnum }" class="recomment cbtn">답변</button>
+										<div id="appendwrite${relist.rpnum }"></div>
+									</div>
+								</div>
+							</c:if>
 
+							<c:if test="${relist.rpindent eq 0 }">
+
+								<div class="idt0">
+									<c:if test="${relist.rpmention != null}">
+										<div>@ ${relist.rpmention }</div>
+									</c:if>
+									<div class="reply">
+
+										<div id="${relist.rnum }" style="display: none;">${relist.rnum }</div>
+										<div id="rnum${relist.rpnum }" style="display: none;">${relist.rnum }</div>
+										<div id="">작성자 : ${relist.mname }</div>
+										<div id="append${relist.rpnum }"></div>
+										<div id="rpcontent${relist.rpnum }">${relist.rpcontent }
+
+										</div>
+										<div id="">작성일: ${relist.rpdate }</div>
+
+
+
+										<button id="${relist.rpnum }" class="modifyview cbtn">수정</button>
+										<!-- 
+						onclick="location.href='${conPath}/review/replymodify.do?rpnum=${relist.rpnum}'"
+						onclick="location.href='${conPath}/review/replycomment.do?rpnum=${relist.rpnum}'" -->
+										<button
+											onclick="location.href='${conPath}/reply/delete.do?rpnum=${relist.rpnum}&rnum=${relist.rnum }'"
+											class="cbtn">삭제</button>
+										<button id="${relist.rpnum }" class="recomment cbtn">답변</button>
+										<div id="appendwrite${relist.rpnum }"></div>
+									</div>
+								</div>
+							</c:if>
 
 						</c:forEach>
 						<div id="paging">
@@ -228,6 +266,7 @@
 
 			</div>
 		</div>
+		<jsp:include page="../main/header.jsp" />
 	</div>
 </body>
 </html>

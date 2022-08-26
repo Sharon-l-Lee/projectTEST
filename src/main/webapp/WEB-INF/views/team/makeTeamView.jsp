@@ -8,35 +8,45 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath}/css/style.css" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<script>
-		function (){
-			
-		}
-	</script>
+	<link href="${conPath}/css/team/teamDetail.css" rel="stylesheet">
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
-	<form action="${conPath }/team/makeTeam.do" method="post">
-		<input type="hidden" name="mid" value="${member.mid }">
-		<table>
-			<caption>팀만들기</caption>
-			<tr>
-				<th>팀명</th>
-				<td><input type="text" name="tname" required="required"></td>
-			</tr>
-			<tr>
-				<th>팀목표</th>
-				<td><input type="text" name="tgoal"></td>
-			</tr>
-			<tr>
-				<td colspan="2">
-					<input type="submit" value="팀만들기" class="btn">
-					<input type="reset" value="초기화" class="btn">
-					<input type="reset" value="목록" class="btn" onclick="history.back()">
-				</td>
-			</tr>
-		</table>
-	</form>
+	<div class="wrap" style="background-image: url('../img/main_wraper.png'); border: 1px solid white">
+	<div class="makeTeam">
+		<form action="${conPath }/team/makeTeam.do" method="post">
+			<input type="hidden" name="mid" value="${member.mid }">
+			<table class="makeTeam">
+				<tr><td colspan="2"><h4>MAKE GROUP</h4></td></tr>
+				<tr>
+					<th>GroupName</th>
+					<td><input type="text" name="tname" required="required"></td>
+				</tr>
+				<tr>
+					<th>GroupMotto</th>
+					<td><input type="text" name="tgoal"></td>
+				</tr>
+				<tr>
+					<th>&nbsp;</th>
+					<td>&nbsp;</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<input type="submit" value="[make]" class="btn">
+						<input type="reset" value="[reset]" class="btn">
+						<input type="reset" value="[list]" class="btn" onclick="history.back()">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+		<script>
+			$(document).ready(function(){
+				//인덱스
+				$('#teamboard').addClass('nowIndex');
+	  		});
+		</script>
+		<jsp:include page="../main/header.jsp"/>
+	</div>
 </body>
 </html>

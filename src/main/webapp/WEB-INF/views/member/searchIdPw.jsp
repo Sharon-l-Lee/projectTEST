@@ -7,14 +7,8 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Insert title here</title>
-	<link href="${conPath}/css/style.css" rel="stylesheet">
-	<script	 src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
-	<script>
-			$(document).ready(function(){
-				
-			});
-	</script>
+	<title>아이디 찾기</title>
+	<link href="${conPath}/css/member/search.css" rel="stylesheet">
 </head>
 <body>
 	<c:if test="${searchResult != null }">
@@ -22,19 +16,17 @@
 			alert('${searchResult}')
 		</script>
 	</c:if>
-	<div>
+	<div id="wrap">
 		<form action="${conPath }/member/searchIdPw.do" method="post">
 			<table>
-				<caption>아이디 찾기</caption>
+				<caption><h3>아이디 찾기</h3></caption>
 				<col style="width : 200px;">
 				<tr>
-					<th>닉네임</th>
-					<td><input type="text" name="mname" class="mname" value="${mname }"></td>
+					<td><input type="text" name="mname" class="mname" value="${mname }" placeholder="NICKNAME"></td>
 				</tr>
 				<tr>
-					<th>이메일</th>
 					<td>
-						<input type="email" name="memail" class="memail" id="memail" value="${memail }">
+						<input type="email" name="memail" class="memail" id="memail" value="${memail }" placeholder="EMAIL">
 					</td>
 				</tr>
 			</table>

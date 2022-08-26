@@ -27,7 +27,7 @@
 	</select>
 	<select id="followMe" parameterType="String" resultMap="FriendResult">
 		SELECT F2.MID, MNAME, (SELECT COUNT(*) FROM FRIEND F1 WHERE F1.MID = #{mid} AND F1.FID = F2.MID) EXISTENT
-			FROM FRIEND F2, MEMBER M WHERE M.MID = F2.FID AND F2.FID = #{mid}
+			FROM FRIEND F2, MEMBER M WHERE M.MID = F2.MID AND F2.FID = #{mid}
 	</select>
 	<insert id="followFriend" parameterType="Friend">
 		INSERT INTO FRIEND VALUES (FRIEND_SEQ.NEXTVAL, #{mid}, #{fid})

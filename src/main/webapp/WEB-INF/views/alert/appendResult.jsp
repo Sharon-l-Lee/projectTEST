@@ -19,9 +19,7 @@
 				>
 					<input type="hidden" name="alno" value="${alert.alno }">
 					${alert.midname }(${alert.mid })님이 ${alert.fidname }(${alert.fid })님을 ${alert.codename }하였습니다
-					<span class="date" style="text-align : right;">
-						<fmt:formatDate value="${alert.aldate }" pattern="MM월 dd일"/> 
-					</span>
+					<br><fmt:formatDate value="${alert.aldate }" pattern="MM월 dd일"/> 
 				</td>
 			</tr>
 		</c:forEach>

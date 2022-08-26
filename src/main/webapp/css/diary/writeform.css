@@ -1,0 +1,127 @@
+@charset "UTF-8";
+*{
+	margin : 0;
+	padding : 0;
+	
+}
+#main_wrap{
+	/* 위치 */
+	margin : 60px 43px;
+	
+	/* 크기 */
+	width : 1600px;
+	height : 850px;
+	
+	/* 이미지 */
+	background-image: url("../../img/main_wraper.png");
+	
+}
+#main_wrap #wrap{
+	/* 위치 */
+	margin : 0 0 0 130px;
+	
+	/* 크기 */
+	width : 1300px;
+	height: 800px;
+	
+	/* 속성 */
+	overflow: hidden;
+	
+	font-family: 'Noto Sans KR', sans-serif;
+}
+
+
+#main_wrap #wrap #form{
+	/* 위치 */
+	padding-top : 90px;
+	padding-left: 30px;
+}
+#main_wrap #wrap #form div{
+	border-bottom: 2px solid #03045E;
+}
+#main_wrap #wrap #form p{
+	/* 크기 */
+	height: 50px;
+	line-height: 50px;
+	
+	/* 속성 */
+	display: inline-block;
+	box-sizing: border-box;
+	
+}
+#main_wrap #wrap #form .span_title{
+	/* 크기 */
+	width : 130px;
+	
+	font-size: 20px;
+	font-weight: 500;
+	text-align : center;
+	
+	border-right: 2px solid #03045E; 
+}
+#main_wrap #wrap #form #dtitle input{
+	margin : auto 15px;
+	width : 1100px;
+	height: 30px;
+}
+#main_wrap #wrap #form #dtodoin .radio{
+	margin : 0 15px;
+}
+#main_wrap #wrap #form #dstatus .radio{
+	margin : 0 15px;
+}
+#main_wrap #wrap #form .content_title{
+	/* 크기 */
+	width : 100%;
+	height: 50px;
+	
+	font-size: 23px;
+	font-weight: 500;
+	text-align : center;
+	line-height : 50px;
+	
+	color: white;
+	background-color: #03045E; 
+}
+#main_wrap #wrap #form #content{
+	width : 100%;
+	
+	border: none;
+}
+#main_wrap #wrap #form #content div{
+	border: none;
+}
+#main_wrap #wrap #form #content #classic{
+	width : 100%;
+	height: 400px;
+	
+	border: none;
+}
+#main_wrap #wrap #form #content #cke_classic{
+	height: 380px;
+}
+#main_wrap #wrap #form #content .cke_contents{
+	height: 350px;
+}
+#main_wrap #wrap #form #button{
+	margin : 15px auto;
+	
+	text-align : center;
+	
+	border: none;
+}
+#main_wrap #wrap #form #button input{
+	width : 20%;
+	height: 50px;
+	
+	font-size: 20px;
+	font-weight: 700;
+	text-align : center;
+	line-height : 50px;
+	
+	color: white;
+	border : none;
+	outline : none;
+	cursor : pointer;
+	background-color: #03045E; 
+}

@@ -1,0 +1,51 @@
+@charset "UTF-8";
+*{
+	margin:0;
+	padding:0;
+}
+div.wrap{
+	background-image: url("../img/main_wraper.png");
+	width : 1600px;
+	height : 850px;
+	margin : 60px 35px;
+}
+table.teamApplyList_wrap{
+	width:300px;
+	height: 550px;
+	margin: 110px auto;
+}
+table.teamApplyList_wrap tr td.teamApplyList_header {
+	width:300px;
+	height:20px;
+	padding: 10px 0;
+	text-align: center;
+	font-size:bold;
+	border:2px solid black;
+	border-bottom:none;
+	border-radius: 15px 15px 0 0;
+	background-color:#EEEEEE;
+}
+div.teamApplyList_main_wrap{
+	width:300px;
+	height:500px;
+	border:2px solid black;
+	border-radius: 0 0 15px 15px;
+}
+div.teamApplyList_main{
+	padding:10px;
+	border-bottom: 1px solid black;
+}
+div.teamApplyList_main  table td:first-child{
+	width: 200px;
+}
+div.teamApplyList_main:hover{
+	background-color:#EEEEEE;
+}
+button.btn:hover{
+	border-bottom: 1px solid black;
+}
+button.btn{
+	border: none;
+	padding:0 5px;
+	background-color: white;
+}

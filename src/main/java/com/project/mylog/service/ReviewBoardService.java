@@ -30,8 +30,6 @@ public interface ReviewBoardService {
 	
 	public List<ReviewBoard> rSearchList(String pageNum, String shname);
 	
-	public FileUp fileUp(FileUp fileUp, HttpServletRequest request);
-	
 	public List<ReviewBoard> myReview(HttpSession session, ReviewBoard reviewBoard,  String pageNum);
 	
 	public int myReviewCnt(HttpSession session, ReviewBoard reviewBoard);

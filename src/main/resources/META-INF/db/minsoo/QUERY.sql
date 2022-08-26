@@ -11,13 +11,13 @@ SELECT COUNT(*) FROM MEMBER WHERE MID = 'aaa';
 INSERT INTO MEMBER (MID, MPW, MNAME, MBIRTH, MEMAIL, MMOTTO, MSTATUS) VALUES ('aaa', '111', '닉네임', '2000-01-01', 'aaa@a.com', '나는 최고다', '1');
 
 -- 생일 제외
-INSERT INTO MEMBER (MID, MPW, MNAME, MEMAIL, MMOTTO, MSTATUS) VALUES ('fff', '111', '닉네임', 'fff@f.com', '나는 최고다', '1');
+INSERT INTO MEMBER (MID, MPW, MNAME, MEMAIL, MMOTTO, MSTATUS) VALUES ('fff', '111', '누구', 'fff@f.com', '나는 최고다', '1');
 
 -- 좌우명 제외
-INSERT INTO MEMBER (MID, MPW, MNAME, MBIRTH, MEMAIL) VALUES ('ppp', '111', '닉네임', '2000-01-01', 'ppp@p.com');
+INSERT INTO MEMBER (MID, MPW, MNAME, MBIRTH, MEMAIL) VALUES ('ppp', '111', '아무개', '2000-01-01', 'ppp@p.com');
 
 -- 모두 제외
-INSERT INTO MEMBER (MID, MPW, MNAME, MEMAIL) VALUES ('rrr', '111', '닉네임', 'rrr@r.com');
+INSERT INTO MEMBER (MID, MPW, MNAME, MEMAIL) VALUES ('rrr', '111', '홍길동', 'rrr@r.com');
 
 
 -- 회원정보수정
@@ -33,10 +33,10 @@ UPDATE MEMBER SET MSTATUS = 1 WHERE MID = 'aaa';
 SELECT COUNT(*) FROM MEMBER;
 
 -- 로그인 체크 / loginCheck
-SELECT * FROM MEMBER WHERE MID = 'aaa' AND MPW = '111';
+SELECT * FROM MEMBER WHERE MID = 'aaa' AND MPW = '123';
 
 -- 아이디/비밀번호 찾기 / searchIdPw
-SELECT * FROM MEMBER WHERE MNAME= '닉네임' AND MEMAIL = 'aaa@a.com';
+SELECT * FROM MEMBER WHERE MNAME= '나다' AND MEMAIL = 'aaa@a.com';
 
 -- 아이디/비밀번호 찾기에 쓰일 query / getMemberForEmail
 SELECT * FROM MEMBER WHERE MEMAIL = 'aaa@a.com';
@@ -64,7 +64,7 @@ SELECT FID, MNAME FROM FRIEND F, MEMBER M
 -- 친구 목록 내에서 검색 / searchMyFriend
 SELECT FID, MNAME FROM FRIEND F, MEMBER M
 			WHERE M.MID = F.FID AND F.MID = 'aaa' AND
-				MNAME LIKE '%'||'닉네임'||'%'
+				MNAME LIKE '%'||''||'%'
 			ORDER BY FID;
             
 -- 친구목록 페이징을 위한 query / countMyFriend
@@ -79,10 +79,10 @@ SELECT F2.MID, MNAME, (SELECT COUNT(*) FROM FRIEND F1 WHERE F1.MID = 'aaa' AND F
 			FROM FRIEND F2, MEMBER M WHERE M.MID = F2.FID AND F2.FID = 'aaa';
             
 -- 친구 팔로우 하기 / followFriend
-INSERT INTO FRIEND VALUES (FRIEND_SEQ.NEXTVAL, 'bbb', 'ccc');
+INSERT INTO FRIEND VALUES (FRIEND_SEQ.NEXTVAL, 'aaa', 'fff');
 
 -- 친구 언팔로우하기 / unfollowFriend
-DELETE FROM FRIEND WHERE MID = 'bbb' AND FID = 'ccc';
+DELETE FROM FRIEND WHERE MID = 'aaa' AND FID = 'fff';
 
 -- 공지사항
 
@@ -98,16 +98,16 @@ SELECT *
     
 -- 공지사항 수정 / noticeUpdate
 UPDATE NOTICEBOARD SET NTITLE = '수정공지', NCONTENT = '수정공지합니다', NIP = '127.0.0.2'
-    WHERE NNO = 1;
+    WHERE NNO = 2;
 
 -- 공지사항 삭제 / noticeDelete
-DELETE FROM NOTICEBOARD WHERE NNO = 2;
+DELETE FROM NOTICEBOARD WHERE NNO = 3;
 
 -- 공지사항 조회수 증가 / hitupNotice
 UPDATE NOTICEBOARD SET NHIT = NHIT + 1 WHERE NNO = 1;
 
 -- 공지사항 수정을 위한 글 가져오기 / getNotice
-SELECT * FROM NOTICEBOARD WHERE NNO = 1;
+SELECT * FROM NOTICEBOARD WHERE NNO = 3;
 
 -- 조회수 + 공지사항 자세히보기 / noticeContent
 SELECT * FROM NOTICEBOARD WHERE NNO = 1;
@@ -117,24 +117,23 @@ SELECT COUNT(*) FROM NOTICEBOARD;
 
 
 -- QNA
-
+select * from member;
 -- QNA 등록 / qnaWrite
 INSERT INTO QNABOARD (QNO, MID, QWRITER, QTITLE, QCONTENT, QGROUP, QSTEP, QINDENT, QIP)
-    VALUES (QNABOARD_SEQ.NEXTVAL, 'aaa', '최강','문의드립니다', '답변주세요', QNABOARD_SEQ.CURRVAL, 0, 0, '127.0.0.1');
+    VALUES (QNABOARD_SEQ.NEXTVAL, 'aaa', '나다','문의드립니다', '답변주세요', QNABOARD_SEQ.CURRVAL, 0, 0, '127.0.0.1');
 INSERT INTO QNABOARD (QNO, MID, QWRITER, QTITLE, QCONTENT, QGROUP, QSTEP, QINDENT, QIP)
-    VALUES (QNABOARD_SEQ.NEXTVAL, 'aaa', '최강','문의드립니다', '답변주세요', QNABOARD_SEQ.CURRVAL, 0, 0, '127.0.0.1');
-
+    VALUES (QNABOARD_SEQ.NEXTVAL, 'aaa', '나다','문의드립니다', '답변주세요', QNABOARD_SEQ.CURRVAL, 0, 0, '127.0.0.1');
 -- QNA 수정 / qnaUpdate
-UPDATE QNABOARD SET QTITLE = '수정문의드립니다', QCONTENT = '수정답변주세요' WHERE QNO = 1;
+UPDATE QNABOARD SET QTITLE = '수정문의드립니다', QCONTENT = '수정답변주세요' WHERE QNO = 2;
 
 -- QNA 삭제 / qnaDelete
 DELETE FROM QNABOARD WHERE QNO = 2;
 
 -- QNA 가져오기 / qnaContent / getQna
-SELECT * FROM QNABOARD WHERE QNO = 1;
+SELECT * FROM QNABOARD WHERE QNO = 2;
 
 -- QNA 조회수 증가 / hitupQna
-UPDATE QNABOARD SET QHIT = QHIT + 1 WHERE QNO = 1;
+UPDATE QNABOARD SET QHIT = QHIT + 1 WHERE QNO = 2;
 
 -- QNA 리스트 / qnaList
 SELECT *
@@ -148,7 +147,7 @@ SELECT *
     FROM (SELECT ROWNUM RN, A.*
             FROM (SELECT * FROM QNABOARD
                      ORDER BY QGROUP DESC, QSTEP) A)
-    WHERE MID = 'qqq' AND RN BETWEEN 1 AND 10;
+    WHERE MID = 'aaa' AND RN BETWEEN 1 AND 10;
 
 -- 답글 전 STEP / beforestepA
 UPDATE QNABOARD SET QSTEP = QSTEP + 1 WHERE QGROUP = 1 AND QSTEP > 0;
@@ -164,7 +163,29 @@ SELECT COUNT(*) FROM QNABOARD WHERE MID = 'aaa';
 SELECT COUNT(*) FROM QNABOARD;
 
 
-ROLLBACK;
+-- 알림
+-- 코드 생성
+INSERT INTO ALERT_CODE VALUES (ALERT_CODE_SEQ.NEXTVAL, '팔로우');
+INSERT INTO ALERT_CODE VALUES (ALERT_CODE_SEQ.NEXTVAL, '언팔로우');
+
+-- 알림 생성
+INSERT INTO ALERT (ALNO, MID, FID, ALCODE) VALUES (ALERT_SEQ.NEXTVAL, 'aaa', 'fff', 1);
+
+-- 알림 리스트
+SELECT * 
+    FROM (SELECT ROWNUM RN, A.* 
+            FROM (SELECT AL.*, CODENAME, M1.MNAME MIDNAME, M2.MNAME FIDNAME
+                    FROM ALERT AL, ALERT_CODE AC, MEMBER M1, MEMBER M2
+                    WHERE M1.MID = AL.MID AND AL.FID = M2.MID AND AL.ALCODE = AC.ALCODE AND (AL.MID = 'aaa' OR AL.FID = 'aaa')
+                    ORDER BY ALDATE DESC) A)
+    WHERE RN BETWEEN 1 AND 10;
+
+-- 알림 읽음 처리
+UPDATE ALERT SET ALCHECK = 1 WHERE ALNO = 2 AND ALCHECK = 0;
+
+-- 읽지 않은 알림 수
+SELECT COUNT(*) FROM (SELECT * FROM ALERT WHERE (MID = 'aaa' OR FID = 'aaa') AND ALCHECK = 0);
+
 COMMIT;
 
 

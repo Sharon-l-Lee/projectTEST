@@ -15,11 +15,17 @@ UPDATE MEMBER SET MSTATUS = 0 WHERE MID = 'aaa';
 
 -- TODO
 -- 오늘 날짜의 투두 리스트 전체 출력하기(todoList)
-SELECT *
-    FROM TODO
-    WHERE MID = 'aaa'
-        AND TDRDATE = '2022-07-28'
-    ORDER BY TDCHECK, TDNO;
+SELECT * 
+    FROM (SELECT ROWNUM RN, A.*
+                    FROM (SELECT * FROM TODO
+                                WHERE MID = 'aaa'
+                                AND TDRDATE = '2022-07-28'
+                                ORDER BY TDCHECK, TDNO) A )
+    WHERE RN BETWEEN 1 AND 10;
+
+-- 오늘 날짜의 투투 갯수
+SELECT COUNT(*) FROM TODO
+    WHERE MID = 'aaa' AND TDRDATE = '2022-07-28';
 
 -- 투두 만들기(todoMake)
 INSERT INTO TODO VALUES(TODO_SEQ.NEXTVAL, 'aaa', '국어 노트 정리하기', '0', '2022-07-28');
@@ -50,7 +56,6 @@ DELETE FROM TODO WHERE TNO = 3;
 
 
 -- DIARYBOARD
-SELECT * FROM DIARYBOARD;
 -- 글 작성하기(diaryWrite)
 INSERT INTO 
     DIARYBOARD(DNUM, DTITLE, MID, DTODOIN, DCONTENT, DHIT, DSTATUS, DDATE, DIP)
@@ -106,21 +111,39 @@ SELECT D.*, MNAME
     WHERE D.MID=F.FID AND M.MID=F.FID AND DSTATUS > 0 AND F.MID='aaa';
 
 -- 나에게 공개된 글 (전체공개/친구공개) 모두 보기(diaryList)
-SELECT A.* 
-    FROM (SELECT ROWNUM RN, D.*, MNAME
-                FROM DIARYBOARD D, FRIEND F, MEMBER M
-                WHERE (D.MID=M.MID AND DSTATUS = 2 AND MSTATUS=1)  OR
-                            (D.MID=F.FID AND M.MID=F.FID AND DSTATUS = 1 AND F.MID='aaa' AND MSTATUS=1) OR
-                            (D.MID=M.MID AND M.MID='aaa')
-                ORDER BY DRDATE DESC) A
+SELECT B.* 
+    FROM (SELECT ROWNUM RN, A.*
+                FROM (SELECT DISTINCT DNUM, DTITLE, DHIT, DRDATE, MNAME, DSTATUS
+                            FROM DIARYBOARD D, FRIEND F, MEMBER M
+                                WHERE (D.MID=M.MID AND DSTATUS = 2 AND MSTATUS=1)  OR
+                                            (D.MID=F.FID AND M.MID=F.FID AND DSTATUS = 1 AND F.MID='aaa' AND MSTATUS=1) OR
+                                            (D.MID=M.MID AND M.MID=F.MID AND DSTATUS = 0 AND M.MID='aaa' )
+                                ORDER BY DRDATE DESC) A ) B
     WHERE RN BETWEEN 1 AND 10;
+
+SELECT * FROM DIARYBOARD;
+-- 전체공개
+SELECT DISTINCT DNUM, DTITLE, DHIT, DRDATE, MNAME
+    FROM DIARYBOARD D, MEMBER M, FRIEND F
+    WHERE D.MID=M.MID AND M.MID=F.MID AND M.MID = 'aaa' AND DSTATUS = 2;
+
+-- 친구 공개
+SELECT D.*, MNAME
+    FROM DIARYBOARD D, MEMBER M, FRIEND F
+    WHERE D.MID=F.FID AND M.MID=F.FID AND F.MID = 'aaa' AND DSTATUS = 1;
+    
+    
+select * from diaryboard;
 
 -- 나에게 공개된 글 전체 갯수(diaryCnt)
 SELECT COUNT(*) CNT
-    FROM DIARYBOARD D, FRIEND F, MEMBER M
-    WHERE (D.MID=M.MID AND DSTATUS = 2 AND MSTATUS=1)  OR
-                (D.MID=F.FID AND M.MID=F.FID AND DSTATUS = 1 AND F.MID='aaa' AND MSTATUS=1) OR
-                (D.MID=M.MID AND M.MID='aaa');
+    FROM (SELECT ROWNUM RN, A.*
+                FROM (SELECT DISTINCT DNUM, DTITLE, DHIT, DRDATE, MNAME, DSTATUS
+                            FROM DIARYBOARD D, FRIEND F, MEMBER M
+                                WHERE (D.MID=F.MID AND M.MID=F.MID AND DSTATUS = 2 AND M.MID = 'aaa' AND MSTATUS=1)  OR
+                                            (D.MID=F.FID AND M.MID=F.FID AND DSTATUS = 1 AND F.MID='aaa' AND MSTATUS=1) OR
+                                            (D.MID=M.MID AND M.MID=F.MID AND DSTATUS = 0 AND M.MID='aaa' )
+                                ORDER BY DRDATE DESC) A ) B;
 
 
 
@@ -166,13 +189,6 @@ DELETE FROM DIARYREPLY WHERE DRNUM = 1;
 
 
 -- ACCOUNTCATEGORY
--- 중복된 카테고리 존재 여부(atitleCheck)
-SELECT * FROM ACCOUNTCATEGORY WHERE ATITLE = '월급';
-
--- 카테고리 생성(categoryMake)
-INSERT INTO ACCOUNTCATEGORY VALUES(ACCOUNTCATEGORY_SEQ.NEXTVAL, '월급');
-SELECT * FROM ACCOUNTCATEGORY;
-
 -- 카테고리 리스트(categoryList)
 SELECT * FROM ACCOUNTCATEGORY;
 
@@ -180,33 +196,6 @@ SELECT * FROM ACCOUNTCATEGORY;
 
 
 -- ACCOUNTBOOK
--- 일 가계부 보기
-SELECT * 
-    FROM (SELECT ROWNUM RN, A.*
-                FROM (SELECT B.*, ATITLE
-                            FROM ACCOUNTBOOK B, ACCOUNTCATEGORY C
-                            WHERE B.ACNO = C.ACNO
-                                AND MID = 'aaa'
-                                AND ADATE = '2022-07-01'
-                                ORDER BY ADATE DESC) A)
-    WHERE RN BETWEEN 1 AND 10;
-
--- 일 가계부 갯수
-SELECT COUNT(*) FROM ACCOUNTBOOK WHERE MID = 'aaa' AND ADATE = '2022-07-01';
-
--- 일 총액 보기
-SELECT PLUSTOTAL+MINUSTOTAL TOTAL, PLUSTOTAL, MINUSTOTAL
-    FROM (SELECT SUM(APRICE) PLUSTOTAL FROM ACCOUNTBOOK WHERE ASTATUS = 1 AND MID = 'aaa' AND ADATE = '2022-07-01'),
-            (SELECT SUM(APRICE) MINUSTOTAL FROM ACCOUNTBOOK WHERE ASTATUS = 0 AND MID = 'aaa' AND ADATE = '2022-07-01');
-
--- 일 카테고리 총액
-SELECT ATITLE, SUM(APRICE) TOTAL
-		    FROM ACCOUNTBOOK B, ACCOUNTCATEGORY C
-		    WHERE B.ACNO = C.ACNO
-		        AND MID = 'aaa'
-		        AND ADATE = '2022-07-01'
-		    GROUP BY ATITLE;
-
 -- 가계부 작성하기
 INSERT INTO ACCOUNTBOOK (ANO, MID, ACNO, ACONTENT, APRICE, ADATE, ASTATUS)
     VALUES(ACCOUNTBOOK_SEQ.NEXTVAL, 'aaa', 14, '탑건봄', 18000, '2022-08-06', 0);

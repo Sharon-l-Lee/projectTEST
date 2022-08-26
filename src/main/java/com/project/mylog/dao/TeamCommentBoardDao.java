@@ -14,6 +14,5 @@ public interface TeamCommentBoardDao {
 	public int teamCommentModify(TeamCommentBoard teamcomment);
 	public int teamCommentDelete(int tcnum);
 	public TeamCommentBoard teamCommentDetail(int tcnum);
-	public int teamCommentPreReply(TeamCommentBoard teamcomment);
 	public int teamCommentReply(TeamCommentBoard teamcomment);
 }

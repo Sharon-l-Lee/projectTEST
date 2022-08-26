@@ -47,9 +47,18 @@ public class TodoController {
 	}
 	
 	@RequestMapping(value = "check", method = {RequestMethod.GET, RequestMethod.POST})
-	public String todoChange(int tdno, int tdcheck) {
-		Date ddate = todoService.getTodo(tdno).getTdrdate();
-		todoService.todoChange(tdno, tdcheck);
-		return "forward:../diary/myList.do?ddate="+ddate;
+	public String todoChange(int tdno, String tdcheckStr, Date nowDate) {
+		if(tdcheckStr == null) {
+			int tdcheck = todoService.getTodo(tdno).getTdcheck();
+			if(tdcheck == 0 || tdcheck == 1) {
+				todoService.todoChange(tdno, 2);
+			}else if(tdcheck == 2) {
+				todoService.todoChange(tdno, 0);
+			}
+		}else {
+			int tdcheck =  Integer.parseInt(tdcheckStr);
+			todoService.todoChange(tdno, tdcheck);
+		}
+		return "forward:../diary/myList.do?ddate="+nowDate;
 	}
 }

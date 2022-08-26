@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.project.mylog.dao.TodoDao;
 import com.project.mylog.model.Member;
 import com.project.mylog.model.Todo;
+import com.project.mylog.util.Paging;
 
 @Service
 public class TodoServiceImpl implements TodoService {
@@ -18,11 +19,33 @@ public class TodoServiceImpl implements TodoService {
 	private TodoDao todoDao;
 	
 	@Override
-	public List<Todo> todoList(HttpSession session, Date tdrdate) {
+	public List<Todo> todoInList(HttpSession session, Date tdrdate) {
 		Todo todo = new Todo();
 		todo.setMid(((Member) session.getAttribute("member")).getMid());
 		todo.setTdrdate(tdrdate);
+		return todoDao.todoInList(todo);
+	}
+	
+	@Override
+	public List<Todo> todoList(HttpSession session, Date tdrdate, String tdPageNum) {
+		Todo todo = new Todo();
+		todo.setMid(((Member) session.getAttribute("member")).getMid());
+		todo.setTdrdate(tdrdate);
+		if(tdPageNum == null) {
+			tdPageNum = "1";
+		}
+		Paging paging = new Paging(todoDao.todoCnt(todo), tdPageNum, 8, 5);
+		todo.setStartRow(paging.getStartRow());
+		todo.setEndRow(paging.getEndRow());
 		return todoDao.todoList(todo);
+	}
+	
+	@Override
+	public int todoCnt(HttpSession session, Date tdrdate) {
+		Todo todo = new Todo();
+		todo.setMid(((Member) session.getAttribute("member")).getMid());
+		todo.setTdrdate(tdrdate);
+		return todoDao.todoCnt(todo);
 	}
 
 	@Override

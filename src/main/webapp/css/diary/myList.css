@@ -1,0 +1,403 @@
+@charset "UTF-8";
+*{
+	margin : 0;
+	padding : 0;
+}
+#main_wrap{
+	/* 위치 */
+	margin : 60px 43px;
+	
+	/* 크기 */
+	width : 1600px;
+	height : 850px;
+	
+	/* 이미지 */
+	background-image: url("../../img/main_wraper.png");
+	
+}
+#main_wrap #wrap{
+	/* 위치 */
+	margin : 0px 0 0 130px;
+	
+	/* 크기 */
+	width : 1300px;
+	height: 700px;
+	
+}
+
+
+/* 날짜 뜨는 곳  */
+#main_wrap #wrap #date_wrap{
+	/* 위치 */
+	margin : 30px auto;
+	
+	/* 크기 */
+	width : 100%;
+	
+}
+#main_wrap #wrap #date_wrap #date{
+	/* 위치 */
+	position: relative;
+}
+#main_wrap #wrap #date_wrap #date div{
+	/* 위치 */
+	position: absolute;
+	
+	/* 폰트 */
+	font-family : 'Gowun Dodum', sans-serif;
+	
+	/* 속성 */
+	display: inline-block;
+}
+#main_wrap #wrap #date_wrap .before{
+	top : 50px;
+	left: 330px;
+}
+#main_wrap #wrap #date_wrap .nowDate{
+	top : 50px;
+	left: 610px;
+}
+#main_wrap #wrap #date_wrap .nowDate div{
+	/* 속성 */
+	display: block;
+	
+	/* 크기 */
+	width : 100px;
+	
+	/* 글씨 */
+	text-align: center;
+}
+#main_wrap #wrap #date_wrap .nowDate .year_month{
+	/* 글씨 */
+	font-size: 18px;
+}
+#main_wrap #wrap #date_wrap .nowDate .date{
+	/* 위치 */
+	margin-top : 12px;
+	
+	/* 글씨 */
+	font-size: 40px;
+	font-weight: bold;
+}
+#main_wrap #wrap #date_wrap .nowDate .day{
+	/* 위치 */
+	margin-top : 56px;
+	
+	/* 글씨 */
+	font-size: 19px;
+}
+#main_wrap #wrap #date_wrap .nowDate .weekend{
+	/* 디자인 */
+	color : #E64848;
+}
+#main_wrap #wrap #date_wrap .after{
+	top : 50px;
+	right: 300px;
+}
+#main_wrap #wrap #date_wrap .button{
+	/* 글씨 */
+	font-size: 50px;
+	
+	/* 디자인 */
+	cursor: pointer;
+}
+
+
+
+/* 리스트 두개 묶어주기 */
+#main_wrap #wrap #list_wrap{
+	/* 위치 */
+	overflow: hidden;
+	margin-left: 40px;
+}
+
+/* 일기 리스트 */
+#main_wrap #wrap #list_wrap #diary_wrap{
+	/* 위치 */
+	float : left;
+	margin-top : 160px;
+	
+	/* 크기 */
+	width : 800px;
+	height : 580px;
+	
+	/* 디자인 */
+	border : 2px solid #03045E;
+}
+#main_wrap #wrap #list_wrap #diary_wrap #diaryList{
+	/* 크기 */
+	width : 100%;
+	height: 480px;
+	box-sizing: border-box;
+}
+#main_wrap #wrap #list_wrap #diary_wrap #list_title{
+	/* 크기 */
+	width : 100%;
+	height: 50px;
+	
+	/* 폰트 */
+	
+	/* 글씨 */
+	font-size: 30px;
+	text-align: center;
+	font-weight : bold;
+	line-height : 50px;
+	
+	/* 안여백 */
+	padding: 8px 0;
+	
+	/* 디자인 */
+	color : white;
+	background-color: #03045E;
+	
+}
+#main_wrap #wrap #list_wrap #diary_wrap #diaryList .list{
+	/* 위치 */
+	margin-top : 10px;
+	
+	/* 크기 */
+	width : 100%;
+	height: 48px;
+	box-sizing: border-box;
+	
+	/* 안여백 */
+	padding : 9px;
+	
+	/* 디자인 */
+	border-bottom: 1.5px solid #03045E;
+	
+}
+#main_wrap #wrap #list_wrap #diary_wrap #diaryList .list:hover{
+	/* 디자인 */
+	cursor : pointer;
+	background-color: #DFF6FF;
+}
+#main_wrap #wrap #list_wrap #diary_wrap #diaryList .list span{
+	/* 위치 */
+	margin : 0 50px 0 0;
+	
+	/* 글씨체 설정 */
+	
+	/* 글씨 */
+	font-size: 16px;
+}
+#main_wrap #wrap #list_wrap #diary_wrap #diaryList .list .title{
+	/* 위치 */
+	margin-left : 15px;
+	
+	/* 크기 */
+	width : 300px;
+	
+	/* 글씨 */
+	font-size: 20px;
+	font-weight : bold;
+	
+	/* 속성 */
+	display : inline-block;
+	white-space : nowrap;
+	overflow : hidden;
+	text-overflow : ellipsis;
+}
+#main_wrap #wrap #list_wrap #diary_wrap #diaryList .list .drdate{
+	/* 글씨 */
+	font-size: 13px;
+}
+#main_wrap #wrap #list_wrap #diary_wrap #diaryList .list .hit{
+	/* 글씨 */
+	font-size: 13px;
+}
+
+/* 글 작성 버튼 */
+#main_wrap #wrap #list_wrap #diary_wrap #diary_write{
+	/* 위치 */
+	margin : 5px auto;
+
+	/* 여백 */
+	padding : 10px 0;
+	
+	/* 크기 */
+	width : 300px;
+	
+	/* 글씨 */
+	font-size: 20px;
+	text-align: center;
+	font-weight : bold;
+	
+	/* 디자인 */
+	color : white;
+	cursor : pointer;
+	background-color: #03045E;
+}
+
+
+
+
+
+/* 투두리스트 */
+#main_wrap #wrap #list_wrap #todo_wrap{
+	/* 위치 */
+	float : left;
+	margin : 160px 0 0 50px;
+	
+	/* 크기 */
+	width : 380px;
+	height : 580px;
+	
+	/* 디자인 */
+	background-image: url("../../img/todoList.png");
+}
+#main_wrap #wrap #list_wrap #todo_wrap #todo_list{
+	/* 위치 */
+	margin : 150px auto 0 auto;
+	
+	/* 크기 */
+	width : 350px;
+	height : 330px;
+}
+#main_wrap #wrap #list_wrap #todo_wrap #todo_list .todo_one{
+	/* 위치 */
+	margin : 3px auto;
+	padding : 0;
+	
+	/* 크기 */
+	width : 100%;
+	
+	/* 디자인 */
+	overflow: hidden;
+	box-sizing: border-box;
+	border-bottom : 2px solid #03045E;
+}
+#main_wrap #wrap #list_wrap #todo_wrap #todo_list .todo_one .todo_content{
+	/* 크기 */
+	height : 35px;
+	
+	/* 디자인 */
+	float: left;
+	overflow: hidden;
+}
+#main_wrap #wrap #list_wrap #todo_wrap #todo_list .todo_one .todo_content img{
+	/* 위치 */
+	float: left;
+	margin : auto 0;
+	
+	/* 속성 */
+	display: block;
+	cursor: pointer;
+}
+#main_wrap #wrap #list_wrap #todo_wrap #todo_list .todo_one .todo_content .content{
+	/* 위치 */
+	float: left;
+	margin : 0 0 0 10px;
+	
+	/* 크기 */
+	width : 260px;
+	height : 100%;
+	
+	/* 글씨 */
+	font-size : 18px;
+	font-weight: bold;
+	
+	/* 디자인 */
+	line-height : 35px;
+	
+	/* 속성 */
+	display: block;
+}
+#main_wrap #wrap #list_wrap #todo_wrap #todo_list .todo_one .todo_content .toggle_button{
+	/* 위치 */
+	float: left;
+	margin : 0 5px 0 10px;
+	
+	/* 글씨 */
+	font-size : 20px;
+	font-weight: bold;
+	
+	/* 디자인 */
+	opacity : 80%;
+	line-height : 35px;
+	
+	/* 속성 */
+	display: block;
+}
+#main_wrap #wrap #list_wrap #todo_wrap #todo_list .todo_one .todo_content .toggle_button:hover{
+	/* 디자인 */
+	cursor: pointer;
+}
+#main_wrap #wrap #list_wrap #todo_wrap #todo_make_form{
+	/* 위치 */
+	margin : 10px auto;
+	
+	/* 크기 */
+	width : 350px;
+	height : 40px;
+	
+	/* 디자인 */
+	background-color: #03045E;
+}
+#main_wrap #wrap #list_wrap #todo_wrap #todo_make_form #todo_make{
+	/* 디자인 */
+	color : white;
+	cursor: pointer;
+	line-height: 40px;
+	font-weight : bold;
+	text-align : center;
+	background-color: #03045E;
+}
+
+
+
+/* 토글 */
+.toggle{
+	/* 위치 */
+	float : left;
+	
+	/* 크기 */
+	width : 60px;
+	
+	/* 디자인 */
+	background-color: #03045E;
+	
+	/* 속성 */
+	position: absolute;
+}
+.toggle button{
+	/* 크기 */
+	width : 60px;
+	height : 30px;
+	
+	/* 디자인 */
+	color : white;
+	font-weight : bold;
+	outline: none;
+	border: 1px solid white;
+	background-color: #03045E;
+}
+.toggle button:hover{
+	/* 디자인 */
+	outline: none;
+	cursor : pointer;
+	background-color: #03045E;
+	border: 1px solid #03045E;
+}
+
+
+
+/* 페이징 */
+.paging{
+	/* 위치 */
+	margin : 10px auto;
+	
+	/* 크기 */
+	width : 100%;
+	
+	/* 디자인 */
+	text-align: center;
+}
+.paging a{
+	/* 디자인 */
+	color: #9b9b9b;
+	text-decoration : none;
+}
+.paging a:hover {
+	color : black;
+}

@@ -1,0 +1,64 @@
+@charset "UTF-8";
+*{
+	margin:0;
+	padding:0;
+}
+div.wrap{
+	background-image: url("../img/main_wraper.png");
+	width : 1600px;
+	height : 850px;
+	margin : 60px 35px;
+}
+div.myTeamDetail,
+div.makeTeam{
+	border: 2px solid black;
+	border-radius: 15px;
+	width:350px;
+	height: 500px;
+	margin:150px auto;
+}
+div.myTeamDetail table.myTeamDetail,
+div.makeTeam table.makeTeam{
+	width:350px;
+	text-align: center;
+}
+div.myTeamDetail table.myTeamDetail tr th,
+div.myTeamDetail table.myTeamDetail tr td,
+div.makeTeam table.makeTeam tr th,
+div.makeTeam table.makeTeam tr td{
+	border-bottom: 1px solid black;
+}
+div.myTeamDetail table.myTeamDetail tr th,
+div.makeTeam table.makeTeam tr th{
+	width: 100px;
+	padding: 10px;
+}
+div.myTeamDetail table.myTeamDetail tr td,
+div.makeTeam table.makeTeam tr td{
+	padding: 10px;
+}
+div.makeTeam table.makeTeam tr td input{
+	height: 17px;
+	border: none;
+}
+div.myTeamDetail table.myTeamDetail tr:first-child td,
+div.makeTeam table.makeTeam tr:first-child td{
+	border-bottom: 2px solid black;
+	border-radius: 10px 10px 0 0;
+	padding: 10px;
+	background-color: #EEEEEE;
+}
+
+button.btn,
+input.btn{
+	border: none;
+	background-color: white;
+}
+input.btn{
+	padding: 5px;
+}
+button.btn:hover,
+input.btn:hover,
+div.makeTeam table.makeTeam tr td input:hover {
+	border-bottom: 1px solid black;
+}

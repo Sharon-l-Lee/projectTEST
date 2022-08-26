@@ -1,0 +1,77 @@
+@charset "UTF-8";
+*{
+	margin:0;
+	padding:0;
+}
+div.wrap{
+	border:1px solid white;
+	background-image: url("../img/main_wraper.png");
+	width : 1600px;
+	height : 850px;
+	margin : 60px 35px;
+}
+div.myTeamList_wrap{
+	width : 1100px;
+	height : 600px;
+	margin:110px auto;
+}
+div.myTeamListHeader{
+	overflow: hidden;
+}
+div.myTeamListHeader div{
+	float: left;
+	width: 440px;
+	height: 70px;
+	line-height: 70px;
+}
+div.myTeamListHeader div:first-child{
+	text-align: left;
+	margin-left: 100px;
+}
+div.myTeamListHeader div:nth-child(2){
+	text-align: right;
+	margin-right: 100px;
+	text-decoration: none;
+}
+div.myTeamListHeader div:nth-child(2) a{
+	text-decoration: none;
+}
+div.myTeamListHeader div:nth-child(2) a:hover{
+	border-bottom: 1px solid black;
+}
+div.myList {
+	clear: both;
+	overflow: hidden;
+}
+div.myList div {
+	border: 2px solid black;
+	border-radius: 15px;
+	float: left;
+	width: 350px;
+	height: 500px;
+	margin: 10px 95px;
+}
+div.myList div table{
+	width:350px;
+	text-align: center;
+}
+div.myList div table tr:first-child td{
+	padding: 10px;
+	background-color: #EEEEEE;
+	border-bottom: 2px solid black;
+	border-radius: 10px 10px 0 0;
+	font: bold;
+	
+}
+div.myList div table tr th,
+div.myList div table tr td{
+	border-bottom: 1px solid black;
+	padding: 5px;
+	width: 174px;
+}
+div.myList div table tr:hover{
+	background-color: #EEEEEE;
+}
+div.myList div table tr:nth-child(2):hover{
+	background-color: white;
+}

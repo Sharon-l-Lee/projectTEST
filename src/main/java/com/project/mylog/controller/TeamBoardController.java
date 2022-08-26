@@ -1,5 +1,7 @@
 package com.project.mylog.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -29,7 +31,7 @@ public class TeamBoardController {
 	public String teamboardList(String pageNum, Model model) {
 		model.addAttribute("teamboardList", tbService.teamBoardList(pageNum));
 		int teamBoardTotCnt = tbService.teamBoardTotCnt();
-		model.addAttribute("paging", new Paging(teamBoardTotCnt, pageNum));
+		model.addAttribute("paging", new Paging(teamBoardTotCnt, pageNum, 12, 5));
 		return "teamboard/list";
 	}
 
@@ -40,9 +42,9 @@ public class TeamBoardController {
 	}
 
 	@RequestMapping(value = "write", method = RequestMethod.POST)
-	public String teamboardWrite(@ModelAttribute("teamboard") TeamBoard teamboard, MultipartHttpServletRequest mRequest,
+	public String teamboardWrite(@ModelAttribute("teamboard") TeamBoard teamboard, HttpServletRequest request,
 			Model model) { // ip저장위해
-		model.addAttribute("teamboardwriteResult", tbService.teamBoardWrite(mRequest, teamboard));
+		model.addAttribute("teamboardwriteResult", tbService.teamBoardWrite(request, teamboard));
 		return "forward:list.do";
 	}
 
@@ -55,7 +57,10 @@ public class TeamBoardController {
 		model.addAttribute("teamcommentList", tcService.teamCommentList(tcpageNum, tnum));
 		int teamCommentTotCnt = tcService.teamCommentTotCnt(tnum);
 		model.addAttribute("teamCommentTotCnt", teamCommentTotCnt);
-		model.addAttribute("tcpaging", new Paging2(teamCommentTotCnt, tcpageNum));
+		if(tcpageNum == null) {
+			tcpageNum="1";
+		}
+		model.addAttribute("tcpaging", new Paging2(teamCommentTotCnt, tcpageNum, 5, 5));
 		return "teamboard/content";
 	}
 
@@ -68,8 +73,8 @@ public class TeamBoardController {
 
 	@RequestMapping(value = "modify", method = RequestMethod.POST)
 	public String teamboardModify(@ModelAttribute("teamboard") TeamBoard teamboard,
-			MultipartHttpServletRequest mRequest, Model model) {
-		model.addAttribute("teamboardmodifyResult", tbService.teamBoardModify(mRequest, teamboard));
+			HttpServletRequest request, Model model) {
+		model.addAttribute("teamboardmodifyResult", tbService.teamBoardModify(request, teamboard));
 		return "forward:list.do";
 	}
 
@@ -77,20 +82,6 @@ public class TeamBoardController {
 	@RequestMapping(value = "delete", method = RequestMethod.GET)
 	public String teamboardDelete(int tnum, String pageNum, Model model) {
 		model.addAttribute("teamboarddeleteResult", tbService.teamBoardDelete(tnum));
-		return "forward:list.do";
-	}
-
-	// teamboardReply
-	@RequestMapping(value = "replyView", method = RequestMethod.GET)
-	public String replyView(int tnum, String pageNum, Model model) {
-		model.addAttribute("teamboard", tbService.teamBoardModifyReplyView(tnum));
-		return "teamboard/replyView";
-	}
-
-	@RequestMapping(value = "reply", method = RequestMethod.POST)
-	public String teamboardReply(@ModelAttribute("teamboard") TeamBoard teamboard, MultipartHttpServletRequest mRequest,
-			Model model) { // ip저장위해 request필요
-		model.addAttribute("teamboard", tbService.teamBoardReply(mRequest, teamboard));
 		return "forward:list.do";
 	}
 

@@ -14,4 +14,7 @@ public class Friend {
 	private String fid;
 	private String mname;
 	private int existent;
+	
+	private int startRow;
+	private int endRow;
 }

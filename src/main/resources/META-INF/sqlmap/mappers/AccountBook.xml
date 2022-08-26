@@ -15,24 +15,6 @@
 	    	<result property="astatus" column="astatus"/>
     </resultMap>
     
-<!--     일 가계부 갯수 -->
-	<select id="dailyAccountCnt" parameterType="AccountBook" resultType="int">
-		SELECT COUNT(*) FROM ACCOUNTBOOK WHERE MID = #{mid} AND ADATE = #{adate}
-	</select>
-    
-    <!-- 일 가계부 리스트 -->
-    <select id="dailyAccount" parameterType="AccountBook" resultMap="AccountBookResult">
-		SELECT * 
-		    FROM (SELECT ROWNUM RN, A.*
-		                FROM (SELECT B.*, ATITLE
-		                            FROM ACCOUNTBOOK B, ACCOUNTCATEGORY C
-		                            WHERE B.ACNO = C.ACNO
-		                                AND MID = #{mid}
-		                                AND ADATE = #{adate}
-		                                ORDER BY ADATE DESC) A)
-		    WHERE RN BETWEEN #{startRow} AND #{endRow}
-    </select>
-    
 <!--     월 가계부 개수 -->
 	<select id="monthlyAccountCnt" parameterType="AccountBook" resultType="int">
 		SELECT COUNT(*) FROM ACCOUNTBOOK 
@@ -52,24 +34,6 @@
                                         AND LAST_DAY(#{adate})
                                     ORDER BY ADATE DESC) A ) D
 		    WHERE RN BETWEEN #{startRow} AND #{endRow}
-	</select>
-	
-<!-- 	일 토탈 -->
-	<select id="dailyTotal" parameterType="AccountBook" resultType="AccountBook">
-		SELECT INCOMETOTAL-EXPENSETOTAL TOTAL, INCOMETOTAL, EXPENSETOTAL
-   		 FROM (SELECT SUM(APRICE) INCOMETOTAL FROM ACCOUNTBOOK WHERE ASTATUS = 1 AND MID = #{mid} AND ADATE = #{adate}),
-            (SELECT SUM(APRICE) EXPENSETOTAL FROM ACCOUNTBOOK WHERE ASTATUS = 0 AND MID = #{mid} AND ADATE = #{adate})
-	</select>
-
-<!-- 	일 카테고리 토탈	 -->
-	<select id="dailyCategoryTotal" parameterType="AccountBook" resultMap="AccountBookResult">
-		SELECT ATITLE, SUM(APRICE) TOTAL
-		    FROM ACCOUNTBOOK B, ACCOUNTCATEGORY C
-		    WHERE B.ACNO = C.ACNO
-		        AND MID = #{mid}
-		        AND ADATE = #{adate}
-		        AND ASTATUS = 0
-		    GROUP BY ATITLE
 	</select>
 	
 <!-- 	월 토탈 -->

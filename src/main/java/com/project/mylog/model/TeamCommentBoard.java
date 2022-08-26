@@ -12,11 +12,12 @@ import lombok.NoArgsConstructor;
 public class TeamCommentBoard {
 	private int tcnum;
 	private String mid;
+	private String tcmention;
+	private String mname;
 	private int tnum;
 	private String tccontent;
 	private Timestamp tcrdate;
 	private int tcgroup;
-	private int tcstep;
 	private int tcindent;
 	private String tcip;
 	

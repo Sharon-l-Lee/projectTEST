@@ -1,0 +1,102 @@
+@charset "UTF-8";
+*{
+	margin:0;
+	padding:0;
+}
+.wrap{
+	background-image: url("../img/main_wraper.png");
+	width : 1600px;
+	height : 850px;
+	border:1px solid white;
+	margin : 60px 35px;
+}
+table.myTeamModify{
+	margin:110px auto;
+	width: 500px;
+	height: 560px;
+	border: 2px solid black;
+	border-radius: 15px;
+	text-align: center;
+}
+table.myTeamModify tr td.teamModify_header{
+	border-bottom: 2px solid black;
+	border-radius: 10px 10px 0 0;
+	background-color:#EEEEEE;
+	font: bold;
+}
+table.myTeamModify input.input{
+	border: none; 
+	border-bottom: 1px solid black; 
+	padding: 10px;
+	text-align: center;
+}
+
+div.selectBox{
+	margin:0 auto;
+	position: relative;
+  	width: 150px;
+  	height: 35px;
+  	border-radius: 4px;
+  	border: 1px solid black;
+}
+.selectBox .select {
+  	width: inherit;
+  	height: inherit;
+ 	background: transparent;
+  	border: 0 none;
+  	outline: 0 none;
+  	padding: 0 5px;
+  	position: relative;
+  	z-index: 3; 
+}
+.selectBox .select option {
+  background: #EEEEEE;
+  padding: 3px 0;
+  font-size: 16px;
+}
+
+
+
+table.myTeamModify table.teamMList_wrap{
+	margin: 0 auto;
+	width: 450px;
+}
+
+table.teamMList_wrap tr td.teamMList_header {
+	text-align: center;
+	font-size:bold;
+	border:2px solid black;
+	border-bottom:none;
+	border-radius: 15px 15px 0 0;
+	background-color:#EEEEEE;
+}
+table.teamMList_main{
+	width:440px;
+	border-bottom: 1px solid black;
+}
+table.teamMList_main:first-child{
+	border-top: 1px solid black;
+}
+
+table.myTeamModify input.input:hover,
+input.btn:hover{
+	border-bottom:2px solid black;
+}
+table.teamMList_main tr:hover{
+	background-color:#EEEEEE;
+}
+button.teamMList_btn{
+	border: none;
+	background-color: white;
+}
+td.btn{
+	padding-bottom: 20px;
+}
+input.btn{
+	border: none;
+	width: 70px;
+	height:30px;
+	padding:0 5px;
+	background-color: white;
+}
+

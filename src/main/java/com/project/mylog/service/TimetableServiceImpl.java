@@ -43,7 +43,6 @@ public class TimetableServiceImpl implements TimetableService {
 
 	@Override
 	public List<Timetable> tableIdList(HttpSession session, String mid) {
-		// TODO Auto-generated method stub
 		mid = ((Member)session.getAttribute("member")).getMid();
 		return ttableDao.tableIdList(mid);
 	}
@@ -70,6 +69,14 @@ public class TimetableServiceImpl implements TimetableService {
 		timetable.setMid(((Member)session.getAttribute("member")).getMid());
 		return ttableDao.tableIdTbno(timetable);
 	}
+
+	@Override
+	public List<Timetable> tableList(HttpSession session, Timetable timetable) {
+		// TODO Auto-generated method stub
+		timetable.setMid(((Member)session.getAttribute("member")).getMid());
+		return ttableDao.tableList(timetable);
+	}
+
 
 	
 

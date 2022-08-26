@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath }/css/style.css" rel="stylesheet">
+	<link href="${conPath }/css/friend/findFriend.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -24,15 +24,21 @@
 					}
 				});
 			});
+			$('#friend').addClass('nowIndex');
 		});
 	</script>
 </head>
 <body>
-	<div>
-		<form>
-			<p>친구검색 <input type="text" name="mname" placeholder="닉네임을 입력하세요"></p>
-		</form>
-		<div id="findResult"></div>
+	<div id="main_wrap">
+		<div id="wrap">
+			<div id="findList">
+				<form>
+					<input type="text" name="mname" placeholder="닉네임 또는 아이디를 입력하세요">
+				</form>
+			<div id="findResult"></div>
+			</div>
+		</div>
+		<jsp:include page="../main/header.jsp"/>
 	</div>
 </body>
 </html>

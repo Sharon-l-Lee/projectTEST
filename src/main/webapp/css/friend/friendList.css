@@ -1,0 +1,179 @@
+@charset "UTF-8";
+
+#main_wrap {
+	width: 1600px;
+	height: 850px;
+	margin : 60px 36px;
+	background-image: url("../../img/main_wraper.png");
+	overflow : hidden;
+}
+
+#wrap {
+	width: 1300px;
+	height: 700px;
+	margin : 0 0 0 130px;
+}
+
+#list_wrap {
+	width: 1300px;
+	margin : 0 auto;
+	margin-top : 80px;
+}
+
+#search_wrap {
+	width: 500px;
+	height: 60px;
+	border: 1px solid #03045E;
+	box-sizing: border-box;
+	border-radius: 15px;
+	line-height: 60px;
+	overflow : hidden;
+	text-align : center;
+	background-color : #03045E;
+	margin : 0 0 20px 350px;
+}
+
+#search_wrap a {
+	text-decoration: none;
+	color: white;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+#myList {
+	width: 600px;
+	text-align : center;
+	overflow: hideen;
+}
+
+#sub_title {
+	text-align : center;
+	overflow: hidden;
+}
+
+#sub_title #following, #sub_title #follower {
+	text-align : center;
+	width: 600px;
+	height: 50px;
+	border: 1px solid #03045E;
+	box-sizing: border-box;
+	position: relative;
+	float: left;
+	line-height: 50px;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+#sub_title #following {
+	border-radius : 15px 0 0 0;
+}
+
+#sub_title #follower {
+	border-radius : 0 15px 0 0;
+}
+
+#wrap #myList, #wrap #followMe {
+	width: 600px;
+	height: 580px;
+	border: 1px solid #03045E;
+	box-sizing: border-box;
+	float: left;
+}
+
+#wrap #myList {
+	height : 580px;
+	border-radius: 0 0 0 15px;
+	font-size: 1.2em;
+	overflow : auto;
+}
+
+#wrap #myList input {
+	height: 30px;
+}
+
+#wrap #followMe {
+	text-align : center;
+	height : 580px;
+	border-radius: 0 0 15px 0;
+	font-size: 1.2em;
+	overflow : auto;
+}
+
+#listResult table {
+	width: 500px;
+	margin: 0 auto;
+	font-size: 1.2em;
+}
+
+#listResult table td {
+	height: 50px;
+}
+
+#followMe table {
+	width: 500px;
+	margin: 10px auto;
+	font-size: 1.2em;
+}
+
+#followMe table td {
+	height: 50px;
+}
+button, .btn {
+	width : 50%;
+	height : 90%;
+	font-weight : bold;
+	color : white;
+	background-color : #03045E;
+	border : none;
+	border-radius : 15px;
+}
+
+#alert_icon {
+	top : -100px;
+	right : -75px;
+	width : 40px;
+	height : 40px;
+	background-image: url("../../img/alert.png");
+	background-size : cover;
+	position: relative;
+	float : left;
+}
+
+#alert_icon .alert_num {
+    top: 0;
+    right: 0;
+    z-index: 3;
+    height: 25px;
+    width: 25px;
+    line-height: 25px;
+    text-align: center;
+    background-color: red;
+    border-radius: 15px;
+    display: inline-block;
+    color : white;
+    font-weight : bold;
+    font-size : 1em;
+    position : absolute;
+}
+
+#alert_icon #checkbox {
+	display : none;
+}
+.alert_list {
+	width : 400px;
+	display : none;
+	background-color : white;
+	border : 1px solid black;
+	top : 45px;
+	left : -350px;
+	position : absolute;
+}
+input#checkbox:checked + .alert_list {
+	display: block;
+}
+.alert_list table td {
+	padding : 5px;
+}
+.appendBtn {
+	text-align : center;
+}

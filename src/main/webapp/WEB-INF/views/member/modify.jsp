@@ -8,7 +8,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath }/css/style.css" rel="stylesheet">
+	<link href="${conPath }/css/member/info.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		$(document).ready(function(){
@@ -17,18 +17,28 @@
 				var oldpw = $('#oldpw').val();
 				var mpw = $('#mpw').val();
 				var mpwChk = $('#mpwChk').val();
-				if (mpwChk != mpw) {
-					alert('새비밀번호가 일치하지 않습니다');
-					$('#mpw').focus();
-					return false;
-				} else if (currpw != oldpw) {
-					alert('현재비밀번호가 일치하지 않습니다');
-					$('#oldpw').focus();
-					return false;
+				if (mpw == null && mpwChk == null) {
+					mpw = oldpw;
+					mpwChk = oldpw;
 				}
+				if (oldpw == '') {
+					alert('현재 비밀번호를 입력하세요');
+					return false;
+				} else {
+					if (mpwChk != mpw) {
+						alert('새비밀번호가 일치하지 않습니다');
+						$('#mpw').focus();
+						return false;
+					} else if (currpw != oldpw) {
+						alert('현재비밀번호가 일치하지 않습니다');
+						$('#oldpw').focus();
+						return false;
+					}
+				}
+				
 			});
 			
-			$('.outMember').click(function(){
+			$('input[name="outMember"]').click(function(){
 				var id = $(this).attr('id');
 				var answer = confirm('정말 회원탈퇴하시겠습니까?');
 				if (answer == true) {
@@ -37,58 +47,82 @@
 					return false;
 				}
 			});
+			
+			$('#mypage').addClass('nowIndex');
 		});
 	</script>
 </head>
 <body>
-	<div>
-		<form action="${conPath }/member/modify.do" method="post">
-			<input type="hidden" name="mid" value="${myInfo.mid }">
-			<input type="hidden" name="memail" value="${myInfo.memail }">
-			<table>
-				<caption>회원가입</caption>
-				<tr>
-					<th><label for="mid">아이디</label></th>
-					<td>${myInfo.mid }</td>
-				</tr>
-				<tr>
-					<th><label for="oldpw">현재비밀번호</label></th>
-					<td><input type="password" name="oldpw" id="oldpw"></td>
-				</tr>
-				<tr>
-					<th><label for="mpw">새비밀번호</label></th>
-					<td><input type="password" name="mpw" id="mpw">
-					</td>
-				</tr>
-				<tr>
-					<th><label for="mpwChk">새비밀번호</label></th>
-					<td><input type="password" name="mpwChk" id="mpwChk">
-					</td>
-				</tr>
-				<tr>
-					<th><label for="mname">닉네임</label></th>
-					<td><input type="text" name="mname" id="mname" value="${myInfo.mname }"></td>
-				</tr>
-				<tr>
-					<th>생년월일</th>
-					<td><input type="date" name="tempmbirth"
-						class="datepicker" id="tempmbirth" value="${myInfo.mbirth }"></td>
-				</tr>
-				<tr>
-					<th><label for="memail">이메일</label></th>
-					<td>${myInfo.memail }</td>
-				</tr>
-				<tr>
-					<th>좌우명</th>
-					<td><textarea rows="5" cols="10" name="mmotto" id="mmotto">${myInfo.mmotto }</textarea></td>
-				</tr>
-			</table>
-			<div>
-				<input type="submit" value="정보수정" class="btn">
-				<input type="button" value="취소" class="btn" onclick="location.href='../main.do'">
+	<div id="main_wrap">
+		<div id="wrap">
+			<div id="info">
+				<form action="${conPath }/member/modify.do" method="post">
+					<input type="hidden" name="mid" value="${myInfo.mid }">
+					<input type="hidden" name="memail" value="${myInfo.memail }">
+					<table>
+						<caption><h2>Modify My Info</h2></caption>
+						<tr>
+							<th><label for="mid">ID</label></th>
+							<td>${myInfo.mid }</td>
+						</tr>
+						<tr>
+							<th>
+								<label for="oldpw">Old Password</label>
+							</th>
+							<td>
+								<input type="password" name="oldpw" id="oldpw">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label for="mpw">New Password</label>
+							</th>
+							<td>
+								<input type="password" name="mpw" id="mpw">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label for="mpwChk">Password Check</label>
+							</th>
+							<td>
+								<input type="password" name="mpwChk" id="mpwChk">
+							</td>
+						</tr>
+						<tr>
+							<th>
+								<label for="mname">Nickname</label>
+							</th>
+							<td>
+								<input type="text" name="mname" id="mname" value="${myInfo.mname }">
+							</td>
+						</tr>
+						<tr>
+							<th>Birthday</th>
+							<td>
+								<input type="text" name="tempmbirth" class="datepicker" id="tempmbirth" value="${myInfo.mbirth }">
+							</td>
+						</tr>
+						<tr>
+							<th><label for="memail">Email</label></th>
+							<td>${myInfo.memail }</td>
+						</tr>
+						<tr>
+							<th>Motto</th>
+							<td>
+								<textarea rows="5" cols="10" name="mmotto" class="mmotto">${myInfo.mmotto }</textarea>
+							</td>
+						</tr>
+					</table>
+					<div class="btn_wrap">
+						<input type="submit" value="정보수정" class="btn">
+						<input type="button" value="취소" class="btn" onclick="location.href='../main.do'">
+						<input type="button" value="회원탈퇴" id="${myInfo.mid }" class="btn" name="outMember">
+					</div>
+				</form>
 			</div>
-		</form>
-		<button id="${myInfo.mid }" class="outMember">회원탈퇴</button>
+		</div>
+		<jsp:include page="../main/header.jsp"/>
 	</div>
 </body>
 <link rel="stylesheet"

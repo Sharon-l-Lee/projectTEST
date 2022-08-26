@@ -11,4 +11,7 @@ public class Todo {
 	private String tdcontent;
 	private int tdcheck;
 	private Date tdrdate;
+	
+	private int startRow;
+	private int endRow;
 }

@@ -1,5 +1,7 @@
 package com.project.mylog.model;
 
+import java.sql.Date;
+
 import lombok.Data;
 
 @Data
@@ -15,6 +17,9 @@ public class Timetable {
 	private int tbsmin;
 	private int tbehour;
 	private int tbemin;
+	private Date tdate;
+	
+	
 	@Override
 	public String toString() {
 		return "{'tbno': '" + tbno + "','tno': '" + tno + "','mid':'" + mid + "','mname':'" + mname + "','tname':'" + tname

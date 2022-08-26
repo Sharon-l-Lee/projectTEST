@@ -8,12 +8,16 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath}/css/style.css" rel="stylesheet">
+	<link href="${conPath}/css/team/list.css" rel="stylesheet">
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script>
-		function trClicked(tnum){
+		function divClicked(tnum){
 			location.href = '${conPath}/teamboard/content.do?tnum='+tnum+'&pageNum=${paging.currentPage}'+'&tcpageNum=1';
 		}
+	</script>
+	<script>
+		//인덱스
+		$('#myList').addClass('nowIndex');
 	</script>
 </head>
 <body>
@@ -55,51 +59,39 @@
 			history.back();
 		</script>
 	</c:if>
-	<table>
-		<tr>
-			<td><a href="${conPath }/teamboard/writeView.do">글쓰기</a></td>
-		</tr>
-	</table>
-	<table>
-		<tr>
-			<th>글번호</th>
-			<th>작성자</th>
-			<th>제목</th>
-			<th>작성일</th>
-			<th>조회수</th>
-		</tr>
+<div class="wrap" style="background-image: url('../img/main_wraper.png'); border: 1px solid white;" >	
+	<div class="list_wrap">
+		<div class="lnb">
+			<ul>
+				<li><a href="${conPath }/teamboard/list.do">그룹 모집 게시판</a></li>
+				<li><a href="${conPath }/team/list.do">그룹원 모집</a></li>
+			</ul>
+		</div>
+	<div class="write">
+		<a href="${conPath }/teamboard/writeView.do">글쓰기</a></td>
+	</div>
+	<div class="list">
 		<c:if test="${teamBoardTotCnt eq 0 }">
-			<tr>
-				<td colspan="5">등록된 글이 없습니다</td>
-			</tr>
+			<p>등록된 글이 없습니다</p>
 		</c:if>
 		<c:if test="${teamBoardTotCnt != 0 }">
 			<c:forEach items="${teamboardList }" var="tbDto">
-				<tr	onclick="trClicked(${tbDto.tnum})">
-	  				<td>${tbDto.tnum }</td>
-	  				<td>${tbDto.mid }</td>
-					<td class="left">
-	  					<c:forEach var="i" begin="1" end="${tbDto.tindent }">
-	  						<c:if test="${i==tbDto.tindent }">
-	  							└
-	  						</c:if>
-	  						<c:if test="${i!=tbDto.tindent }">
-	  								&nbsp; &nbsp; &nbsp;
-	  						</c:if>
-	  					</c:forEach>
-	  					${tbDto.ttitle }
-	  				</td>
-					<td>
-	  					<fmt:formatDate value="${tbDto.trdate }" pattern="yy/MM/dd(E)"/>
-	  				</td>
-	  				<td>
-	  					<fmt:formatNumber value="${tbDto.thit }" groupingUsed="true"/>	<!-- 3자리수 마다 , -->
-	  				</td>
-						
-				</tr>
+				<div onclick="divClicked(${tbDto.tnum})">
+					<table class="thing" style="border: 1px solid black;">
+						<tr>
+							<td><h3>${tbDto.ttitle }</h3></td>
+						</tr>
+						<tr>
+							<td style="text-align: right">(<fmt:formatNumber value="${tbDto.thit }" groupingUsed="true"/>)</td>
+						</tr>
+						<tr>
+							<td>${tbDto.mname }</td>
+						</tr>
+					</table>
+				</div>
 			</c:forEach>
 		</c:if>
-	</table>
+	</div>
 	<div class="paging">
 	  	<c:if test="${paging.startPage > paging.blockSize }">
 	  		[ <a href="${conPath }/teamboard/list.do?pageNum=${paging.startPage-1 }"> 이 전 </a>]
@@ -116,5 +108,14 @@
 	  		[ <a href="${conPath }/teamboard/list.do?pageNum=${paging.endPage+1 }"> 다 음 </a>]
 	  	</c:if>
   	</div>
+  	<script>
+		$(document).ready(function(){
+			//인덱스
+			$('#teamboard').addClass('nowIndex');
+	  	});
+	</script>
+	<jsp:include page="../main/header.jsp"/>
+	</div>
+</div>
 </body>
 </html>

@@ -8,44 +8,68 @@
 <head>
 	<meta charset="UTF-8">
 	<title>Insert title here</title>
-	<link href="${conPath}/css/style.css" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<script>
-		function (){
-			
+	<link href="${conPath }/css/teamboard/write.css" rel="stylesheet">
+	<style>
+		.ck.ck-editor {
+	    	max-width: 500px;
 		}
+		.ck-editor__editable {
+		    min-height: 400px;
+	}
+	</style>
+	<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+	<script src="${conPath }/resources/ckeditor/ckeditor.js"></script>
+	<script>
+	$(function() {
+		CKEDITOR.replace('tcontent');
+	});
 	</script>
 </head>
 <body>
-	<form action="${conPath }/teamboard/modify.do" method="post" enctype="multipart/form-data">
+<div class="wrap" style="background-image: url('../img/main_wraper.png'); border: 1px solid white;">
+	<form action="${conPath }/teamboard/modify.do" method="post" class="teamBoardWrite_wrap" name="bWriteForm">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
 		<input type="hidden" name="tnum" value="${teamboard.tnum }">
-		<table>
-			<caption>${teamboard.tnum }번 글 수정</caption>
+		<input type="hidden" name="mid" value="${member.mid }">
+		<input type="hidden" name="mname" value="${member.mname }">
+		<table class="teamBoardWrite">
 			<tr>
-				<th>작성자</th>
-				<td><input type="text" name="mid" value="${teamboard.mid }"></td>
-			</tr>
-			<tr>
-				<th>글제목</th>
 				<td><input type="text" name="ttitle" value="${teamboard.ttitle }"></td>
 			</tr>
 			<tr>
-				<th>본문</th>
-				<td><textarea rows="5" cols="5" name="tcontent">${teamboard.tcontent }</textarea> </td>
+				<td>${teamboard.mname }</td>
 			</tr>
 			<tr>
-				<th>파일</th>
-				<td><input type="file" name="tempTfilename" value="${teamboard.tfilename }"></td>
+				<td><textarea name="tcontent" id="classic">${teamboard.tcontent }</textarea> </td>
 			</tr>
-			<tr>
+			<tr class="btn">
 				<td colspan="2">
-					<input type="submit" value="저장" class="btn">
-					<input type="reset" value="취소" class="btn" onclick="history.back()">
-					<input type="button" value="목록" class="btn" onclick="location='${conPath}/teamboard/list.do?pageNum=${param.pageNum }'">
+					<input style="border: none; background-color: white; padding:3px;" 
+						type="submit" value="[modify]" class="btn">
+					<input style="border: none; background-color: white; padding:3px;" 
+						type="reset" value="[reset]" class="btn" onclick="history.back()">
+					<input style="border: none; background-color: white; padding:3px;" 
+						type="button" value="[list]" class="btn" onclick="location='${conPath}/teamboard/list.do?pageNum=${param.pageNum }'">
 				</td>
 			</tr>
 		</table>
 	</form>
+</div>
+	<script>
+    	ClassicEditor.create( document.querySelector( '#classic' ), {
+        	// 제거 하고싶은 플러그인 (배열)
+            removePlugins: [ 'ImageUpload' ]
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+    </script>
+    <script>
+		$(document).ready(function(){
+			//인덱스
+			$('#teamboard').addClass('nowIndex');
+	  	});
+	</script>
+	<jsp:include page="../main/header.jsp"/>
 </body>
 </html>

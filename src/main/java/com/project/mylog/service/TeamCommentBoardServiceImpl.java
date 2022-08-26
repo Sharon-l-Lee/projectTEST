@@ -20,7 +20,7 @@ public class TeamCommentBoardServiceImpl implements TeamCommentBoardService {
 	@Override
 	public List<TeamCommentBoard> teamCommentList(String tcpageNum, int tnum) {
 		int teamCommentTotCnt = teamCommentDao.teamCommentTotCnt(tnum);
-		Paging2 paging = new Paging2(teamCommentTotCnt, tcpageNum, 3, 3);
+		Paging2 paging = new Paging2(teamCommentTotCnt, tcpageNum, 5, 5);
 		System.out.println(tcpageNum);
 		TeamCommentBoard teamcomment = new TeamCommentBoard();
 		teamcomment.setStartRow(paging.getStartRow());
@@ -50,11 +50,6 @@ public class TeamCommentBoardServiceImpl implements TeamCommentBoardService {
 	public int teamCommentDelete(int tcnum) {
 		return teamCommentDao.teamCommentDelete(tcnum);
 	}
-
-	@Override
-	public int teamCommentPreReply(TeamCommentBoard teamcomment) {
-		return teamCommentDao.teamCommentPreReply(teamcomment);
-	}
 	
 	@Override
 	public TeamCommentBoard teamCommentDetail(int tcnum) {
@@ -63,9 +58,14 @@ public class TeamCommentBoardServiceImpl implements TeamCommentBoardService {
 
 	@Override
 	public int teamCommentReply(HttpServletRequest request, TeamCommentBoard teamcomment) {
-		teamCommentDao.teamCommentPreReply(teamcomment);
+		String tcmention = teamCommentDao.teamCommentDetail(teamcomment.getTcnum()).getMname();
+		teamcomment.setTcmention(tcmention);
 		teamcomment.setTcip(request.getRemoteAddr());
+		System.out.println(tcmention);
+		System.out.println(teamcomment);
 		return teamCommentDao.teamCommentReply(teamcomment);
 	}
+
+	
 
 }

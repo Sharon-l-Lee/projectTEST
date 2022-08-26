@@ -1,0 +1,17 @@
+@charset "UTF-8";
+*{
+	margin : 0;
+	padding : 0;
+}
+#main_wrap{
+	/* 위치 */
+	margin : 60px 43px;
+	
+	/* 크기 */
+	width : 1600px;
+	height : 850px;
+	
+	/* 이미지 */
+	background-image: url("../../img/index1_notbutton.png");
+	
+}

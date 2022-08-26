@@ -6,6 +6,7 @@
 	<resultMap type="TeamMember" id="TeamMemberResult">
 		<result column="tmno" property="tmno"/>
 		<result column="mid" property="mid"/>
+		<result column="mname" property="mname"/>
 		<result column="tno" property="tno"/>
 		<result column="tmcheck" property="tmcheck"/>
 		<result column="tname" property="tname"/>
@@ -13,12 +14,12 @@
 	
 	<!-- myTeamList -->
 	<select id="myTeamList" parameterType="String" resultType="TeamMember">
-		SELECT T.tNAME, T.MID FROM TEAM_MEMBER TM, TEAM T WHERE TM.tNO = T.tNO AND TM.tmCHECK=1 AND TM.mID=#{mid}
+		SELECT T.*, M.mNAME FROM TEAM_MEMBER TM, TEAM T, MEMBER M WHERE TM.tNO = T.tNO AND T.mID=M.mID AND TM.tmCHECK=1 AND TM.mID=#{mid}
 	</select>
 	
 	<!-- myApplyTeamList -->
 	<select id="myApplyTeamList" parameterType="String" resultType="TeamMember">
-		SELECT T.tNAME, T.MID FROM TEAM_MEMBER TM, TEAM T WHERE TM.tNO = T.tNO AND TM.tmCHECK=0 AND TM.mID=#{mid}
+		SELECT T.*, M.mNAME FROM TEAM_MEMBER TM, TEAM T, MEMBER M WHERE TM.tNO = T.tNO AND T.mID=M.mID AND TM.tmCHECK=0 AND TM.mID=#{mid}
 	</select>
 	
 	<!-- applyTeamMember -->
@@ -29,7 +30,7 @@
 	
 	<!-- deleteApplyTeam -->
 	<delete id="deleteApplyTeam" parameterType="TeamMember">
-		DELETE FROM TEAM_MEMBER WHERE tmCHECK = 0 AND tmNO=#{tmno } AND tNO=#{tno };
+		DELETE FROM TEAM_MEMBER WHERE tmCHECK = 0 AND tmNO=#{tmno } AND tNO=#{tno }
 	</delete>
 	
 	<!-- permitApplyTeam -->
@@ -46,7 +47,7 @@
 	
 	<!-- teamApplyList -->
 	<select id="teamApplyList" parameterType="int" resultType="TeamMember">
-		SELECT * FROM TEAM_MEMBER WHERE tmCHECK = 0 AND tNO = #{tno}
+		SELECT TM.*, M.mNAME FROM TEAM_MEMBER TM, MEMBER M WHERE TM.mID=M.mID AND tmCHECK = 0 AND tNO = #{tno}
 	</select>
 	
 	<!-- drawalTeamMember -->
@@ -56,12 +57,22 @@
 	
 	<!-- teamMemberList -->
 	<select id="teamMemberList" parameterType="int" resultType="TeamMember">
-		SELECT * FROM TEAM_MEMBER WHERE tmCHECK=1 AND tNO=#{tno}
+		SELECT TM.*, M.mNAME FROM TEAM_MEMBER TM, MEMBER M WHERE TM.mID=M.mID AND tmCHECK=1 AND tNO=#{tno}
 	</select>
 	
 	<!-- teamMemberTotCnt -->
 	<select id="teamMemberTotCnt" parameterType="int" resultType="int">
 		SELECT COUNT(*) FROM TEAM_MEMBER WHERE tmCHECK=1 AND tNO=#{tno}
 	</select>
+	
+	<!-- getTeamMemberDetail -->
+	<select id="getTeamMemberDetail" parameterType="TeamMember" resultType="TeamMember">
+		SELECT * FROM TEAM_MEMBER WHERE tNO=#{tno} AND MID=#{mid}
+	</select>
+	
+	<!-- deleteTeamMember -->
+	<delete id="deleteTeamMember" parameterType="int">
+		DELETE FROM TEAM_MEMBER WHERE tNO=#{tno}
+	</delete>
 	
 </mapper>

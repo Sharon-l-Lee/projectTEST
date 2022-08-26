@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${conPath }/css/style.css" rel="stylesheet">
+<link href="${conPath }/css/member/info.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
@@ -28,6 +28,8 @@
 				return false;
 			} 
 		});
+		
+		$('#join').addClass('nowIndex');
 	});
 
 	function idCheck(mid) {
@@ -56,56 +58,55 @@
 		});
 	}
 </script>
-
 </head>
 <body>
-	<div>
+	<div id="main_wrap">
+		<div id="wrap">
+		<div id="info">
 		<form action="${conPath }/member/join.do" method="post">
 			<table>
-				<caption>회원가입</caption>
+				<caption><h2>Join Member</h2></caption>
 				<tr>
-					<th><label for="mid">아이디</label></th>
 					<td>
-						<input type="text" name="mid" id="mid"> 
+						<input type="text" name="mid" id="mid" placeholder="ID"> 
 						<input type="button" value="중복확인" class="btn" onclick="idCheck(mid)">
-						<div id="idCheckResult"></div>
 					</td>
 				</tr>
 				<tr>
-					<th><label for="mpw">비밀번호</label></th>
-					<td><input type="password" name="mpw" id="mpw"></td>
+					<td><div id="idCheckResult"></div></td>
 				</tr>
 				<tr>
-					<th><label for="mpwChk">비밀번호확인</label></th>
-					<td><input type="password" name="mpwChk" id="mpwChk">
+					<td><input type="password" name="mpw" id="mpw" placeholder="PASSWORD"></td>
+				</tr>
+				<tr>
+					<td><input type="password" name="mpwChk" id="mpwChk" placeholder="PASSWORD CHECK">
 					</td>
 				</tr>
 				<tr>
-					<th><label for="mname">닉네임</label></th>
-					<td><input type="text" name="mname" id="mname"></td>
+					<td><input type="text" name="mname" id="mname" placeholder="NICKNAME"></td>
 				</tr>
 				<tr>
-					<th>생년월일</th>
-					<td><input type="date" name="tempmbirth"
-						class="datepicker" id="tempmbirth"></td>
+					<td><input type="text" name="tempmbirth"
+						class="datepicker" id="tempmbirth" placeholder="BIRTHDAY"></td>
 				</tr>
 				<tr>
-					<th><label for="memail">이메일</label></th>
 					<td>
-						<input type="email" name="memail" id="memail">
+						<input type="email" name="memail" id="memail" placeholder="EMAIL">
 						<input type="button" value="중복확인" class="btn" onclick="emailCheck(memail)">
-						<div id="emailCheckResult"></div>
 					</td>
 				</tr>
+				<tr><td><div id="emailCheckResult"></div></td></tr>
 				<tr>
-					<th>좌우명</th>
-					<td><textarea rows="5" cols="10" name="mmotto" id="mmotto"></textarea></td>
+					<td><textarea rows="2" cols="20" name="mmotto" class="mmotto" placeholder="MOTTO"></textarea></td>
+				</tr>
+				<tr>
+					<th style="height : 50px; padding-top : 20px;"><input type="submit" value="가입하기" class="btn"></th>
 				</tr>
 			</table>
-			<div>
-				<input type="submit" value="가입하기" class="btn">
-			</div>
 		</form>
+		</div>
+		</div>
+		<jsp:include page="../main/header.jsp"/>
 	</div>
 </body>
 <link rel="stylesheet"

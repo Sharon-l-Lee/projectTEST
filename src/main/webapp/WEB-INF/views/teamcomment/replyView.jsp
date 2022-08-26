@@ -7,34 +7,44 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<link href="${conPath}/css/style.css" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-	<script>
-		function replyComment(tcnum, pageNum, tnum) {
-			$('#show').click(function(){
-				$('#replyDiv').show();
-			});
-			$('#hide').click(function(){
-				$('#commentReplyForm').hide();
-			});
+	<style>
+		td.mname {
+			width:60px;
+			padding:3px;
+			text-align: center;
 		}
-	</script>
+		input.tccontent{
+			width: 100px;
+			height: 25px;
+			border: none;
+			margin-left: 10px;
+			border-bottom: 1px solid black;
+		}
+	</style>
 </head>
 <body>
 	<form id="commentReplyForm" action="${conPath }/teamcomment/reply.do" method="post">
+		<input type="hidden" name="mid" value="${member.mid }">
 		<input type="hidden" name="tnum" value="${param.tnum }">
 		<input type="hidden" name="pageNum" value="${param.pageNum }">
 		<input type="hidden" name="tcpageNum" value="${param.tcpageNum }">
+		<input type="hidden" name="tcnum" value="${teamcomment.tcnum }">
 		<input type="hidden" name="tcgroup" value="${teamcomment.tcgroup }">
-		<input type="hidden" name="tcstep" value="${teamcomment.tcstep }"> 
-		<input type="hidden" name="tcindent" value="${teamcomment.tcindent }">
 		<table>
 			<tr>
-				<th><input type="text" name="mid" required="required">
-					<%-- ${param.mid } --%></th>
-				<td><input type="text" name="tccontent" required="required"></td>
-				<td><input type="submit" value="답댓글쓰기" class="btn"></td>
-				<td><input id="hide" type="reset" value="취소" class="btn"></td>
+				<td style="width:60px; padding:3px; text-align: center;">${member.mname }</td>
+				<td>
+					<input style="border-bottom:1px solid black; width:150px; padding:3px; text-align: center;" 
+						type="text" name="tccontent" required="required">
+				</td>
+				<td>
+					<input style="width:52px;"
+						type="submit" value="[답댓글]" class="btn">
+				</td>
+				<td>
+					<input style="width:37px;"
+						type="reset" value="[취소]" class="btn" onclick="history.back()">
+				</td>
 			</tr>
 		</table>
 	</form>

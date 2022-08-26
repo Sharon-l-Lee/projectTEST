@@ -8,10 +8,9 @@
 <head>
 	<meta charset="UTF-8">
 	<title>My Log</title>
-	<link href="${conPath }/css/index.css" rel="stylesheet">
+	<link href="${conPath }/css/main/index.css" rel="stylesheet">
 </head>
 <body>
-	<h1>메인입니다</h1>
 	<c:if test="${joinResult eq 0 }">
 		<script>
 			alert('회원가입 실패');
@@ -55,7 +54,7 @@
 		</script>
 	</c:if>
 	<div id="main_wrap">
+		<jsp:include page="../main/header.jsp"/>
 	</div>
-	<jsp:include page="header.jsp"/>
 </body>
 </html>

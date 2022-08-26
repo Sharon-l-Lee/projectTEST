@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.project.mylog.service.AlertService;
 import com.project.mylog.service.FriendService;
+import com.project.mylog.util.Append;
 import com.project.mylog.util.Paging;
 
 @Controller
@@ -23,13 +24,13 @@ public class FriendController {
 	private AlertService alertService;
 	
 	@RequestMapping(value="list", method = {RequestMethod.GET, RequestMethod.POST})
-	public String friendList(HttpSession session, Model model) {
-		Paging paging1 = new Paging(friendService.countMyFriend(session), "1");
-		Paging paging2 = new Paging(friendService.countFollowMe(session), "1");
+	public String friendList(HttpSession session, String pageNum, Model model) {
+		Append append = new Append(alertService.countMyAlert(session), pageNum);
+		model.addAttribute("append", append);
+		model.addAttribute("alerts", alertService.myAlertList(pageNum, session));
 		model.addAttribute("friends", friendService.myFriendList(session));
 		model.addAttribute("follows", friendService.followMe(session));
-		model.addAttribute("paging1", paging1);
-		model.addAttribute("paging2", paging2);
+		model.addAttribute("alertNum", alertService.countNotRead(session));
 		return "friend/list";
 	}
 	
@@ -52,15 +53,15 @@ public class FriendController {
 	}
 	
 	@RequestMapping(value="follow", method = {RequestMethod.GET, RequestMethod.POST})
-	public String follow(HttpSession session, String fid, int alcode, Model model) {
-		alertService.makeAlert(session, fid, alcode);
+	public String follow(HttpSession session, String fid, String alcode, Model model) {
+		model.addAttribute("alertResult", alertService.makeAlert(session, fid, Integer.parseInt(alcode)));
 		model.addAttribute("followResult", friendService.followFriend(session, fid));
 		return "forward:list.do";
 	}
 	
 	@RequestMapping(value="unfollow", method = {RequestMethod.GET, RequestMethod.POST})
-	public String unfollow(HttpSession session, String fid, int alcode, Model model) {
-		alertService.makeAlert(session, fid, alcode);
+	public String unfollow(HttpSession session, String fid, String alcode, Model model) {
+		model.addAttribute("alertResult", alertService.makeAlert(session, fid, Integer.parseInt(alcode)));
 		model.addAttribute("unfollowResult", friendService.unfollowFriend(session, fid));
 		return "forward:list.do";
 	}

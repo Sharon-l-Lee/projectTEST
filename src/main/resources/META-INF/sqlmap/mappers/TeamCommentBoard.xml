@@ -6,12 +6,13 @@
 	<resultMap type="TeamCommentBoard" id="TeamCommentBoardResult">
 		<result column="tcnum" property="tcnum"/>
 		<result column="mid" property="mid"/>
+		<result column="mname" property="mname"/>
 		<result column="tnum" property="tnum"/>
 		<result column="tccontent" property="tccontent"/>
 		<result column="tcrdate" property="tcrdate"/>
 		<result column="tcgroup" property="tcgroup"/>
-		<result column="tcstep" property="tcstep"/>
 		<result column="tcindent" property="tcindent"/>
+		<result column="tcmention" property="tcmention"/>
 		<result column="tcip" property="tcip"/>
 		<result column="startRow" property="startRow"/>
 		<result column="endRow" property="endRow"/>
@@ -21,8 +22,8 @@
 	<select id="teamCommentList" parameterType="TeamCommentBoard" resultType="TeamCommentBoard">
 		SELECT * FROM 
 	        (SELECT ROWNUM RN, A.* FROM 
-	        (SELECT TC.* FROM TEAM_COMMENTBOARD TC WHERE tNUM=#{tnum}
-	                    ORDER BY tcGROUP DESC, tcSTEP) A)
+		        (SELECT TC.*, M.mNAME FROM TEAM_COMMENTBOARD TC, MEMBER M WHERE TC.mID=M.mID AND tNUM=#{tnum}
+		                    ORDER BY tcGROUP DESC, tcINDENT, tcRDATE) A)
 		        WHERE RN BETWEEN #{startRow} AND #{endRow}
 	</select>
 	<!-- totCnt -->
@@ -31,14 +32,13 @@
 	</select>
 	<!-- write -->
 	<insert id="teamCommentWrite" parameterType="TeamCommentBoard" >
-		INSERT INTO TEAM_COMMENTBOARD (tcNUM, mID, tNUM, tcCONTENT, tcGROUP, tcSTEP, tcINDENT, tcIP)
-        	VALUES (TEAM_COMMENTBOARD_SEQ.NEXTVAL, #{mid}, #{tnum}, #{tccontent}, TEAM_COMMENTBOARD_SEQ.CURRVAL, 0, 0, #{tcip})
+		INSERT INTO TEAM_COMMENTBOARD (tcNUM, mID, tNUM, tcCONTENT, tcGROUP,tcINDENT, tcIP)
+        	VALUES (TEAM_COMMENTBOARD_SEQ.NEXTVAL, #{mid}, #{tnum}, #{tccontent}, TEAM_COMMENTBOARD_SEQ.CURRVAL, 0, #{tcip})
     </insert>
 	<!-- modify -->
 	<update id="teamCommentModify" parameterType="TeamCommentBoard">
 		 UPDATE TEAM_COMMENTBOARD SET tcCONTENT = #{tccontent},
-			                          tcIP = #{tcip},
-			                          tcRDATE = SYSDATE
+			                          tcIP = #{tcip}
 			                	  WHERE tcNUM = #{tcnum}
 	</update>
 	<!-- delete -->
@@ -47,19 +47,12 @@
 	</delete>
 	<!-- getDetail -->
 	<select id="teamCommentDetail" parameterType="int" resultType="TeamCommentBoard">
-		SELECT * FROM TEAM_COMMENTBOARD WHERE tcNUM=#{tcnum}
+		SELECT TC.*, M.mNAME FROM TEAM_COMMENTBOARD TC, MEMBER M WHERE TC.MID=M.MID AND TCNUM=#{tcnum}
 	</select>
-	<!-- preReply -->
-	<update id="teamCommentPreReply" parameterType="TeamCommentBoard">
-		<![CDATA[	
-			UPDATE TEAM_COMMENTBOARD SET tcSTEP = tcSTEP+1 
-        		WHERE tcGROUP = #{tcgroup} AND tcSTEP>#{tcstep}
-		]]>
-	</update>
 	<!-- reply -->
 	<insert id="teamCommentReply" parameterType="TeamCommentBoard">
-		INSERT INTO TEAM_COMMENTBOARD (tcNUM, mID, tNUM, tcCONTENT, tcGROUP, tcSTEP, tcINDENT, tcIP)
-        	VALUES (TEAM_COMMENTBOARD_SEQ.NEXTVAL, #{mid}, #{tnum}, #{tccontent}, #{tcgroup}, #{tcstep}+1, #{tcindent}+1, #{tcip})
+		INSERT INTO TEAM_COMMENTBOARD (tcNUM, mID, tcMENTION, tNUM, tcCONTENT, tcGROUP, tcINDENT, tcIP)
+        	VALUES (TEAM_COMMENTBOARD_SEQ.NEXTVAL, #{mid}, #{tcmention}, #{tnum},  #{tccontent}, #{tcgroup}, 1, #{tcip})
 	</insert>
 	
 </mapper>

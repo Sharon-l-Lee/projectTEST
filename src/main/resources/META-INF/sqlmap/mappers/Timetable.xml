@@ -15,6 +15,7 @@
 			<result property="tbsmin" column="tbsmin"/>
 			<result property="tbehour" column="tbehour"/>
 			<result property="tbemin" column="tbemin"/>
+			<result property="tdate" column="tdate"/>
     	</resultMap>
    
    <!-- 타이머 시간 등록 -->
@@ -42,7 +43,13 @@
     </update>
     <!-- mid로 리스트 뽑기 -->
     <select id="tableIdList" parameterType="String" resultMap="TimetableResult">
-    	SELECT B.*, TDURING, T.TNAME, TTODAY FROM TTABLE B, TIMER T WHERE B.TNO=T.TNO AND B.MID=#{mid} AND TO_CHAR(TTODAY, 'yy/mm/dd')=TO_CHAR(SYSDATE, 'yy/mm/dd')
+    
+    	 SELECT B.*, TDURING, T.TNAME, TTODAY FROM TTABLE B, TIMER T WHERE B.TNO=T.TNO AND B.MID=#{mid} AND TO_CHAR(TTODAY, 'yy/mm/dd')=TO_CHAR(SYSDATE, 'yy/mm/dd')
+    </select>
+    
+    <!-- 이전날짜 -->
+    <select id="tableList" parameterType="Timetable" resultMap="TimetableResult">
+    	SELECT B.*, TDURING, T.TNAME, TTODAY FROM TTABLE B, TIMER T WHERE B.TNO=T.TNO AND B.MID=#{mid} AND TO_CHAR(TTODAY, 'yy/mm/dd')=TO_CHAR(#{tdate}, 'yy/mm/dd')
     </select>
     
     <!-- tno로 전체 가져오기 -->

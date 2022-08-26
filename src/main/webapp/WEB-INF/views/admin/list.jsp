@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="${conPath}/css/adminlist.css" rel="stylesheet">
+<link href="${conPath}/css/admin/adminlist.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 
 </head>
@@ -31,7 +31,7 @@
 			<div id="list" >
 					<c:if test="${admin.agrade eq 1 }">
 
-						<button onclick="window.open('${conPath}/admin/join.do', '_blank','width=600,height=400')">관리자 등록</button>
+						<button class="write" onclick="window.open('${conPath}/admin/join.do', '_blank','width=600,height=400')">관리자 등록</button>
 					</c:if>
 					<table>
 						<tr>
@@ -45,7 +45,7 @@
 								<td>${ad.aid }</td>
 								<td>${ad.agrade }</td>
 								<c:if test="${admin.agrade eq 1 }">
-									<td><button
+									<td><button class="ad"
 											onclick="location.href='${conPath}/admin/delete.do?aid=${ad.aid}'">관리자
 											삭제</button></td>
 								</c:if>

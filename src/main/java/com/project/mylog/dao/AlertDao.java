@@ -13,7 +13,7 @@ public interface AlertDao {
 	
 	public int countMyAlert(String mid);
 	
-	public int readAlert(int alno);
+	public void readAlert(int alno);
 	
 	public int makeAlert(Alert alert);
 	

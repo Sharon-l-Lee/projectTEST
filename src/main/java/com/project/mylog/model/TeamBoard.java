@@ -14,13 +14,11 @@ public class TeamBoard {
 	private String mid;
 	private String ttitle;
 	private String tcontent;
-	private String tfilename;
 	private int thit;
 	private Timestamp trdate;
-	private int tgroup;
-	private int tstep;
-	private int tindent;
 	private String tip;
+	
+	private String mname;
 	
 	private int teamCommentTotCnt;
 	

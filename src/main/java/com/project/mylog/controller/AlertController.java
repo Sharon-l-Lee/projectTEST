@@ -1,6 +1,5 @@
 package com.project.mylog.controller;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,9 +28,12 @@ public class AlertController {
 
 	
 	@RequestMapping(value="read", method = {RequestMethod.GET,RequestMethod.POST})
-	public String readAlert(HttpServletRequest request) {
-		alertService.readAlert(request);
-		return "forward:list.do";
+	public String readAlert(String[] alno, HttpSession session, String pageNum, Model model) {
+		alertService.readAlert(alno);
+		Append append = new Append(alertService.countMyAlert(session), pageNum);
+		model.addAttribute("append", append);
+		model.addAttribute("alerts", alertService.myAlertList(pageNum, session));
+		return "alert/readResult";
 	}
 	
 	@RequestMapping(value="append", method = {RequestMethod.GET,RequestMethod.POST})

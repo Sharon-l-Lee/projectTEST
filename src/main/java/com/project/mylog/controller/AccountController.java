@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.project.mylog.model.AccountBook;
 import com.project.mylog.service.AccountBookService;
 import com.project.mylog.service.AccountCategoryService;
+import com.project.mylog.util.Paging;
 
 @Controller
 @RequestMapping("account")
@@ -31,6 +32,7 @@ public class AccountController {
 		}
 		model.addAttribute("monthlyList", abService.monthlyAccount(nowDate, pageNum, session));
 		model.addAttribute("monthTotal", abService.mothlyTotal(nowDate, session));
+		model.addAttribute("paging", new Paging(abService.monthlyAccountCnt(nowDate, session), pageNum, 9, 10));
 		model.addAttribute("mothlyCategoryTotal", abService.monthlyCategoryTotal(nowDate, session));
 		
 		Date before;

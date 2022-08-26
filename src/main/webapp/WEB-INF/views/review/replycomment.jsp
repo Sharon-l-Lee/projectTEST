@@ -16,7 +16,7 @@
 	<form action ="${conPath}/reply/comment.do"  method="post">
 		<input type="hidden" name="rnum" value="${param.rnum }">
 		<input type="hidden" name="rpnum" value="${param.rpnum }">
-		<textarea rows="5" cols="10" id="rpcontent" name="rpcontent">나</textarea>
+		<textarea rows="5" cols="10" id="rpcontent" name="rpcontent" style="margin-top:10px; width:90%; height:70px;"></textarea>
 		<input type="submit" value="작성">
 		<button onclick="history.back()">취소</button>
 	</form>

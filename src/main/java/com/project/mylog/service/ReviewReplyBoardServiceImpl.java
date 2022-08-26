@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.project.mylog.dao.ReviewReplyBoardDao;
+import com.project.mylog.model.DiaryReply;
 import com.project.mylog.model.Member;
 import com.project.mylog.model.ReviewReplyBoard;
 import com.project.mylog.util.Paging;
@@ -62,22 +63,17 @@ public class ReviewReplyBoardServiceImpl implements ReveiwReplyBoardService {
 		return replyboardDao.reviewReplyCount(rnum);
 	}
 
+	
 	@Override
 	public int reviewReplyComment(HttpSession session, HttpServletRequest request, ReviewReplyBoard replyBoard) {
 		replyBoard.setMid(((Member)(session.getAttribute("member"))).getMid());
 		replyBoard.setRpip(request.getRemoteAddr());
 		ReviewReplyBoard ogreply = replyboardDao.reviewReplyContent(replyBoard.getRpnum());
 		
-		System.out.println("가져온 content"+replyboardDao.reviewReplyContent(replyBoard.getRpnum()));
-		System.out.println("답변"+replyBoard);
-		System.out.println(3);
 		replyBoard.setRpgroup(ogreply.getRpgroup());
 		if (ogreply.getRpindent() == 1) {
-			System.out.println(4);
 			replyBoard.setRpmention(ogreply.getMname());
 		}
-		System.out.println(5);
-		System.out.println("쓴 답변"+replyBoard);
 		return replyboardDao.reviewReplyComment(replyBoard);
 	}
 

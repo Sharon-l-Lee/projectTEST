@@ -82,4 +82,10 @@ public class QnaController {
 		model.addAttribute("qnas", qnaboardService.myQnaList(session, pageNum));
 		return "qnaBoard/myQnaList";
 	}
+	
+	@RequestMapping(value="myContent", method = {RequestMethod.GET, RequestMethod.POST})
+	public String myContent(HttpSession session, int qno, String pageNum, Model model) {
+		model.addAttribute("qna", qnaboardService.qnaContent(qno));
+		return "qnaBoard/myContent";
+	}
 }
